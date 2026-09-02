@@ -19,14 +19,18 @@ Run these commands in order. If any step fails, diagnose and fix the issue befor
 # 1. Run the entire automated unit test suite (must pass 100%)
 pytest tests/ -v
 
-# 2. Validate all standalone OpenUSD scene generators
+# 2. Validate all standalone OpenUSD scene generators & robotics solvers
 python usd_generators/generate_physics_playground.py
 python usd_generators/generate_procedural_scene.py
 python usd_generators/generate_robotics_arm.py
 python usd_generators/generate_block_tower.py
+python usd_generators/generate_warehouse_digital_twin.py
+python usd_generators/prompt_to_usd.py
+python robotics/ik_solver.py
 
-# 3. Validate the Synthetic Data Generation (SDG) pipeline
+# 3. Validate the Synthetic Data Generation (SDG) pipeline & dataset export
 python replicator/generate_synthetic_dataset_standalone.py
+python replicator/export_coco_yolo.py
 
 # 4. Validate Apple USDZ packaging pipeline
 python usd_generators/export_usdz.py --input usd_generators/output_physics_playground.usda

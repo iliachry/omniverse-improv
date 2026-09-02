@@ -19,6 +19,8 @@ _repo/
 _sdg_output/
 _output_sdg/
 replicator/_sdg_output/
+replicator/_exported_dataset/
+_exported_dataset/
 *.log
 
 # USD generated binaries/temporary

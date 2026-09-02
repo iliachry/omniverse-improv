@@ -92,20 +92,30 @@ Open **`http://localhost:8088`** in any web browser!
 ### 2. Standalone OpenUSD Scene Generators
 Generate high-fidelity `.usda` stages without needing Omniverse Kit or a GPU:
 ```bash
-# Generate 6-DOF Industrial Robot Arm + Parallel Gripper
+# 1. Generate 6-DOF Industrial Robot Arm + Parallel Gripper
 python usd_generators/generate_robotics_arm.py
 
-# Generate Kinetic Domino Run & Physics Playground
+# 2. Run High-Precision 6-DOF Inverse Kinematics (IK) & Pick-and-Place Solver
+python robotics/ik_solver.py
+
+# 3. AI Natural Language Prompt-to-USD Scene Generator
+python usd_generators/prompt_to_usd.py --prompt "Cyberpunk arena with 12 pillars and floating ruby crystal"
+
+# 4. Generate Industrial Warehouse Digital Twin & Conveyor Simulation
+python usd_generators/generate_warehouse_digital_twin.py
+
+# 5. Generate Kinetic Domino Run & Physics Playground
 python usd_generators/generate_physics_playground.py
 
-# Generate Procedural Sci-Fi Colonnade & Gem Dais
+# 6. Generate Procedural Sci-Fi Colonnade & Gem Dais
 python usd_generators/generate_procedural_scene.py
 
-# Generate Destructible Jenga Block Tower
+# 7. Generate Destructible Jenga Block Tower
 python usd_generators/generate_block_tower.py
 
-# Generate Standalone Synthetic Computer Vision Dataset
+# 8. Generate Synthetic Dataset & Export to YOLOv8 / COCO Training Formats
 python replicator/generate_synthetic_dataset_standalone.py
+python replicator/export_coco_yolo.py --format all
 ```
 
 ---

@@ -1,0 +1,963 @@
+#usda 1.0
+(
+    metersPerUnit = 0.01
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def Xform "Environment"
+    {
+        def DomeLight "DomeLight"
+        {
+            color3f inputs:color = (0.88, 0.92, 1)
+            float inputs:intensity = 400
+        }
+
+        def DistantLight "CeilingFlood"
+        {
+            color3f inputs:color = (1, 0.96, 0.9)
+            float inputs:intensity = 3800
+            float3 xformOp:rotateXYZ = (-65, 30, 0)
+            uniform token[] xformOpOrder = ["xformOp:rotateXYZ"]
+        }
+
+        def Plane "GroundPlane" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Y"
+            double length = 4000
+            rel material:binding = </World/Materials/M_ConcreteFloor>
+            bool physics:collisionEnabled = 1
+            double width = 4000
+        }
+    }
+
+    def Xform "Materials"
+    {
+        def Material "M_ConcreteFloor"
+        {
+            token outputs:surface.connect = </World/Materials/M_ConcreteFloor/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.14, 0.15, 0.17)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.45
+                token outputs:surface
+            }
+        }
+
+        def Material "M_SteelBlue"
+        {
+            token outputs:surface.connect = </World/Materials/M_SteelBlue/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.04, 0.22, 0.45)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0.7
+                float inputs:opacity = 1
+                float inputs:roughness = 0.3
+                token outputs:surface
+            }
+        }
+
+        def Material "M_SafetyOrange"
+        {
+            token outputs:surface.connect = </World/Materials/M_SafetyOrange/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (1, 0.38, 0)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0.3
+                float inputs:opacity = 1
+                float inputs:roughness = 0.35
+                token outputs:surface
+            }
+        }
+
+        def Material "M_WoodPallet"
+        {
+            token outputs:surface.connect = </World/Materials/M_WoodPallet/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.65, 0.48, 0.32)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.75
+                token outputs:surface
+            }
+        }
+
+        def Material "M_Cardboard"
+        {
+            token outputs:surface.connect = </World/Materials/M_Cardboard/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.78, 0.62, 0.42)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.8
+                token outputs:surface
+            }
+        }
+
+        def Material "M_RubberBelt"
+        {
+            token outputs:surface.connect = </World/Materials/M_RubberBelt/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.06, 0.06, 0.07)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0.1
+                float inputs:opacity = 1
+                float inputs:roughness = 0.5
+                token outputs:surface
+            }
+        }
+
+        def Material "M_HazardYellow"
+        {
+            token outputs:surface.connect = </World/Materials/M_HazardYellow/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.95, 0.78, 0.05)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0.1
+                float inputs:opacity = 1
+                float inputs:roughness = 0.3
+                token outputs:surface
+            }
+        }
+    }
+
+    def Xform "RackingSystem"
+    {
+        def Cube "Column_B0_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SteelBlue>
+            double size = 1
+            float3 xformOp:scale = (6, 240, 8)
+            double3 xformOp:translate = (-250, 120, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Column_B0_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SteelBlue>
+            double size = 1
+            float3 xformOp:scale = (6, 240, 8)
+            double3 xformOp:translate = (-90, 120, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Beam_B0_T1_Front" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SafetyOrange>
+            double size = 1
+            float3 xformOp:scale = (160, 6, 4)
+            double3 xformOp:translate = (-170, 65, -90)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Beam_B0_T1_Back" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SafetyOrange>
+            double size = 1
+            float3 xformOp:scale = (160, 6, 4)
+            double3 xformOp:translate = (-170, 65, -150)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Pallet_B0_T1_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_WoodPallet>
+            double size = 1
+            float3 xformOp:scale = (55, 5, 50)
+            double3 xformOp:translate = (-208, 69, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Crate_B0_T1_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            double size = 1
+            float3 xformOp:scale = (44, 32, 42)
+            double3 xformOp:translate = (-208, 87, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Pallet_B0_T1_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_WoodPallet>
+            double size = 1
+            float3 xformOp:scale = (55, 5, 50)
+            double3 xformOp:translate = (-132, 69, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Crate_B0_T1_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            double size = 1
+            float3 xformOp:scale = (44, 32, 42)
+            double3 xformOp:translate = (-132, 87, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Beam_B0_T2_Front" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SafetyOrange>
+            double size = 1
+            float3 xformOp:scale = (160, 6, 4)
+            double3 xformOp:translate = (-170, 130, -90)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Beam_B0_T2_Back" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SafetyOrange>
+            double size = 1
+            float3 xformOp:scale = (160, 6, 4)
+            double3 xformOp:translate = (-170, 130, -150)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Pallet_B0_T2_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_WoodPallet>
+            double size = 1
+            float3 xformOp:scale = (55, 5, 50)
+            double3 xformOp:translate = (-208, 134, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Crate_B0_T2_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            double size = 1
+            float3 xformOp:scale = (44, 32, 42)
+            double3 xformOp:translate = (-208, 152, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Pallet_B0_T2_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_WoodPallet>
+            double size = 1
+            float3 xformOp:scale = (55, 5, 50)
+            double3 xformOp:translate = (-132, 134, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Crate_B0_T2_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            double size = 1
+            float3 xformOp:scale = (44, 32, 42)
+            double3 xformOp:translate = (-132, 152, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Beam_B0_T3_Front" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SafetyOrange>
+            double size = 1
+            float3 xformOp:scale = (160, 6, 4)
+            double3 xformOp:translate = (-170, 195, -90)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Beam_B0_T3_Back" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SafetyOrange>
+            double size = 1
+            float3 xformOp:scale = (160, 6, 4)
+            double3 xformOp:translate = (-170, 195, -150)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Pallet_B0_T3_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_WoodPallet>
+            double size = 1
+            float3 xformOp:scale = (55, 5, 50)
+            double3 xformOp:translate = (-208, 199, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Crate_B0_T3_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            double size = 1
+            float3 xformOp:scale = (44, 32, 42)
+            double3 xformOp:translate = (-208, 217, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Pallet_B0_T3_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_WoodPallet>
+            double size = 1
+            float3 xformOp:scale = (55, 5, 50)
+            double3 xformOp:translate = (-132, 199, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Crate_B0_T3_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            double size = 1
+            float3 xformOp:scale = (44, 32, 42)
+            double3 xformOp:translate = (-132, 217, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Column_B1_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SteelBlue>
+            double size = 1
+            float3 xformOp:scale = (6, 240, 8)
+            double3 xformOp:translate = (-80, 120, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Column_B1_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SteelBlue>
+            double size = 1
+            float3 xformOp:scale = (6, 240, 8)
+            double3 xformOp:translate = (80, 120, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Beam_B1_T1_Front" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SafetyOrange>
+            double size = 1
+            float3 xformOp:scale = (160, 6, 4)
+            double3 xformOp:translate = (0, 65, -90)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Beam_B1_T1_Back" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SafetyOrange>
+            double size = 1
+            float3 xformOp:scale = (160, 6, 4)
+            double3 xformOp:translate = (0, 65, -150)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Pallet_B1_T1_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_WoodPallet>
+            double size = 1
+            float3 xformOp:scale = (55, 5, 50)
+            double3 xformOp:translate = (-38, 69, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Crate_B1_T1_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            double size = 1
+            float3 xformOp:scale = (44, 32, 42)
+            double3 xformOp:translate = (-38, 87, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Pallet_B1_T1_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_WoodPallet>
+            double size = 1
+            float3 xformOp:scale = (55, 5, 50)
+            double3 xformOp:translate = (38, 69, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Crate_B1_T1_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            double size = 1
+            float3 xformOp:scale = (44, 32, 42)
+            double3 xformOp:translate = (38, 87, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Beam_B1_T2_Front" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SafetyOrange>
+            double size = 1
+            float3 xformOp:scale = (160, 6, 4)
+            double3 xformOp:translate = (0, 130, -90)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Beam_B1_T2_Back" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SafetyOrange>
+            double size = 1
+            float3 xformOp:scale = (160, 6, 4)
+            double3 xformOp:translate = (0, 130, -150)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Pallet_B1_T2_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_WoodPallet>
+            double size = 1
+            float3 xformOp:scale = (55, 5, 50)
+            double3 xformOp:translate = (-38, 134, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Crate_B1_T2_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            double size = 1
+            float3 xformOp:scale = (44, 32, 42)
+            double3 xformOp:translate = (-38, 152, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Pallet_B1_T2_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_WoodPallet>
+            double size = 1
+            float3 xformOp:scale = (55, 5, 50)
+            double3 xformOp:translate = (38, 134, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Crate_B1_T2_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            double size = 1
+            float3 xformOp:scale = (44, 32, 42)
+            double3 xformOp:translate = (38, 152, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Beam_B1_T3_Front" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SafetyOrange>
+            double size = 1
+            float3 xformOp:scale = (160, 6, 4)
+            double3 xformOp:translate = (0, 195, -90)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Beam_B1_T3_Back" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SafetyOrange>
+            double size = 1
+            float3 xformOp:scale = (160, 6, 4)
+            double3 xformOp:translate = (0, 195, -150)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Pallet_B1_T3_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_WoodPallet>
+            double size = 1
+            float3 xformOp:scale = (55, 5, 50)
+            double3 xformOp:translate = (-38, 199, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Crate_B1_T3_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            double size = 1
+            float3 xformOp:scale = (44, 32, 42)
+            double3 xformOp:translate = (-38, 217, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Pallet_B1_T3_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_WoodPallet>
+            double size = 1
+            float3 xformOp:scale = (55, 5, 50)
+            double3 xformOp:translate = (38, 199, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Crate_B1_T3_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            double size = 1
+            float3 xformOp:scale = (44, 32, 42)
+            double3 xformOp:translate = (38, 217, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Column_B2_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SteelBlue>
+            double size = 1
+            float3 xformOp:scale = (6, 240, 8)
+            double3 xformOp:translate = (90, 120, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Column_B2_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SteelBlue>
+            double size = 1
+            float3 xformOp:scale = (6, 240, 8)
+            double3 xformOp:translate = (250, 120, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Beam_B2_T1_Front" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SafetyOrange>
+            double size = 1
+            float3 xformOp:scale = (160, 6, 4)
+            double3 xformOp:translate = (170, 65, -90)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Beam_B2_T1_Back" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SafetyOrange>
+            double size = 1
+            float3 xformOp:scale = (160, 6, 4)
+            double3 xformOp:translate = (170, 65, -150)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Pallet_B2_T1_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_WoodPallet>
+            double size = 1
+            float3 xformOp:scale = (55, 5, 50)
+            double3 xformOp:translate = (132, 69, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Crate_B2_T1_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            double size = 1
+            float3 xformOp:scale = (44, 32, 42)
+            double3 xformOp:translate = (132, 87, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Pallet_B2_T1_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_WoodPallet>
+            double size = 1
+            float3 xformOp:scale = (55, 5, 50)
+            double3 xformOp:translate = (208, 69, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Crate_B2_T1_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            double size = 1
+            float3 xformOp:scale = (44, 32, 42)
+            double3 xformOp:translate = (208, 87, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Beam_B2_T2_Front" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SafetyOrange>
+            double size = 1
+            float3 xformOp:scale = (160, 6, 4)
+            double3 xformOp:translate = (170, 130, -90)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Beam_B2_T2_Back" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SafetyOrange>
+            double size = 1
+            float3 xformOp:scale = (160, 6, 4)
+            double3 xformOp:translate = (170, 130, -150)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Pallet_B2_T2_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_WoodPallet>
+            double size = 1
+            float3 xformOp:scale = (55, 5, 50)
+            double3 xformOp:translate = (132, 134, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Crate_B2_T2_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            double size = 1
+            float3 xformOp:scale = (44, 32, 42)
+            double3 xformOp:translate = (132, 152, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Pallet_B2_T2_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_WoodPallet>
+            double size = 1
+            float3 xformOp:scale = (55, 5, 50)
+            double3 xformOp:translate = (208, 134, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Crate_B2_T2_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            double size = 1
+            float3 xformOp:scale = (44, 32, 42)
+            double3 xformOp:translate = (208, 152, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Beam_B2_T3_Front" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SafetyOrange>
+            double size = 1
+            float3 xformOp:scale = (160, 6, 4)
+            double3 xformOp:translate = (170, 195, -90)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Beam_B2_T3_Back" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_SafetyOrange>
+            double size = 1
+            float3 xformOp:scale = (160, 6, 4)
+            double3 xformOp:translate = (170, 195, -150)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Pallet_B2_T3_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_WoodPallet>
+            double size = 1
+            float3 xformOp:scale = (55, 5, 50)
+            double3 xformOp:translate = (132, 199, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Crate_B2_T3_L" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            double size = 1
+            float3 xformOp:scale = (44, 32, 42)
+            double3 xformOp:translate = (132, 217, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Pallet_B2_T3_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_WoodPallet>
+            double size = 1
+            float3 xformOp:scale = (55, 5, 50)
+            double3 xformOp:translate = (208, 199, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Crate_B2_T3_R" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            double size = 1
+            float3 xformOp:scale = (44, 32, 42)
+            double3 xformOp:translate = (208, 217, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+    }
+
+    def Xform "ConveyorLine"
+    {
+        def Cube "MainBelt" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_RubberBelt>
+            double size = 1
+            float3 xformOp:scale = (360, 4, 45)
+            double3 xformOp:translate = (0, 35, 60)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cylinder "Leg_00" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Y"
+            double height = 35
+            rel material:binding = </World/Materials/M_SteelBlue>
+            double radius = 3
+            double3 xformOp:translate = (-150, 17.5, 60)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+
+        def Cylinder "Leg_01" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Y"
+            double height = 35
+            rel material:binding = </World/Materials/M_SteelBlue>
+            double radius = 3
+            double3 xformOp:translate = (-50, 17.5, 60)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+
+        def Cylinder "Leg_02" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Y"
+            double height = 35
+            rel material:binding = </World/Materials/M_SteelBlue>
+            double radius = 3
+            double3 xformOp:translate = (50, 17.5, 60)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+
+        def Cylinder "Leg_03" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Y"
+            double height = 35
+            rel material:binding = </World/Materials/M_SteelBlue>
+            double radius = 3
+            double3 xformOp:translate = (150, 17.5, 60)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+
+        def Cube "Package_0" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMassAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            float physics:mass = 2.5
+            double size = 1
+            float3 xformOp:scale = (24, 20, 24)
+            double3 xformOp:translate = (-120, 47, 60)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Package_1" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMassAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            float physics:mass = 2.5
+            double size = 1
+            float3 xformOp:scale = (24, 20, 24)
+            double3 xformOp:translate = (-40, 47, 60)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Package_2" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMassAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            float physics:mass = 2.5
+            double size = 1
+            float3 xformOp:scale = (24, 20, 24)
+            double3 xformOp:translate = (40, 47, 60)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Package_3" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMassAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Cardboard>
+            float physics:mass = 2.5
+            double size = 1
+            float3 xformOp:scale = (24, 20, 24)
+            double3 xformOp:translate = (120, 47, 60)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+    }
+
+    def Xform "MobileFleet"
+    {
+        def Cube "AGV_Unit01" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_HazardYellow>
+            double size = 1
+            float3 xformOp:scale = (70, 16, 45)
+            double3 xformOp:translate = (140, 10, -20)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+    }
+
+    def PhysicsScene "PhysicsScene"
+    {
+        vector3f physics:gravityDirection = (0, -1, 0)
+        float physics:gravityMagnitude = 981
+    }
+
+    def "Cameras"
+    {
+        def Camera "MainCamera"
+        {
+            float focalLength = 35
+            float3 xformOp:rotateXYZ = (-24, 42, 0)
+            double3 xformOp:translate = (280, 220, 290)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ"]
+        }
+    }
+}
+

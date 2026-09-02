@@ -40,6 +40,8 @@ jobs:
           python usd_generators/generate_procedural_scene.py
           python usd_generators/generate_robotics_arm.py
           python usd_generators/generate_block_tower.py
+          python usd_generators/generate_warehouse_digital_twin.py
+          python usd_generators/prompt_to_usd.py
           python replicator/generate_synthetic_dataset_standalone.py
           python usd_viewer/export_static_demo.py
 
