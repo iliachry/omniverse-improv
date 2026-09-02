@@ -10,15 +10,23 @@ def Xform "World"
     {
         def DomeLight "DomeLight"
         {
-            color3f inputs:color = (0.9, 0.95, 1)
-            float inputs:intensity = 500
+            color3f inputs:color = (0.92, 0.95, 1)
+            float inputs:intensity = 600
         }
 
         def DistantLight "KeyLight"
         {
             color3f inputs:color = (1, 0.96, 0.9)
-            float inputs:intensity = 3000
-            float3 xformOp:rotateXYZ = (-45, 45, 0)
+            float inputs:intensity = 3500
+            float3 xformOp:rotateXYZ = (-45, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:rotateXYZ"]
+        }
+
+        def DistantLight "RimLight"
+        {
+            color3f inputs:color = (1, 0.96, 0.9)
+            float inputs:intensity = 1800
+            float3 xformOp:rotateXYZ = (-20, -140, 0)
             uniform token[] xformOpOrder = ["xformOp:rotateXYZ"]
         }
 
@@ -27,10 +35,10 @@ def Xform "World"
         )
         {
             uniform token axis = "Y"
-            double length = 2000
+            double length = 2500
             rel material:binding = </World/Materials/M_Ground>
             bool physics:collisionEnabled = 1
-            double width = 2000
+            double width = 2500
         }
     }
 
@@ -43,63 +51,80 @@ def Xform "World"
             def Shader "PBRShader"
             {
                 uniform token info:id = "UsdPreviewSurface"
-                color3f inputs:diffuseColor = (0.12, 0.14, 0.16)
+                color3f inputs:diffuseColor = (0.11, 0.12, 0.14)
                 color3f inputs:emissiveColor = (0, 0, 0)
                 float inputs:ior = 1.5
                 float inputs:metallic = 0
                 float inputs:opacity = 1
-                float inputs:roughness = 0.6
+                float inputs:roughness = 0.5
                 token outputs:surface
             }
         }
 
-        def Material "M_RobotBase"
+        def Material "M_CastMetal"
         {
-            token outputs:surface.connect = </World/Materials/M_RobotBase/PBRShader.outputs:surface>
+            token outputs:surface.connect = </World/Materials/M_CastMetal/PBRShader.outputs:surface>
 
             def Shader "PBRShader"
             {
                 uniform token info:id = "UsdPreviewSurface"
-                color3f inputs:diffuseColor = (0.1, 0.1, 0.12)
+                color3f inputs:diffuseColor = (0.08, 0.09, 0.1)
                 color3f inputs:emissiveColor = (0, 0, 0)
                 float inputs:ior = 1.5
                 float inputs:metallic = 0.9
                 float inputs:opacity = 1
-                float inputs:roughness = 0.3
+                float inputs:roughness = 0.35
                 token outputs:surface
             }
         }
 
-        def Material "M_RobotArm"
+        def Material "M_KukaOrange"
         {
-            token outputs:surface.connect = </World/Materials/M_RobotArm/PBRShader.outputs:surface>
+            token outputs:surface.connect = </World/Materials/M_KukaOrange/PBRShader.outputs:surface>
 
             def Shader "PBRShader"
             {
                 uniform token info:id = "UsdPreviewSurface"
-                color3f inputs:diffuseColor = (1, 0.5, 0)
+                color3f inputs:diffuseColor = (1, 0.42, 0)
                 color3f inputs:emissiveColor = (0, 0, 0)
                 float inputs:ior = 1.5
-                float inputs:metallic = 0.2
+                float inputs:metallic = 0.15
+                float inputs:opacity = 1
+                float inputs:roughness = 0.25
+                token outputs:surface
+            }
+        }
+
+        def Material "M_AccentCyan"
+        {
+            token outputs:surface.connect = </World/Materials/M_AccentCyan/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0, 0.75, 1)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0.3
                 float inputs:opacity = 1
                 float inputs:roughness = 0.2
                 token outputs:surface
             }
         }
 
-        def Material "M_RobotForearm"
+        def Material "M_FingerRubber"
         {
-            token outputs:surface.connect = </World/Materials/M_RobotForearm/PBRShader.outputs:surface>
+            token outputs:surface.connect = </World/Materials/M_FingerRubber/PBRShader.outputs:surface>
 
             def Shader "PBRShader"
             {
                 uniform token info:id = "UsdPreviewSurface"
-                color3f inputs:diffuseColor = (0.1, 0.6, 0.9)
+                color3f inputs:diffuseColor = (0.15, 0.15, 0.15)
                 color3f inputs:emissiveColor = (0, 0, 0)
                 float inputs:ior = 1.5
-                float inputs:metallic = 0.4
+                float inputs:metallic = 0
                 float inputs:opacity = 1
-                float inputs:roughness = 0.25
+                float inputs:roughness = 0.7
                 token outputs:surface
             }
         }
@@ -120,71 +145,235 @@ def Xform "World"
         )
         {
             uniform token axis = "Y"
-            double height = 20
-            rel material:binding = </World/Materials/M_RobotBase>
-            double radius = 15
-            double3 xformOp:translate = (0, 10, 0)
+            double height = 14
+            rel material:binding = </World/Materials/M_CastMetal>
+            double radius = 18
+            double3 xformOp:translate = (0, 7, 0)
             uniform token[] xformOpOrder = ["xformOp:translate"]
         }
 
-        def Capsule "UpperArm" (
+        def Cylinder "Link1_Shoulder" (
             prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
         )
         {
             uniform token axis = "Y"
-            double height = 40
-            rel material:binding = </World/Materials/M_RobotArm>
-            float physics:mass = 3
-            double radius = 5
-            double3 xformOp:translate = (0, 45, 0)
+            double height = 20
+            rel material:binding = </World/Materials/M_CastMetal>
+            float physics:mass = 8
+            double radius = 12
+            double3 xformOp:translate = (0, 24, 0)
             uniform token[] xformOpOrder = ["xformOp:translate"]
         }
 
-        def PhysicsRevoluteJoint "Joint_Waist" (
+        def PhysicsRevoluteJoint "Joint1_Waist" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 1200
+            float drive:angular:physics:stiffness = 12000
+            float drive:angular:physics:targetPosition = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "Y"
+            rel physics:body0 = </World/RobotArm/Base>
+            rel physics:body1 = </World/RobotArm/Link1_Shoulder>
+            point3f physics:localPos0 = (0, 7, 0)
+            point3f physics:localPos1 = (0, -10, 0)
+            float physics:lowerLimit = -180
+            float physics:upperLimit = 180
+        }
+
+        def Capsule "Link2_UpperArm" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Y"
+            double height = 45
+            rel material:binding = </World/Materials/M_KukaOrange>
+            float physics:mass = 6
+            double radius = 6
+            double3 xformOp:translate = (0, 56, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+
+        def PhysicsRevoluteJoint "Joint2_Shoulder" (
             prepend apiSchemas = ["PhysicsDriveAPI:angular"]
         )
         {
             float drive:angular:physics:damping = 1000
             float drive:angular:physics:stiffness = 10000
-            float drive:angular:physics:targetPosition = 0
+            float drive:angular:physics:targetPosition = 15
             uniform token drive:angular:physics:type = "force"
-            uniform token physics:axis = "Y"
-            rel physics:body0 = </World/RobotArm/Base>
-            rel physics:body1 = </World/RobotArm/UpperArm>
+            uniform token physics:axis = "Z"
+            rel physics:body0 = </World/RobotArm/Link1_Shoulder>
+            rel physics:body1 = </World/RobotArm/Link2_UpperArm>
             point3f physics:localPos0 = (0, 10, 0)
-            point3f physics:localPos1 = (0, -25, 0)
-            float physics:lowerLimit = -180
-            float physics:upperLimit = 180
+            point3f physics:localPos1 = (0, -22.5, 0)
+            float physics:lowerLimit = -60
+            float physics:upperLimit = 90
         }
 
-        def Capsule "Forearm" (
+        def Capsule "Link3_Forearm" (
             prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
         )
         {
             uniform token axis = "Y"
-            double height = 35
-            rel material:binding = </World/Materials/M_RobotForearm>
-            float physics:mass = 2
-            double radius = 4
-            double3 xformOp:translate = (0, 85, 0)
+            double height = 40
+            rel material:binding = </World/Materials/M_KukaOrange>
+            float physics:mass = 4
+            double radius = 4.5
+            double3 xformOp:translate = (0, 98, 0)
             uniform token[] xformOpOrder = ["xformOp:translate"]
         }
 
-        def PhysicsRevoluteJoint "Joint_Elbow" (
+        def PhysicsRevoluteJoint "Joint3_Elbow" (
             prepend apiSchemas = ["PhysicsDriveAPI:angular"]
         )
         {
             float drive:angular:physics:damping = 800
             float drive:angular:physics:stiffness = 8000
-            float drive:angular:physics:targetPosition = 0
+            float drive:angular:physics:targetPosition = -25
             uniform token drive:angular:physics:type = "force"
-            uniform token physics:axis = "X"
-            rel physics:body0 = </World/RobotArm/UpperArm>
-            rel physics:body1 = </World/RobotArm/Forearm>
-            point3f physics:localPos0 = (0, 25, 0)
+            uniform token physics:axis = "Z"
+            rel physics:body0 = </World/RobotArm/Link2_UpperArm>
+            rel physics:body1 = </World/RobotArm/Link3_Forearm>
+            point3f physics:localPos0 = (0, 22.5, 0)
             point3f physics:localPos1 = (0, -20, 0)
-            float physics:lowerLimit = -90
-            float physics:upperLimit = 90
+            float physics:lowerLimit = -120
+            float physics:upperLimit = 120
+        }
+
+        def Cylinder "Link4_WristRoll" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Y"
+            double height = 14
+            rel material:binding = </World/Materials/M_AccentCyan>
+            float physics:mass = 2
+            double radius = 3.5
+            double3 xformOp:translate = (0, 125, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+
+        def PhysicsRevoluteJoint "Joint4_WristRoll" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 400
+            float drive:angular:physics:stiffness = 4000
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "Y"
+            rel physics:body0 = </World/RobotArm/Link3_Forearm>
+            rel physics:body1 = </World/RobotArm/Link4_WristRoll>
+            point3f physics:localPos0 = (0, 20, 0)
+            point3f physics:localPos1 = (0, -7, 0)
+        }
+
+        def Cube "Link5_WristPitch" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_CastMetal>
+            float physics:mass = 1.5
+            double size = 6
+            double3 xformOp:translate = (0, 136, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+
+        def PhysicsRevoluteJoint "Joint5_WristPitch" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 300
+            float drive:angular:physics:stiffness = 3000
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "Z"
+            rel physics:body0 = </World/RobotArm/Link4_WristRoll>
+            rel physics:body1 = </World/RobotArm/Link5_WristPitch>
+            point3f physics:localPos0 = (0, 7, 0)
+            point3f physics:localPos1 = (0, -3, 0)
+        }
+
+        def Cube "GripperBase" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_CastMetal>
+            float physics:mass = 1
+            double size = 1
+            float3 xformOp:scale = (12, 4, 6)
+            double3 xformOp:translate = (0, 142, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def PhysicsRevoluteJoint "Joint6_ToolFlange" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 300
+            float drive:angular:physics:stiffness = 3000
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "Y"
+            rel physics:body0 = </World/RobotArm/Link5_WristPitch>
+            rel physics:body1 = </World/RobotArm/GripperBase>
+            point3f physics:localPos0 = (0, 3, 0)
+            point3f physics:localPos1 = (0, -2, 0)
+        }
+
+        def Cube "FingerLeft" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_FingerRubber>
+            float physics:mass = 0.3
+            double size = 1
+            float3 xformOp:scale = (2, 12, 4)
+            double3 xformOp:translate = (-4, 150, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def PhysicsPrismaticJoint "Joint_FingerLeft" (
+            prepend apiSchemas = ["PhysicsDriveAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 200
+            float drive:linear:physics:stiffness = 2000
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </World/RobotArm/GripperBase>
+            rel physics:body1 = </World/RobotArm/FingerLeft>
+            point3f physics:localPos0 = (-4, 2, 0)
+            point3f physics:localPos1 = (0, -6, 0)
+            float physics:lowerLimit = -3
+            float physics:upperLimit = 0
+        }
+
+        def Cube "FingerRight" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_FingerRubber>
+            float physics:mass = 0.3
+            double size = 1
+            float3 xformOp:scale = (2, 12, 4)
+            double3 xformOp:translate = (4, 150, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def PhysicsPrismaticJoint "Joint_FingerRight" (
+            prepend apiSchemas = ["PhysicsDriveAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 200
+            float drive:linear:physics:stiffness = 2000
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </World/RobotArm/GripperBase>
+            rel physics:body1 = </World/RobotArm/FingerRight>
+            point3f physics:localPos0 = (4, 2, 0)
+            point3f physics:localPos1 = (0, -6, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 3
         }
     }
 
@@ -192,9 +381,9 @@ def Xform "World"
     {
         def Camera "MainCamera"
         {
-            float focalLength = 40
-            float3 xformOp:rotateXYZ = (-15, 0, 0)
-            double3 xformOp:translate = (0, 100, 220)
+            float focalLength = 42
+            float3 xformOp:rotateXYZ = (-14, 0, 0)
+            double3 xformOp:translate = (0, 120, 260)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ"]
         }
     }

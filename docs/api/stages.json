@@ -1,0 +1,26 @@
+[
+  {
+    "name": "output_block_tower.usda",
+    "relPath": "usd_generators/output_block_tower.usda",
+    "fullPath": "D:\\GitLab\\omniverse-improv\\usd_generators\\output_block_tower.usda",
+    "size": 29406
+  },
+  {
+    "name": "output_physics_playground.usda",
+    "relPath": "usd_generators/output_physics_playground.usda",
+    "fullPath": "D:\\GitLab\\omniverse-improv\\usd_generators\\output_physics_playground.usda",
+    "size": 42341
+  },
+  {
+    "name": "output_procedural_scene.usda",
+    "relPath": "usd_generators/output_procedural_scene.usda",
+    "fullPath": "D:\\GitLab\\omniverse-improv\\usd_generators\\output_procedural_scene.usda",
+    "size": 18276
+  },
+  {
+    "name": "output_robotics_arm.usda",
+    "relPath": "usd_generators/output_robotics_arm.usda",
+    "fullPath": "D:\\GitLab\\omniverse-improv\\usd_generators\\output_robotics_arm.usda",
+    "size": 14549
+  }
+]

@@ -1,10 +1,11 @@
 """
-Standalone Local Web Server for OpenUSD 3D Visualizer.
-Serves the interactive Three.js 3D viewport, USD Outliner, and Stage APIs.
+Standalone Local Web Server for OpenUSD 3D Visualizer and Synthetic Data Dashboard.
+Serves the interactive Three.js 3D viewport, USD Outliner, Live PBR Editor, and SDG APIs.
 """
 
 import http.server
 import json
+import mimetypes
 import os
 import socketserver
 import sys
@@ -21,16 +22,15 @@ if WORKSPACE_DIR not in sys.path:
 from usd_parser import parse_usd_stage
 
 PORT = 8088
-WORKSPACE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STATIC_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
+STATIC_DIR = os.path.join(CURRENT_DIR, "static")
+SDG_DIR = os.path.join(WORKSPACE_DIR, "replicator", "_sdg_output")
 
 
 def find_usd_files(base_dir: str) -> List[dict]:
     """Find all .usd, .usda, and .usdc files in the workspace."""
     usd_files = []
     for root, dirs, files in os.walk(base_dir):
-        # Skip .venv, .git, etc.
-        dirs[:] = [d for d in dirs if not d.startswith(".") and d != "node_modules" and d != "__pycache__"]
+        dirs[:] = [d for d in dirs if not d.startswith(".") and d != "node_modules" and d != "__pycache__" and d != "kit-app-template"]
         for file in files:
             if file.endswith((".usda", ".usd", ".usdc")):
                 full_path = os.path.join(root, file)
@@ -68,9 +68,8 @@ class USDViewerHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_error(400, "Missing 'path' query parameter")
                 return
 
-            # Resolve path
             if not os.path.isabs(rel_or_full):
-                target_path = os.path.normpath(os.path.join(WORKSPACE_DIR, rel_or_or_rel := rel_or_full))
+                target_path = os.path.normpath(os.path.join(WORKSPACE_DIR, rel_or_full))
             else:
                 target_path = os.path.normpath(rel_or_full)
 
@@ -89,13 +88,48 @@ class USDViewerHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_error(500, f"Error parsing USD stage: {str(e)}")
             return
 
+        elif path == "/api/sdg":
+            # Return dataset annotations if available
+            annotations_path = os.path.join(SDG_DIR, "dataset_annotations.json")
+            if os.path.exists(annotations_path):
+                with open(annotations_path, "r") as f:
+                    data = json.load(f)
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                self.wfile.write(json.dumps(data).encode("utf-8"))
+            else:
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                self.wfile.write(json.dumps({"totalFrames": 0, "frames": []}).encode("utf-8"))
+            return
+
+        elif path.startswith("/sdg_media/"):
+            filename = path[len("/sdg_media/"):]
+            file_path = os.path.join(SDG_DIR, filename)
+            if os.path.exists(file_path):
+                mime, _ = mimetypes.guess_type(file_path)
+                self.send_response(200)
+                self.send_header("Content-Type", mime or "application/octet-stream")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                with open(file_path, "rb") as f:
+                    self.wfile.write(f.read())
+                return
+            else:
+                self.send_error(404, "SDG media file not found")
+                return
+
         return super().do_GET()
 
 
 def run_server(port: int = PORT):
     os.makedirs(STATIC_DIR, exist_ok=True)
     with socketserver.TCPServer(("", port), USDViewerHandler) as httpd:
-        print(f"[*] OpenUSD 3D Visualizer server running at: http://localhost:{port}")
+        print(f"[*] OpenUSD 3D Studio & SDG Dashboard running at: http://localhost:{port}")
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Standalone OpenUSD Script: Articulated Robotic Arm Generator.
-Generates an interactive USD stage (.usda) with a 2-DOF robotic manipulator,
-base pedestal, revolute joints, and UsdPhysics.DriveAPI joint controllers.
+Standalone OpenUSD Script: 6-DOF Industrial Manipulator + Gripper Stage Generator.
+Generates an interactive USD stage (.usda) with a 6-DOF robot arm, parallel gripper,
+PBR industrial materials, studio lighting, and framing camera.
 """
 
 import os
@@ -27,8 +27,8 @@ from robotics.isaac_sim_sandbox import build_articulated_robot_stage
 
 
 def build_robotics_stage(output_path: str = "output_robotics_arm.usda"):
-    """Generates the full robotic arm stage."""
-    print(f"[*] Creating Articulated Robotics Stage at: {output_path}")
+    """Generates the full 6-DOF robotic arm stage."""
+    print(f"[*] Creating 6-DOF Articulated Robotics Stage at: {output_path}")
 
     if os.path.exists(output_path):
         os.remove(output_path)
@@ -42,35 +42,43 @@ def build_robotics_stage(output_path: str = "output_robotics_arm.usda"):
 
     # Environment & Lighting
     setup_physics_scene(stage, "/World/PhysicsScene", gravity_magnitude=981.0)
-    add_dome_light(stage, "/World/Environment/DomeLight", intensity=500.0, color=(0.9, 0.95, 1.0))
-    add_distant_light(stage, "/World/Environment/KeyLight", intensity=3000.0, rotation_xyz=(-45.0, 45.0, 0.0))
+    add_dome_light(stage, "/World/Environment/DomeLight", intensity=600.0, color=(0.92, 0.95, 1.0))
+    add_distant_light(stage, "/World/Environment/KeyLight", intensity=3500.0, rotation_xyz=(-45.0, 40.0, 0.0))
+    add_distant_light(stage, "/World/Environment/RimLight", intensity=1800.0, rotation_xyz=(-20.0, -140.0, 0.0))
 
-    ground = add_ground_plane(stage, "/World/Environment/GroundPlane", size=2000.0)
-    mat_ground = create_pbr_material(stage, "/World/Materials/M_Ground", diffuse_color=(0.12, 0.14, 0.16), roughness=0.6)
+    ground = add_ground_plane(stage, "/World/Environment/GroundPlane", size=2500.0)
+    mat_ground = create_pbr_material(stage, "/World/Materials/M_Ground", diffuse_color=(0.11, 0.12, 0.14), roughness=0.5)
     bind_material(ground.GetPrim(), "/World/Materials/M_Ground")
 
-    # Robot Materials
-    mat_base = create_pbr_material(stage, "/World/Materials/M_RobotBase", diffuse_color=(0.1, 0.1, 0.12), metallic=0.9, roughness=0.3)
-    mat_arm = create_pbr_material(stage, "/World/Materials/M_RobotArm", diffuse_color=(1.0, 0.5, 0.0), metallic=0.2, roughness=0.2)
-    mat_forearm = create_pbr_material(stage, "/World/Materials/M_RobotForearm", diffuse_color=(0.1, 0.6, 0.9), metallic=0.4, roughness=0.25)
+    # Industrial Robot PBR Materials
+    create_pbr_material(stage, "/World/Materials/M_CastMetal", diffuse_color=(0.08, 0.09, 0.10), metallic=0.9, roughness=0.35)
+    create_pbr_material(stage, "/World/Materials/M_KukaOrange", diffuse_color=(1.0, 0.42, 0.0), metallic=0.15, roughness=0.25)
+    create_pbr_material(stage, "/World/Materials/M_AccentCyan", diffuse_color=(0.0, 0.75, 1.0), metallic=0.3, roughness=0.2)
+    create_pbr_material(stage, "/World/Materials/M_FingerRubber", diffuse_color=(0.15, 0.15, 0.15), metallic=0.0, roughness=0.7)
 
-    # Build Robot Arm
+    # Build 6-DOF Robot Arm & Gripper
     build_articulated_robot_stage(stage)
 
-    # Bind materials
-    bind_material(stage.GetPrimAtPath("/World/RobotArm/Base"), "/World/Materials/M_RobotBase")
-    bind_material(stage.GetPrimAtPath("/World/RobotArm/UpperArm"), "/World/Materials/M_RobotArm")
-    bind_material(stage.GetPrimAtPath("/World/RobotArm/Forearm"), "/World/Materials/M_RobotForearm")
+    # Bind Materials to Links
+    bind_material(stage.GetPrimAtPath("/World/RobotArm/Base"), "/World/Materials/M_CastMetal")
+    bind_material(stage.GetPrimAtPath("/World/RobotArm/Link1_Shoulder"), "/World/Materials/M_CastMetal")
+    bind_material(stage.GetPrimAtPath("/World/RobotArm/Link2_UpperArm"), "/World/Materials/M_KukaOrange")
+    bind_material(stage.GetPrimAtPath("/World/RobotArm/Link3_Forearm"), "/World/Materials/M_KukaOrange")
+    bind_material(stage.GetPrimAtPath("/World/RobotArm/Link4_WristRoll"), "/World/Materials/M_AccentCyan")
+    bind_material(stage.GetPrimAtPath("/World/RobotArm/Link5_WristPitch"), "/World/Materials/M_CastMetal")
+    bind_material(stage.GetPrimAtPath("/World/RobotArm/GripperBase"), "/World/Materials/M_CastMetal")
+    bind_material(stage.GetPrimAtPath("/World/RobotArm/FingerLeft"), "/World/Materials/M_FingerRubber")
+    bind_material(stage.GetPrimAtPath("/World/RobotArm/FingerRight"), "/World/Materials/M_FingerRubber")
 
-    # Setup Camera
+    # Setup Viewport Framing Camera
     cam = UsdGeom.Camera.Define(stage, "/World/Cameras/MainCamera")
-    cam.CreateFocalLengthAttr().Set(40.0)
+    cam.CreateFocalLengthAttr().Set(42.0)
     cam_xform = UsdGeom.Xformable(cam.GetPrim())
-    cam_xform.AddTranslateOp().Set(Gf.Vec3d(0.0, 100.0, 220.0))
-    cam_xform.AddRotateXYZOp().Set(Gf.Vec3d(-15.0, 0.0, 0.0))
+    cam_xform.AddTranslateOp().Set(Gf.Vec3d(0.0, 120.0, 260.0))
+    cam_xform.AddRotateXYZOp().Set(Gf.Vec3d(-14.0, 0.0, 0.0))
 
     stage.GetRootLayer().Save()
-    print(f"[OK] Successfully generated Articulated Robot Arm Stage: {output_path}")
+    print(f"[OK] Successfully generated 6-DOF Robot Arm Stage: {output_path}")
     return output_path
 
 

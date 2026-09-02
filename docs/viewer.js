@@ -113,7 +113,7 @@ function initThree() {
 // -------------------------------------------------------------
 async function fetchStageList() {
   try {
-    const res = await fetch("/api/stages");
+    const res = await fetch(window.location.origin.includes("github.io") || window.location.protocol === "file:" ? "api/stages.json" : "/api/stages");
     const stages = await res.json();
     const select = document.getElementById("stage-select");
     select.innerHTML = "";
@@ -148,7 +148,11 @@ async function loadStage(stagePath) {
   stopPhysicsSimulation();
 
   try {
-    const res = await fetch(`/api/stage?path=${encodeURIComponent(stagePath)}`);
+    const res = await fetch(window.location.origin.includes("github.io") || window.location.protocol === "file:" ? "api/stage_data.json" : `/api/stage?path=${encodeURIComponent(stagePath)}`);
+    if (window.location.origin.includes("github.io") || window.location.protocol === "file:") {
+      const allData = await res.json();
+      stageData = allData[stagePath] || Object.values(allData)[0];
+    } else {
     if (!res.ok) throw new Error(`HTTP error ${res.status}`);
     stageData = await res.json();
 
@@ -964,7 +968,7 @@ async function initSdgDashboard() {
 
 async function loadSdgDataset() {
   try {
-    const res = await fetch("/api/sdg");
+    const res = await fetch(window.location.origin.includes("github.io") || window.location.protocol === "file:" ? "api/sdg.json" : "/api/sdg");
     sdgData = await res.json();
     const frameList = document.getElementById("sdg-frame-list");
     frameList.innerHTML = "";

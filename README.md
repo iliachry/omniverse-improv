@@ -1,159 +1,211 @@
-# 🌌 Omniverse Improv Starter
+# 🌌 Omniverse OpenUSD Starter & 3D Web Studio
 
-> A production-grade, modular developer starter template for **NVIDIA Omniverse**, **OpenUSD**, and **Isaac Sim**.
+[![CI / USD Validation & Unit Tests](https://github.com/iliachry/omniverse-improv/actions/workflows/ci.yml/badge.svg)](https://github.com/iliachry/omniverse-improv/actions/workflows/ci.yml)
+[![Deploy 3D Studio to GitHub Pages](https://github.com/iliachry/omniverse-improv/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/iliachry/omniverse-improv/actions/workflows/deploy-pages.yml)
+[![OpenUSD](https://img.shields.io/badge/OpenUSD-24.08+-00599C?logo=nvidia&logoColor=white)](https://openusd.org/)
+[![NVIDIA PhysX 5](https://img.shields.io/badge/Physics-PhysX_5-76B900?logo=nvidia&logoColor=white)](https://developer.nvidia.com/physx-sdk)
+[![Three.js](https://img.shields.io/badge/WebGL-Three.js_r128-black?logo=three.js)](https://threejs.org/)
+[![Python 3.10 | 3.11 | 3.12](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-3776AB?logo=python&logoColor=white)](https://python.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+> A modern, end-to-end open-source toolkit and starter template for **NVIDIA Omniverse Kit**, **OpenUSD**, **Isaac Sim Robotics**, and **Synthetic Data Generation (SDG)**. Includes a standalone in-browser **WebGL 3D Studio**, **Live PBR Shader Editor**, **PhysX Simulation Engine**, and **Apple USDZ / AR QuickLook Exporter**.
 
 ---
 
-## 🌟 Overview
-
-This repository provides a complete foundation for Omniverse development, covering:
-1. **Omniverse Kit Extension (`exts/omni.improv.starter`)**: A full dockable `omni.ui` extension with live stage building, PhysX physics interaction, procedural generators, and PBR material binding.
-2. **Procedural OpenUSD Generators (`usd_generators/`)**: Standalone Python pipelines for generating rich `.usda` and `.usd` stages (kinetic domino runs, ramps, sci-fi environments, studio lighting) without needing Omniverse Kit running.
-3. **Synthetic Data Generation (`replicator/`)**: Omniverse Replicator (`rep`) workflow for domain randomization (lighting, poses, textures) and multi-modal dataset annotation (RGB, Depth, Bounding Boxes, Segmentation).
-4. **Robotics Simulation (`robotics/`)**: Isaac Sim articulation setup with `UsdPhysics.DriveAPI` joint controllers and simulation loop.
+## 🌟 Architecture & Features Overview
 
 ```mermaid
 graph TD
-    A[Omniverse Improv Starter] --> B[Kit Extension omni.improv.starter]
-    A --> C[USD Generators]
-    A --> D[Replicator SDG]
-    A --> E[Robotics / Isaac Sim]
+    A[Omniverse OpenUSD Starter] --> B[🖥️ In-Browser WebGL 3D Studio]
+    A --> C[🚀 Native Omniverse Kit Extension]
+    A --> D[🦾 Isaac Sim 6-DOF Robotics]
+    A --> E[👁️ Replicator Synthetic Data SDG]
+    A --> F[📦 Standalone USD & USDZ Tools]
 
-    B --> B1[omni.ui Dockable Window]
-    B --> B2[Live PhysX Tweaker]
-    B --> B3[Procedural Spawner]
+    B --> B1[USD Stage Parser & Outliner]
+    B --> B2[Live PBR Shader Editor & Color Pickers]
+    B --> B3[In-Browser PhysX Dynamic Simulator]
+    B --> B4[Export Modified .usda directly from Web]
 
-    C --> C1[Kinetic Physics Playground .usda]
-    C --> C2[Procedural Sci-Fi Stage .usda]
-    C --> C3[OpenUSD Utilities]
+    C --> C1[omni.ui Custom Dark-Mode Window]
+    C --> C2[One-Click Studio Lighting & Ground Colliders]
+    C --> C3[Procedural Kinetic Domino & Tower Spawners]
+    C --> C4[Real-time Gravity Tweaker]
 
-    D --> D1[Domain Randomization]
-    D --> D2[RGB / Depth / BBox / Seg Annotators]
+    D --> D1[6-DOF Industrial Manipulator Kuka/UR style]
+    D --> D2[2-Finger Parallel Jaw Gripper]
+    D --> D3[UsdPhysics.DriveAPI Joint Controllers]
 
-    E --> E1[Multi-DOF Robot Arm]
-    E --> E2[Revolute Joint Drives]
+    E --> E1[Multi-modal Domain Randomization]
+    E --> E2[RGB + Depth + 2D/3D BBoxes + Semantic Masks]
+    E --> E3[Interactive SDG Annotation Visualizer Web Dashboard]
+
+    F --> F1[Apple USDZ AR QuickLook Packager]
+    F --> F2[Automated Pytest Suite 9/9 Passing]
 ```
 
 ---
 
-## 📁 Repository Structure
+## 🚀 Key Highlights
+
+### 1. 🌐 Interactive WebGL 3D Studio (`usd_viewer/`)
+* **Zero-Install USD Preview**: Converts OpenUSD stages (`.usda`, `.usd`, `.usdc`) into Three.js scene graphs with real-time PBR shaders (diffuse, metallic, roughness, emissive glow, clearcoat, opacity).
+* **Live PBR Material Editor**: Live color pickers and roughness/metallic sliders in the browser.
+* **💾 In-Browser USDA Exporter**: Modify shader parameters or transforms in 3D and export the updated `.usda` stage file with a single click.
+* **⚡ In-Browser PhysX Simulation**: Live rigid-body dynamics (Cannon.js integration) with gravity presets (Earth, Moon, Jupiter, Zero-G) and kinetic kick triggers.
+
+### 2. 🦾 6-DOF Industrial Robotics & Articulations (`robotics/`)
+* **6-DOF Kinematic Chain**: Waist yaw ($\pm 180^\circ$), Shoulder pitch ($-60^\circ \to +90^\circ$), Elbow pitch ($-120^\circ \to +120^\circ$), Wrist roll, Wrist pitch, Tool flange yaw.
+* **Parallel Jaw Gripper**: Linear prismatic joint drives for open/close gripping actions.
+* **Dual Runtime**: Authors standards-compliant `UsdPhysics.ArticulationRootAPI` and `DriveAPI` for both offline USD pipelines and native **Isaac Sim** control loops.
+
+### 3. 👁️ Replicator Synthetic Data (SDG) Visualizer (`replicator/`)
+* **Multi-Modal Captures**: RGB images, 2D tight bounding boxes, 3D oriented bounding boxes, and pixel-wise semantic segmentation masks.
+* **Interactive Dashboard**: Inspect captured frames side-by-side with toggleable bounding box tags, semantic segmentation mask alpha slider, and ground-truth JSON metadata.
+
+### 4. 🍏 Apple USDZ & AR QuickLook Exporter (`usd_generators/export_usdz.py`)
+* Packages `.usda` scenes into standalone Apple-compatible `.usdz` archives for instant preview on iPhones, iPads, and macOS.
+
+### 5. 🛠️ Official Omniverse Kit Extension (`exts/omni.improv.starter/`)
+* Modern dockable `omni.ui` studio extension for NVIDIA Kit 110+ with live hot-reloading, stage builders, and physics tweakers.
+
+---
+
+## ⚡ Quickstart Guide
+
+### 1. In-Browser 3D Studio & SDG Dashboard
+```bash
+# 1. Clone the repository
+git clone https://github.com/iliachry/omniverse-improv.git
+cd omniverse-improv
+
+# 2. Install lightweight dependencies
+pip install -r requirements.txt
+
+# 3. Launch the WebGL 3D Studio & SDG Dashboard
+python usd_viewer/server.py
+```
+Open **`http://localhost:8088`** in any web browser!
+
+---
+
+### 2. Standalone OpenUSD Scene Generators
+Generate high-fidelity `.usda` stages without needing Omniverse Kit or a GPU:
+```bash
+# Generate 6-DOF Industrial Robot Arm + Parallel Gripper
+python usd_generators/generate_robotics_arm.py
+
+# Generate Kinetic Domino Run & Physics Playground
+python usd_generators/generate_physics_playground.py
+
+# Generate Procedural Sci-Fi Colonnade & Gem Dais
+python usd_generators/generate_procedural_scene.py
+
+# Generate Destructible Jenga Block Tower
+python usd_generators/generate_block_tower.py
+
+# Generate Standalone Synthetic Computer Vision Dataset
+python replicator/generate_synthetic_dataset_standalone.py
+```
+
+---
+
+### 3. Apple USDZ AR Export
+```bash
+python usd_generators/export_usdz.py --input usd_generators/output_physics_playground.usda
+```
+
+---
+
+### 4. Launching Native NVIDIA Omniverse Kit Studio (RTX)
+For systems with an NVIDIA RTX GPU, run the native desktop editor:
+```powershell
+.\launch_omniverse_editor.bat
+```
+Or open a specific stage directly:
+```powershell
+.\launch_omniverse_usd.bat usd_generators\output_robotics_arm.usda
+```
+
+---
+
+## 🧪 Automated Testing
+
+The codebase includes an automated unit test suite with 100% passing tests:
+
+```bash
+pytest tests/ -v
+```
+
+```text
+tests/test_extension_core.py::test_setup_studio_environment PASSED       [ 11%]
+tests/test_extension_core.py::test_spawn_block_tower PASSED              [ 22%]
+tests/test_extension_core.py::test_spawn_primitive_and_materials PASSED  [ 33%]
+tests/test_extension_core.py::test_physics_helper_gravity_tweaker PASSED [ 44%]
+tests/test_robotics_and_sdg.py::test_6dof_robotics_articulation_setup PASSED [ 55%]
+tests/test_robotics_and_sdg.py::test_usdz_packaging PASSED               [ 66%]
+tests/test_usd_generators.py::test_physics_playground_generation PASSED  [ 77%]
+tests/test_usd_generators.py::test_procedural_scene_generation PASSED    [ 88%]
+tests/test_usd_generators.py::test_usd_parser_serialization PASSED       [100%]
+============================== 9 passed in 0.47s ==============================
+```
+
+---
+
+## 📁 Project Structure
 
 ```text
 omniverse-improv/
-├── .vscode/
-│   ├── launch.json                   # VS Code launch configs (Kit attach, script debuggers)
-│   └── settings.json                 # Python paths and USD file associations
-├── requirements.txt                  # Standalone Python dependencies (usd-core, numpy)
-├── pyproject.toml                    # Python project configuration
-├── README.md                         # Project documentation
-│
+├── .github/
+│   └── workflows/
+│       ├── ci.yml                    # Automated cross-platform pytest & USD validation
+│       └── deploy-pages.yml          # Automated GitHub Pages web demo build
+├── apps/
+│   └── omni.improv.editor.kit        # Native Omniverse Kit application definition
 ├── exts/
 │   └── omni.improv.starter/          # Official Omniverse Kit Extension
-│       ├── config/
-│       │   └── extension.toml        # Extension manifest, versioning & dependencies
-│       ├── docs/
-│       │   └── README.md             # Extension documentation
+│       ├── config/extension.toml     # Manifest & dependencies
 │       └── omni/improv/starter/
-│           ├── __init__.py           # Package entry point
-│           ├── extension.py          # omni.ext.IExt lifecycle hooks & menu registration
-│           ├── style.py              # Dark theme styling dictionary (NVIDIA palette)
-│           ├── ui/
-│           │   ├── main_window.py    # Dockable omni.ui window with collapsible panels
-│           │   └── widgets.py        # Reusable omni.ui custom components
-│           └── core/
-│               ├── physics_helper.py # UsdPhysics & PhysX schema management
-│               └── stage_builder.py  # Procedural stage spawner & PBR material library
-│
-├── usd_generators/                   # Standalone OpenUSD Authoring Scripts
-│   ├── utils_usd.py                  # Common USD helpers (Stages, Lights, Materials, Ground)
-│   ├── generate_physics_playground.py# Builds a kinetic domino & ramp physics stage (.usda)
-│   └── generate_procedural_scene.py  # Builds a sci-fi dais with emissive rings & pillars (.usda)
-│
-├── replicator/                       # Synthetic Data Generation
-│   └── synthetic_data_pipeline.py    # Omniverse Replicator domain randomization script
-│
-└── robotics/                         # Isaac Sim & Articulations
-    └── isaac_sim_sandbox.py          # 2-DOF robot arm with joint drive controllers
+│           ├── extension.py          # omni.ext lifecycle hooks
+│           ├── ui/main_window.py     # Dockable omni.ui window
+│           └── core/stage_builder.py # Stage spawner & PBR material library
+├── usd_generators/                   # Standalone OpenUSD Scene Builders
+│   ├── generate_robotics_arm.py      # 6-DOF Industrial Robot Arm + Gripper
+│   ├── generate_physics_playground.py# Domino chain reaction & ramps
+│   ├── generate_procedural_scene.py  # Sci-Fi platform with emissive shaders
+│   ├── generate_block_tower.py       # Jenga-style destructible block tower
+│   └── export_usdz.py                # Apple USDZ / AR QuickLook packager
+├── usd_viewer/                       # In-Browser WebGL 3D Studio & Simulator
+│   ├── server.py                     # API server for stages & SDG datasets
+│   ├── usd_parser.py                 # OpenUSD stage to JSON parser
+│   ├── export_static_demo.py         # Static bundle builder for GitHub Pages
+│   └── static/
+│       ├── index.html                # 3D Studio & SDG visualizer UI
+│       ├── style.css                 # Dark-mode NVIDIA aesthetic theme
+│       └── viewer.js                 # Three.js PBR viewer & Cannon.js PhysX engine
+├── replicator/                       # Synthetic Data Generation (SDG)
+│   ├── generate_synthetic_dataset_standalone.py # Offline multi-modal SDG generator
+│   └── synthetic_data_pipeline.py    # Omniverse Replicator domain randomization
+├── robotics/
+│   └── isaac_sim_sandbox.py          # 6-DOF Articulation & Revolute/Prismatic Drives
+├── tests/                            # Automated Pytest Suite
+└── docs/                             # Static WebGL 3D Studio build for GitHub Pages
 ```
 
 ---
 
-## 🚀 Quickstart Guide
+## 🤝 Contributing
 
-### 1. Standalone OpenUSD Generation (No Omniverse Kit Required)
-
-You can generate standard OpenUSD stages immediately using any Python environment with `usd-core`:
-
-```bash
-# Install standalone USD requirements
-pip install -r requirements.txt
-
-# Generate Kinetic Physics Playground (.usda)
-python usd_generators/generate_physics_playground.py
-
-# Generate Procedural Sci-Fi Stage (.usda)
-python usd_generators/generate_procedural_scene.py
-```
-> The generated `.usda` files can be opened in **Omniverse USD Composer**, **usdview**, **Blender**, or **Maya**.
-
----
-
-### 2. Loading the Kit Extension in Omniverse
-
-1. Launch **Omniverse USD Composer**, **Omniverse Code**, or **Isaac Sim**.
-2. Open the Extension Manager: **Window > Extensions**.
-3. Click the **Gear Icon (Settings)** at the top right of the Extension Manager.
-4. Add the absolute path to the `exts` directory:
-   ```text
-   <path-to-repo>/omniverse-improv/exts
-   ```
-5. In the search box, search for **`Omniverse Improv Starter`** and enable the toggle switch.
-6. The extension window will open automatically, or you can open it via the top menu: **Window > Improv Starter**.
-
----
-
-### 3. Running the Synthetic Data Pipeline (Omniverse Replicator)
-
-Run headless or inside Omniverse Kit / Isaac Sim:
-
-```bash
-# Using Omniverse Kit executable
-<omniverse_dir>/kit/kit.exe --exec replicator/synthetic_data_pipeline.py
-```
-Outputs randomized image frames along with ground-truth 2D/3D bounding boxes, depth maps, and segmentation masks to `_sdg_output/`.
-
----
-
-### 4. Running the Robotics Articulation Sandbox (Isaac Sim)
-
-```bash
-# Run using Isaac Sim Python environment
-<isaac_sim_path>/python.bat robotics/isaac_sim_sandbox.py
-```
-
----
-
-## 🛠️ Omniverse Kit Extension Features
-
-| Feature | Description |
-| :--- | :--- |
-| **🚀 Studio Setup** | One-click setup for `/World/PhysicsScene`, static ground collider, and studio lighting. |
-| ** domino Run Spawner** | Generates an arced chain of dynamic dominoes and an elevated kinetic trigger sphere. |
-| **🏰 Block Tower Spawner** | Stacks an 8-floor Jenga-style destructible wooden block tower. |
-| **🔮 Kinetic Ball Shower** | Spawns 15 randomized bouncy neon spheres dropping from height. |
-| **📦 Quick Spawner** | Spawns dynamic Cubes, Spheres, Cylinders, and Capsules with instant PBR shader binding. |
-| **🎛️ Live Physics Controls** | Dynamically tweak gravity (Earth, Moon, Zero-G) and surface properties in real-time. |
-
----
-
-## 🧑‍💻 Development & Debugging
-
-- **Hot Reloading**: Kit extensions support live Python hot reloading. Any edits you make to Python files in `exts/omni.improv.starter/` will instantly update in the running Omniverse application without restarting.
-- **VS Code Remote Debugging**:
-  1. In Omniverse Kit, enable the `omni.kit.debug.python` extension.
-  2. In VS Code, press `F5` or select **Omniverse: Attach to Kit (debugpy)** to set breakpoints and step through live extension code.
+Contributions, feature suggestions, and pull requests are welcome!
+1. Fork the Project.
+2. Create your Feature Branch (`git checkout -b feat/AmazingFeature`).
+3. Commit your Changes (`git commit -m 'feat: Add AmazingFeature'`).
+4. Ensure all tests pass (`pytest tests/`).
+5. Push to the Branch (`git push origin feat/AmazingFeature`).
+6. Open a Pull Request.
 
 ---
 
 ## 📄 License
-MIT License. Free to use for personal, educational, and commercial Omniverse workflows.
+
+Distributed under the **MIT License**. See `LICENSE` for more information.
