@@ -112,7 +112,8 @@ def generate_synthetic_frame(
     for box_info in bounding_boxes_2d:
         box = box_info["box2d"]
         draw_bbox.rectangle(box, outline=(0, 255, 0), width=2)
-        draw_bbox.text((box[0], box[1] - 12), f"{box_info['class']} #{box_info['objectId']}", fill=(0, 255, 0))
+        text_y = max(0, box[1] - 12)
+        draw_bbox.text((box[0], text_y), f"{box_info['class']} #{box_info['objectId']}", fill=(0, 255, 0))
 
     bbox_path = os.path.join(output_dir, f"bbox_overlay_{frame_idx:04d}.png")
     bbox_img.save(bbox_path)

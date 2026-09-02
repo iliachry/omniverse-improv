@@ -14,10 +14,10 @@ from typing import Dict, List, Tuple
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 WORKSPACE_DIR = os.path.dirname(CURRENT_DIR)
-if CURRENT_DIR not in sys.path:
-    sys.path.insert(0, CURRENT_DIR)
-if WORKSPACE_DIR not in sys.path:
-    sys.path.insert(0, WORKSPACE_DIR)
+try:
+    from generate_synthetic_dataset_standalone import generate_synthetic_dataset
+except ImportError:
+    from replicator.generate_synthetic_dataset_standalone import generate_synthetic_dataset
 
 SDG_DEFAULT_DIR = os.path.join(CURRENT_DIR, "_sdg_output")
 
@@ -34,7 +34,6 @@ def ensure_sdg_dataset(sdg_dir: str):
     ann_file = os.path.join(sdg_dir, "dataset_annotations.json")
     if not os.path.exists(ann_file):
         print(f"[*] Annotations not found at {ann_file}. Automatically generating synthetic frames...")
-        from generate_synthetic_dataset_standalone import generate_synthetic_dataset
         generate_synthetic_dataset(output_dir=sdg_dir, num_frames=5)
 
 
@@ -180,13 +179,18 @@ def export_coco_format(sdg_dir: str, output_dir: str) -> str:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Export SDG synthetic dataset to YOLO/COCO.")
-    parser.add_argument("--format", "-f", choices=["yolo", "coco", "all"], default="all", help="Target format")
-    parser.add_argument("--input", "-i", default=SDG_DEFAULT_DIR, help="Source SDG directory")
-    parser.add_argument("--output", "-o", default=os.path.join(WORKSPACE_DIR, "replicator", "_exported_dataset"), help="Output directory")
-    args = parser.parse_args()
+    import traceback
+    try:
+        parser = argparse.ArgumentParser(description="Export SDG synthetic dataset to YOLO/COCO.")
+        parser.add_argument("--format", "-f", choices=["yolo", "coco", "all"], default="all", help="Target format")
+        parser.add_argument("--input", "-i", default=SDG_DEFAULT_DIR, help="Source SDG directory")
+        parser.add_argument("--output", "-o", default=os.path.join(WORKSPACE_DIR, "replicator", "_exported_dataset"), help="Output directory")
+        args = parser.parse_args()
 
-    if args.format in ["yolo", "all"]:
-        export_yolo_format(args.input, os.path.join(args.output, "yolo"))
-    if args.format in ["coco", "all"]:
-        export_coco_format(args.input, os.path.join(args.output, "coco"))
+        if args.format in ["yolo", "all"]:
+            export_yolo_format(args.input, os.path.join(args.output, "yolo"))
+        if args.format in ["coco", "all"]:
+            export_coco_format(args.input, os.path.join(args.output, "coco"))
+    except Exception as e:
+        traceback.print_exc()
+        sys.exit(1)

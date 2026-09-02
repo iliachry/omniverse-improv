@@ -1,11 +1,5 @@
 [
   {
-    "name": "output_prompt_generated.usda",
-    "relPath": "output_prompt_generated.usda",
-    "fullPath": "D:\\GitLab\\omniverse-improv\\output_prompt_generated.usda",
-    "size": 14360
-  },
-  {
     "name": "output_block_tower.usda",
     "relPath": "usd_generators/output_block_tower.usda",
     "fullPath": "D:\\GitLab\\omniverse-improv\\usd_generators\\output_block_tower.usda",
