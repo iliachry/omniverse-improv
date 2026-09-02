@@ -1,0 +1,900 @@
+#usda 1.0
+(
+    metersPerUnit = 0.01
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def Xform "Environment"
+    {
+        def DomeLight "DomeLight"
+        {
+            color3f inputs:color = (0.95, 0.98, 1)
+            float inputs:intensity = 600
+        }
+
+        def DistantLight "SunLight"
+        {
+            color3f inputs:color = (1, 0.96, 0.9)
+            float inputs:intensity = 3500
+            float3 xformOp:rotateXYZ = (-50, 35, 0)
+            uniform token[] xformOpOrder = ["xformOp:rotateXYZ"]
+        }
+
+        def Plane "GroundPlane" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Y"
+            double length = 3000
+            rel material:binding = </World/Materials/M_Ground>
+            bool physics:collisionEnabled = 1
+            double width = 3000
+        }
+    }
+
+    def Xform "Materials"
+    {
+        def Material "M_Ground"
+        {
+            token outputs:surface.connect = </World/Materials/M_Ground/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.15, 0.16, 0.18)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.5
+                token outputs:surface
+            }
+        }
+
+        def Material "M_Ramp"
+        {
+            token outputs:surface.connect = </World/Materials/M_Ramp/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.2, 0.4, 0.8)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0.2
+                float inputs:opacity = 1
+                float inputs:roughness = 0.3
+                token outputs:surface
+            }
+        }
+
+        def Material "M_TriggerBall"
+        {
+            token outputs:surface.connect = </World/Materials/M_TriggerBall/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (1, 0.2, 0.1)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0.9
+                float inputs:opacity = 1
+                float inputs:roughness = 0.1
+                token outputs:surface
+            }
+        }
+
+        def Material "M_Domino"
+        {
+            token outputs:surface.connect = </World/Materials/M_Domino/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0, 0.85, 0.7)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0.1
+                float inputs:opacity = 1
+                float inputs:roughness = 0.2
+                token outputs:surface
+            }
+        }
+
+        def Material "M_TargetBox"
+        {
+            token outputs:surface.connect = </World/Materials/M_TargetBox/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (1, 0.7, 0.1)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.4
+                token outputs:surface
+            }
+        }
+    }
+
+    def Xform "Props"
+    {
+        def Cube "LaunchRamp" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_Ramp>
+            bool physics:collisionEnabled = 1
+            double size = 1
+            float xformOp:rotateZ = -18
+            float3 xformOp:scale = (120, 6, 24)
+            double3 xformOp:translate = (-80, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateZ", "xformOp:scale"]
+        }
+
+        def Sphere "TriggerSphere" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_TriggerBall>
+            uniform token physics:approximation = "boundingSphere"
+            bool physics:collisionEnabled = 1
+            float physics:mass = 8
+            bool physics:rigidBodyEnabled = 1
+            double radius = 12
+            double3 xformOp:translate = (-125, 52, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+
+        def "Dominoes"
+        {
+            def Cube "Domino_00" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = -29.79917
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (-20, 11, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_01" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = -29.322145
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (-8, 11, 6.828161270564489)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_02" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = -27.883005
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (4, 11, 13.393920132778142)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_03" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = -25.462442
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (16, 11, 19.444958155686077)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_04" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = -22.0455
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (28, 11, 24.748737341529164)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_05" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = -17.649374
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (40, 11, 29.101436430589082)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_06" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = -12.361367
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (52, 11, 32.335783637895034)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_07" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = -6.3749638
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (64, 11, 34.32748481411306)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_08" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = -2.009186e-15
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (76, 11, 35)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_09" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = 6.3749638
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (88, 11, 34.32748481411306)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_10" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = 12.361367
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (100, 11, 32.335783637895034)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_11" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = 17.649374
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (112, 11, 29.101436430589086)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_12" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = 22.0455
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (124, 11, 24.748737341529164)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_13" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = 25.462442
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (136, 11, 19.444958155686077)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_14" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = 27.883005
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (148, 11, 13.393920132778145)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_15" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = 29.322145
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (160, 11, 6.828161270564501)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_16" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = 29.79917
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (172, 11, 4.2862637970157365e-15)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_17" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = 29.322145
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (184, 11, -6.828161270564492)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_18" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = 27.883005
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (196, 11, -13.393920132778138)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_19" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = 25.462442
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (208, 11, -19.44495815568607)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_20" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = 22.0455
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (220, 11, -24.74873734152916)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_21" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = 17.649374
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (232, 11, -29.101436430589082)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_22" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = 12.361367
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (244, 11, -32.33578363789503)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_23" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = 6.3749638
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (256, 11, -34.32748481411306)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_24" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = 6.0275585e-15
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (268, 11, -35)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_25" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = -6.3749638
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (280, 11, -34.32748481411306)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_26" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = -12.361367
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (292, 11, -32.335783637895034)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_27" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = -17.649374
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (304, 11, -29.10143643058909)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_28" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = -22.0455
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (316, 11, -24.748737341529168)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_29" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = -25.462442
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (328, 11, -19.444958155686077)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_30" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = -27.883005
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (340, 11, -13.393920132778163)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+
+            def Cube "Domino_31" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_Domino>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1100
+                bool physics:rigidBodyEnabled = 1
+                double size = 1
+                float xformOp:rotateY = -29.322145
+                float3 xformOp:scale = (3.5, 22, 11)
+                double3 xformOp:translate = (352, 11, -6.828161270564506)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+            }
+        }
+
+        def "Pyramid"
+        {
+            def Cube "Level_0_Block_0" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_TargetBox>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 500
+                bool physics:rigidBodyEnabled = 1
+                double size = 13.44
+                double3 xformOp:translate = (384, 7, -29.400000000000002)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Cube "Level_0_Block_1" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_TargetBox>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 500
+                bool physics:rigidBodyEnabled = 1
+                double size = 13.44
+                double3 xformOp:translate = (384, 7, -14.700000000000001)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Cube "Level_0_Block_2" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_TargetBox>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 500
+                bool physics:rigidBodyEnabled = 1
+                double size = 13.44
+                double3 xformOp:translate = (384, 7, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Cube "Level_0_Block_3" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_TargetBox>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 500
+                bool physics:rigidBodyEnabled = 1
+                double size = 13.44
+                double3 xformOp:translate = (384, 7, 14.7)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Cube "Level_0_Block_4" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_TargetBox>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 500
+                bool physics:rigidBodyEnabled = 1
+                double size = 13.44
+                double3 xformOp:translate = (384, 7, 29.400000000000002)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Cube "Level_1_Block_0" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_TargetBox>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 500
+                bool physics:rigidBodyEnabled = 1
+                double size = 13.44
+                double3 xformOp:translate = (384, 21, -22.05)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Cube "Level_1_Block_1" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_TargetBox>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 500
+                bool physics:rigidBodyEnabled = 1
+                double size = 13.44
+                double3 xformOp:translate = (384, 21, -7.35)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Cube "Level_1_Block_2" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_TargetBox>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 500
+                bool physics:rigidBodyEnabled = 1
+                double size = 13.44
+                double3 xformOp:translate = (384, 21, 7.350000000000001)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Cube "Level_1_Block_3" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_TargetBox>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 500
+                bool physics:rigidBodyEnabled = 1
+                double size = 13.44
+                double3 xformOp:translate = (384, 21, 22.05)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Cube "Level_2_Block_0" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_TargetBox>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 500
+                bool physics:rigidBodyEnabled = 1
+                double size = 13.44
+                double3 xformOp:translate = (384, 35, -14.700000000000001)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Cube "Level_2_Block_1" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_TargetBox>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 500
+                bool physics:rigidBodyEnabled = 1
+                double size = 13.44
+                double3 xformOp:translate = (384, 35, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Cube "Level_2_Block_2" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_TargetBox>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 500
+                bool physics:rigidBodyEnabled = 1
+                double size = 13.44
+                double3 xformOp:translate = (384, 35, 14.700000000000001)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Cube "Level_3_Block_0" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_TargetBox>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 500
+                bool physics:rigidBodyEnabled = 1
+                double size = 13.44
+                double3 xformOp:translate = (384, 49, -7.3500000000000005)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Cube "Level_3_Block_1" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_TargetBox>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 500
+                bool physics:rigidBodyEnabled = 1
+                double size = 13.44
+                double3 xformOp:translate = (384, 49, 7.3500000000000005)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Cube "Level_4_Block_0" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_TargetBox>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 500
+                bool physics:rigidBodyEnabled = 1
+                double size = 13.44
+                double3 xformOp:translate = (384, 63, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+        }
+    }
+
+    def PhysicsScene "PhysicsScene"
+    {
+        vector3f physics:gravityDirection = (0, -1, 0)
+        float physics:gravityMagnitude = 981
+    }
+
+    def "Cameras"
+    {
+        def Camera "MainCamera"
+        {
+            float focalLength = 35
+            float3 xformOp:rotateXYZ = (-25, 18, 0)
+            double3 xformOp:translate = (120, 180, 320)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ"]
+        }
+    }
+}
+

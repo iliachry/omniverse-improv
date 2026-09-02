@@ -1,0 +1,22 @@
+[package]
+title = "Omniverse Improv Starter"
+description = "A modular Omniverse Kit extension starter template for procedural USD authoring, physics setups, and custom UI controls."
+version = "1.0.0"
+authors = ["Omniverse Developer"]
+category = "Productivity"
+keywords = ["usd", "physics", "procedural", "starter", "kit", "ui"]
+readme = "docs/README.md"
+preview_image = ""
+
+[dependencies]
+"omni.kit.uiapp" = {}
+"omni.ui" = {}
+"omni.usd" = {}
+"omni.physx" = {}
+
+[[python.module]]
+name = "omni.improv.starter"
+
+[settings]
+exts."omni.improv.starter".default_density = 1000.0
+exts."omni.improv.starter".spawn_height = 50.0

@@ -1,0 +1,24 @@
+{
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/exts/omni.improv.starter",
+        "${workspaceFolder}/usd_generators",
+        "${workspaceFolder}/replicator",
+        "${workspaceFolder}/robotics"
+    ],
+    "python.autoComplete.extraPaths": [
+        "${workspaceFolder}/exts/omni.improv.starter",
+        "${workspaceFolder}/usd_generators",
+        "${workspaceFolder}/replicator",
+        "${workspaceFolder}/robotics"
+    ],
+    "files.associations": {
+        "*.usd": "usd",
+        "*.usda": "usd",
+        "*.usdc": "usd",
+        "*.usdz": "usd",
+        "*.toml": "toml"
+    },
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true
+}

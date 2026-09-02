@@ -1,0 +1,549 @@
+#usda 1.0
+(
+    metersPerUnit = 0.01
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def Xform "Environment"
+    {
+        def DomeLight "DomeLight"
+        {
+            color3f inputs:color = (0.1, 0.15, 0.25)
+            float inputs:intensity = 200
+        }
+
+        def DistantLight "KeyLight"
+        {
+            color3f inputs:color = (1, 0.85, 0.7)
+            float inputs:intensity = 2500
+            float3 xformOp:rotateXYZ = (-40, 45, 0)
+            uniform token[] xformOpOrder = ["xformOp:rotateXYZ"]
+        }
+
+        def DistantLight "RimLight"
+        {
+            color3f inputs:color = (0, 0.7, 1)
+            float inputs:intensity = 3500
+            float3 xformOp:rotateXYZ = (-20, -135, 0)
+            uniform token[] xformOpOrder = ["xformOp:rotateXYZ"]
+        }
+    }
+
+    def Xform "Architecture"
+    {
+        def Cylinder "Dais_Tier_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Y"
+            double height = 8
+            rel material:binding = </World/Materials/M_FloorMetal>
+            double radius = 180
+            double3 xformOp:translate = (0, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+
+        def Cylinder "Dais_Tier_1" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Y"
+            double height = 8
+            rel material:binding = </World/Materials/M_DarkPanel>
+            double radius = 140
+            double3 xformOp:translate = (0, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+
+        def Cylinder "Dais_Tier_2" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Y"
+            double height = 6
+            rel material:binding = </World/Materials/M_DarkPanel>
+            double radius = 90
+            double3 xformOp:translate = (0, 18, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+
+        def Xform "Pillar_00"
+        {
+            double3 xformOp:translate = (120, 57, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+
+            def Cylinder "Shaft" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 90
+                rel material:binding = </World/Materials/M_DarkPanel>
+                double radius = 7
+            }
+
+            def Cylinder "NeonBand" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 4
+                rel material:binding = </World/Materials/M_NeonCyan>
+                double radius = 7.5600000000000005
+            }
+
+            def Cylinder "Cap" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 4
+                rel material:binding = </World/Materials/M_GoldTrim>
+                double radius = 8.4
+                double3 xformOp:translate = (0, 47, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+        }
+
+        def Xform "Pillar_01"
+        {
+            double3 xformOp:translate = (84.8528137423857, 57, 84.8528137423857)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+
+            def Cylinder "Shaft" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 90
+                rel material:binding = </World/Materials/M_DarkPanel>
+                double radius = 7
+            }
+
+            def Cylinder "NeonBand" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 4
+                rel material:binding = </World/Materials/M_NeonOrange>
+                double radius = 7.5600000000000005
+            }
+
+            def Cylinder "Cap" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 4
+                rel material:binding = </World/Materials/M_GoldTrim>
+                double radius = 8.4
+                double3 xformOp:translate = (0, 47, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+        }
+
+        def Xform "Pillar_02"
+        {
+            double3 xformOp:translate = (7.34788079488412e-15, 57, 120)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+
+            def Cylinder "Shaft" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 90
+                rel material:binding = </World/Materials/M_DarkPanel>
+                double radius = 7
+            }
+
+            def Cylinder "NeonBand" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 4
+                rel material:binding = </World/Materials/M_NeonCyan>
+                double radius = 7.5600000000000005
+            }
+
+            def Cylinder "Cap" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 4
+                rel material:binding = </World/Materials/M_GoldTrim>
+                double radius = 8.4
+                double3 xformOp:translate = (0, 47, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+        }
+
+        def Xform "Pillar_03"
+        {
+            double3 xformOp:translate = (-84.85281374238569, 57, 84.8528137423857)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+
+            def Cylinder "Shaft" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 90
+                rel material:binding = </World/Materials/M_DarkPanel>
+                double radius = 7
+            }
+
+            def Cylinder "NeonBand" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 4
+                rel material:binding = </World/Materials/M_NeonOrange>
+                double radius = 7.5600000000000005
+            }
+
+            def Cylinder "Cap" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 4
+                rel material:binding = </World/Materials/M_GoldTrim>
+                double radius = 8.4
+                double3 xformOp:translate = (0, 47, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+        }
+
+        def Xform "Pillar_04"
+        {
+            double3 xformOp:translate = (-120, 57, 1.469576158976824e-14)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+
+            def Cylinder "Shaft" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 90
+                rel material:binding = </World/Materials/M_DarkPanel>
+                double radius = 7
+            }
+
+            def Cylinder "NeonBand" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 4
+                rel material:binding = </World/Materials/M_NeonCyan>
+                double radius = 7.5600000000000005
+            }
+
+            def Cylinder "Cap" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 4
+                rel material:binding = </World/Materials/M_GoldTrim>
+                double radius = 8.4
+                double3 xformOp:translate = (0, 47, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+        }
+
+        def Xform "Pillar_05"
+        {
+            double3 xformOp:translate = (-84.85281374238572, 57, -84.85281374238569)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+
+            def Cylinder "Shaft" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 90
+                rel material:binding = </World/Materials/M_DarkPanel>
+                double radius = 7
+            }
+
+            def Cylinder "NeonBand" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 4
+                rel material:binding = </World/Materials/M_NeonOrange>
+                double radius = 7.5600000000000005
+            }
+
+            def Cylinder "Cap" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 4
+                rel material:binding = </World/Materials/M_GoldTrim>
+                double radius = 8.4
+                double3 xformOp:translate = (0, 47, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+        }
+
+        def Xform "Pillar_06"
+        {
+            double3 xformOp:translate = (-2.2043642384652355e-14, 57, -120)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+
+            def Cylinder "Shaft" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 90
+                rel material:binding = </World/Materials/M_DarkPanel>
+                double radius = 7
+            }
+
+            def Cylinder "NeonBand" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 4
+                rel material:binding = </World/Materials/M_NeonCyan>
+                double radius = 7.5600000000000005
+            }
+
+            def Cylinder "Cap" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 4
+                rel material:binding = </World/Materials/M_GoldTrim>
+                double radius = 8.4
+                double3 xformOp:translate = (0, 47, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+        }
+
+        def Xform "Pillar_07"
+        {
+            double3 xformOp:translate = (84.85281374238568, 57, -84.85281374238572)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+
+            def Cylinder "Shaft" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 90
+                rel material:binding = </World/Materials/M_DarkPanel>
+                double radius = 7
+            }
+
+            def Cylinder "NeonBand" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 4
+                rel material:binding = </World/Materials/M_NeonOrange>
+                double radius = 7.5600000000000005
+            }
+
+            def Cylinder "Cap" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 4
+                rel material:binding = </World/Materials/M_GoldTrim>
+                double radius = 8.4
+                double3 xformOp:translate = (0, 47, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+        }
+    }
+
+    def Xform "Materials"
+    {
+        def Material "M_FloorMetal"
+        {
+            token outputs:surface.connect = </World/Materials/M_FloorMetal/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.1, 0.11, 0.13)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0.9
+                float inputs:opacity = 1
+                float inputs:roughness = 0.25
+                token outputs:surface
+            }
+        }
+
+        def Material "M_DarkPanel"
+        {
+            token outputs:surface.connect = </World/Materials/M_DarkPanel/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.04, 0.04, 0.05)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0.1
+                float inputs:opacity = 1
+                float inputs:roughness = 0.6
+                token outputs:surface
+            }
+        }
+
+        def Material "M_GoldTrim"
+        {
+            token outputs:surface.connect = </World/Materials/M_GoldTrim/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (1, 0.78, 0.35)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 1
+                float inputs:opacity = 1
+                float inputs:roughness = 0.18
+                token outputs:surface
+            }
+        }
+
+        def Material "M_NeonCyan"
+        {
+            token outputs:surface.connect = </World/Materials/M_NeonCyan/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0, 0.9, 1)
+                color3f inputs:emissiveColor = (0, 0.95, 1)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.1
+                token outputs:surface
+            }
+        }
+
+        def Material "M_NeonOrange"
+        {
+            token outputs:surface.connect = </World/Materials/M_NeonOrange/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (1, 0.4, 0)
+                color3f inputs:emissiveColor = (1, 0.45, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.1
+                token outputs:surface
+            }
+        }
+
+        def Material "M_CoreGem"
+        {
+            token outputs:surface.connect = </World/Materials/M_CoreGem/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.9, 0.1, 0.3)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.8
+                float inputs:metallic = 0.1
+                float inputs:opacity = 0.85
+                float inputs:roughness = 0.05
+                token outputs:surface
+            }
+        }
+    }
+
+    def Xform "Core"
+    {
+        def Cylinder "OuterRing" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Y"
+            double height = 3
+            rel material:binding = </World/Materials/M_GoldTrim>
+            double radius = 35
+            float3 xformOp:rotateXYZ = (25, 45, 15)
+            double3 xformOp:translate = (0, 65, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ"]
+        }
+
+        def Sphere "EnergyOrb" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_CoreGem>
+            double radius = 14
+            double3 xformOp:translate = (0, 65, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+
+        def Sphere "Satellite_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_NeonCyan>
+            double radius = 4
+            double3 xformOp:translate = (50, 65, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+
+        def Sphere "Satellite_1" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_NeonCyan>
+            double radius = 4
+            double3 xformOp:translate = (-24.99999999999999, 74.09297426825682, 43.30127018922194)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+
+        def Sphere "Satellite_2" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </World/Materials/M_NeonCyan>
+            double radius = 4
+            double3 xformOp:translate = (-25.00000000000002, 57.43197504692072, -43.301270189221924)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+    }
+
+    def "Cameras"
+    {
+        def Camera "CinematicCam"
+        {
+            float focalLength = 45
+            float3 xformOp:rotateXYZ = (-18, 0, 0)
+            double3 xformOp:translate = (0, 110, 260)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ"]
+        }
+    }
+}
+

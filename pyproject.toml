@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "omni-improv-starter"
+version = "1.0.0"
+description = "Comprehensive NVIDIA Omniverse & OpenUSD Starter Template"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "usd-core>=23.11",
+    "numpy>=1.24.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["exts/omni.improv.starter", "usd_generators", "replicator", "robotics"]

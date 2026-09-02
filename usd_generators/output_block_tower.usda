@@ -1,0 +1,645 @@
+#usda 1.0
+(
+    metersPerUnit = 0.01
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def PhysicsScene "PhysicsScene"
+    {
+        vector3f physics:gravityDirection = (0, -1, 0)
+        float physics:gravityMagnitude = 981
+    }
+
+    def "Environment"
+    {
+        def Plane "GroundPlane" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Y"
+            double length = 4000
+            rel material:binding = </World/Materials/M_StudioGround>
+            bool physics:collisionEnabled = 1
+            double width = 4000
+        }
+
+        def Xform "Lights"
+        {
+            def DomeLight "DomeLight"
+            {
+                color3f inputs:color = (0.9, 0.95, 1)
+                float inputs:intensity = 800
+            }
+
+            def DistantLight "KeyLight"
+            {
+                color3f inputs:color = (1, 0.95, 0.88)
+                float inputs:intensity = 3500
+                float3 xformOp:rotateXYZ = (-45, 35, 0)
+                uniform token[] xformOpOrder = ["xformOp:rotateXYZ"]
+            }
+
+            def DistantLight "FillLight"
+            {
+                color3f inputs:color = (0.7, 0.85, 1)
+                float inputs:intensity = 1200
+                float3 xformOp:rotateXYZ = (-30, -145, 0)
+                uniform token[] xformOpOrder = ["xformOp:rotateXYZ"]
+            }
+        }
+    }
+
+    def "Materials"
+    {
+        def Material "M_StudioGround"
+        {
+            token outputs:surface.connect = </World/Materials/M_StudioGround/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.12, 0.13, 0.15)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:metallic = 0.1
+                float inputs:opacity = 1
+                float inputs:roughness = 0.4
+                token outputs:surface
+            }
+        }
+
+        def Material "M_WoodBlock"
+        {
+            token outputs:surface.connect = </World/Materials/M_WoodBlock/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.85, 0.65, 0.45)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.6
+                token outputs:surface
+            }
+        }
+
+        def Material "M_neon_magenta"
+        {
+            token outputs:surface.connect = </World/Materials/M_neon_magenta/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (1, 0, 0.8)
+                color3f inputs:emissiveColor = (1, 0, 0.8)
+                float inputs:metallic = 0.2
+                float inputs:opacity = 1
+                float inputs:roughness = 0.1
+                token outputs:surface
+            }
+        }
+
+        def Material "M_neon_cyan"
+        {
+            token outputs:surface.connect = </World/Materials/M_neon_cyan/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0, 0.8, 1)
+                color3f inputs:emissiveColor = (0, 0.9, 1)
+                float inputs:metallic = 0.2
+                float inputs:opacity = 1
+                float inputs:roughness = 0.1
+                token outputs:surface
+            }
+        }
+    }
+
+    def "Props"
+    {
+        def "BlockTower"
+        {
+            def Cube "Floor_00_Block_0" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (34.2, 6.65, 11.4)
+                double3 xformOp:translate = (0, 3.5, -12)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_00_Block_1" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (34.2, 6.65, 11.4)
+                double3 xformOp:translate = (0, 3.5, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_00_Block_2" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (34.2, 6.65, 11.4)
+                double3 xformOp:translate = (0, 3.5, 12)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_01_Block_0" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (11.4, 6.65, 34.2)
+                double3 xformOp:translate = (-12, 10.5, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_01_Block_1" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (11.4, 6.65, 34.2)
+                double3 xformOp:translate = (0, 10.5, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_01_Block_2" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (11.4, 6.65, 34.2)
+                double3 xformOp:translate = (12, 10.5, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_02_Block_0" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (34.2, 6.65, 11.4)
+                double3 xformOp:translate = (0, 17.5, -12)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_02_Block_1" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (34.2, 6.65, 11.4)
+                double3 xformOp:translate = (0, 17.5, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_02_Block_2" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (34.2, 6.65, 11.4)
+                double3 xformOp:translate = (0, 17.5, 12)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_03_Block_0" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (11.4, 6.65, 34.2)
+                double3 xformOp:translate = (-12, 24.5, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_03_Block_1" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (11.4, 6.65, 34.2)
+                double3 xformOp:translate = (0, 24.5, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_03_Block_2" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (11.4, 6.65, 34.2)
+                double3 xformOp:translate = (12, 24.5, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_04_Block_0" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (34.2, 6.65, 11.4)
+                double3 xformOp:translate = (0, 31.5, -12)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_04_Block_1" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (34.2, 6.65, 11.4)
+                double3 xformOp:translate = (0, 31.5, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_04_Block_2" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (34.2, 6.65, 11.4)
+                double3 xformOp:translate = (0, 31.5, 12)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_05_Block_0" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (11.4, 6.65, 34.2)
+                double3 xformOp:translate = (-12, 38.5, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_05_Block_1" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (11.4, 6.65, 34.2)
+                double3 xformOp:translate = (0, 38.5, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_05_Block_2" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (11.4, 6.65, 34.2)
+                double3 xformOp:translate = (12, 38.5, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_06_Block_0" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (34.2, 6.65, 11.4)
+                double3 xformOp:translate = (0, 45.5, -12)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_06_Block_1" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (34.2, 6.65, 11.4)
+                double3 xformOp:translate = (0, 45.5, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_06_Block_2" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (34.2, 6.65, 11.4)
+                double3 xformOp:translate = (0, 45.5, 12)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_07_Block_0" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (11.4, 6.65, 34.2)
+                double3 xformOp:translate = (-12, 52.5, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_07_Block_1" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (11.4, 6.65, 34.2)
+                double3 xformOp:translate = (0, 52.5, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "Floor_07_Block_2" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_WoodBlock>
+                uniform token physics:approximation = "boundingCube"
+                bool physics:collisionEnabled = 1
+                float physics:density = 650
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double size = 1
+                float3 xformOp:scale = (11.4, 6.65, 34.2)
+                double3 xformOp:translate = (12, 52.5, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+        }
+
+        def "Projectiles"
+        {
+            def Sphere "Ball_00" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_neon_magenta>
+                uniform token physics:approximation = "convexHull"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1000
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double radius = 7
+                double3 xformOp:translate = (-30, 100, 30)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Sphere "Ball_01" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_neon_cyan>
+                uniform token physics:approximation = "convexHull"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1000
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double radius = 7
+                double3 xformOp:translate = (-18, 120, 30)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Sphere "Ball_02" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_neon_magenta>
+                uniform token physics:approximation = "convexHull"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1000
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double radius = 7
+                double3 xformOp:translate = (-6, 100, 30)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Sphere "Ball_03" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_neon_cyan>
+                uniform token physics:approximation = "convexHull"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1000
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double radius = 7
+                double3 xformOp:translate = (6, 120, 30)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Sphere "Ball_04" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_neon_magenta>
+                uniform token physics:approximation = "convexHull"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1000
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double radius = 7
+                double3 xformOp:translate = (18, 100, 30)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Sphere "Ball_05" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </World/Materials/M_neon_cyan>
+                uniform token physics:approximation = "convexHull"
+                bool physics:collisionEnabled = 1
+                float physics:density = 1000
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                uniform bool physics:startsAsleep = 0
+                double radius = 7
+                double3 xformOp:translate = (30, 120, 30)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+        }
+    }
+
+    def "Cameras"
+    {
+        def Camera "MainCamera"
+        {
+            float focalLength = 35
+            float3 xformOp:rotateXYZ = (-20, 25, 0)
+            double3 xformOp:translate = (120, 160, 240)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ"]
+        }
+    }
+}
+
