@@ -10,10 +10,16 @@ import json
 import os
 import shutil
 import sys
+import traceback
 from typing import Dict, List, Tuple
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 WORKSPACE_DIR = os.path.dirname(CURRENT_DIR)
+if CURRENT_DIR not in sys.path:
+    sys.path.insert(0, CURRENT_DIR)
+if WORKSPACE_DIR not in sys.path:
+    sys.path.insert(0, WORKSPACE_DIR)
+
 try:
     from generate_synthetic_dataset_standalone import generate_synthetic_dataset
 except ImportError:
@@ -84,10 +90,10 @@ def export_yolo_format(sdg_dir: str, output_dir: str, split_ratio: float = 0.8) 
                 cls_id = CLASS_MAPPING.get(cls_name, 0)
                 box = ann["box2d"]  # [xmin, ymin, xmax, ymax]
 
-                bx = (box[0] + box[2]) / 2.0 / img_w
-                by = (box[1] + box[3]) / 2.0 / img_h
-                bw = (box[2] - box[0]) / img_w
-                bh = (box[3] - box[1]) / img_h
+                bx = max(0.0, min(1.0, (box[0] + box[2]) / 2.0 / img_w))
+                by = max(0.0, min(1.0, (box[1] + box[3]) / 2.0 / img_h))
+                bw = max(0.001, min(1.0, (box[2] - box[0]) / img_w))
+                bh = max(0.001, min(1.0, (box[3] - box[1]) / img_h))
 
                 lf.write(f"{cls_id} {bx:.6f} {by:.6f} {bw:.6f} {bh:.6f}\n")
 
@@ -156,8 +162,8 @@ def export_coco_format(sdg_dir: str, output_dir: str) -> str:
             cls_name = ann.get("class", "cube").lower()
             cls_id = CLASS_MAPPING.get(cls_name, 0)
             box = ann["box2d"]  # [xmin, ymin, xmax, ymax]
-            w = box[2] - box[0]
-            h = box[3] - box[1]
+            w = max(1, box[2] - box[0])
+            h = max(1, box[3] - box[1])
 
             coco_data["annotations"].append({
                 "id": ann_id,
@@ -179,7 +185,6 @@ def export_coco_format(sdg_dir: str, output_dir: str) -> str:
 
 
 if __name__ == "__main__":
-    import traceback
     try:
         parser = argparse.ArgumentParser(description="Export SDG synthetic dataset to YOLO/COCO.")
         parser.add_argument("--format", "-f", choices=["yolo", "coco", "all"], default="all", help="Target format")
