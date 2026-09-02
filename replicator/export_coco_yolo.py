@@ -29,11 +29,19 @@ CLASS_MAPPING = {
 }
 
 
-def export_yolo_format(sdg_dir: str, output_dir: str, split_ratio: float = 0.8) -> str:
-    """Exports SDG frames into YOLOv8 dataset format with data.yaml."""
+def ensure_sdg_dataset(sdg_dir: str):
+    """Ensures synthetic dataset annotations exist before export."""
     ann_file = os.path.join(sdg_dir, "dataset_annotations.json")
     if not os.path.exists(ann_file):
-        raise FileNotFoundError(f"Annotations not found at {ann_file}. Run SDG generator first.")
+        print(f"[*] Annotations not found at {ann_file}. Automatically generating synthetic frames...")
+        from generate_synthetic_dataset_standalone import generate_synthetic_dataset
+        generate_synthetic_dataset(output_dir=sdg_dir, num_frames=5)
+
+
+def export_yolo_format(sdg_dir: str, output_dir: str, split_ratio: float = 0.8) -> str:
+    """Exports SDG frames into YOLOv8 dataset format with data.yaml."""
+    ensure_sdg_dataset(sdg_dir)
+    ann_file = os.path.join(sdg_dir, "dataset_annotations.json")
 
     with open(ann_file, "r") as f:
         data = json.load(f)
@@ -105,9 +113,8 @@ names:
 
 def export_coco_format(sdg_dir: str, output_dir: str) -> str:
     """Exports SDG frames into COCO format with instances_train.json."""
+    ensure_sdg_dataset(sdg_dir)
     ann_file = os.path.join(sdg_dir, "dataset_annotations.json")
-    if not os.path.exists(ann_file):
-        raise FileNotFoundError(f"Annotations not found at {ann_file}")
 
     with open(ann_file, "r") as f:
         data = json.load(f)
