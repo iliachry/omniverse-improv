@@ -113,12 +113,21 @@ function initThree() {
 // -------------------------------------------------------------
 async function fetchStageList() {
   try {
-    const res = await fetch("/api/stages");
-    const stages = await res.json();
+    let stages = null;
+    try {
+      const staticRes = await fetch("api/stages.json");
+      if (staticRes.ok) stages = await staticRes.json();
+    } catch (e) {}
+
+    if (!stages) {
+      const res = await fetch("/api/stages");
+      stages = await res.json();
+    }
+
     const select = document.getElementById("stage-select");
     select.innerHTML = "";
 
-    if (stages.length === 0) {
+    if (!stages || stages.length === 0) {
       select.innerHTML = `<option value="">No USD stages found</option>`;
       return;
     }
@@ -148,17 +157,29 @@ async function loadStage(stagePath) {
   stopPhysicsSimulation();
 
   try {
-    const res = await fetch(`/api/stage?path=${encodeURIComponent(stagePath)}`);
-    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
-    stageData = await res.json();
+    let loadedData = null;
+    try {
+      const staticRes = await fetch("api/stage_data.json");
+      if (staticRes.ok) {
+        const allData = await staticRes.json();
+        loadedData = allData[stagePath] || Object.values(allData)[0];
+      }
+    } catch (e) {}
 
+    if (!loadedData) {
+      const res = await fetch(`/api/stage?path=${encodeURIComponent(stagePath)}`);
+      if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+      loadedData = await res.json();
+    }
+
+    stageData = loadedData;
     buildScene(stageData);
     buildOutlinerTree(stageData.hierarchy);
     setupCameraOptions(stageData.cameras);
     updateBadges(stageData.metadata);
 
     // Setup Physics if stage contains rigid bodies
-    if (stageData.metadata.rigidBodyCount > 0) {
+    if (stageData.metadata && stageData.metadata.rigidBodyCount > 0) {
       document.getElementById("physics-toolbar").classList.remove("hidden");
       setupPhysicsWorld(stageData);
     } else {
@@ -964,7 +985,10 @@ async function initSdgDashboard() {
 
 async function loadSdgDataset() {
   try {
-    const res = await fetch("/api/sdg");
+    let res = await fetch("api/sdg.json").catch(() => null);
+    if (!res || !res.ok) {
+      res = await fetch("/api/sdg");
+    }
     sdgData = await res.json();
     const frameList = document.getElementById("sdg-frame-list");
     frameList.innerHTML = "";
@@ -980,7 +1004,7 @@ async function loadSdgDataset() {
       const item = document.createElement("div");
       item.className = `sdg-frame-item ${idx === 0 ? 'active' : ''}`;
       item.innerHTML = `
-        <img class="sdg-thumb" src="/sdg_media/${frame.rgbImage}" alt="Frame ${idx}" />
+        <img class="sdg-thumb" src="sdg_media/${frame.rgbImage}" alt="Frame ${idx}" />
         <div class="sdg-frame-info">
           <span class="sdg-frame-name">Frame #${frame.frameIndex.toString().padStart(4, '0')}</span>
           <span class="sdg-frame-count">${frame.objectsCount} Objects Annotated</span>
@@ -1028,8 +1052,8 @@ async function renderCurrentSdgFrame() {
   const segOpacity = parseFloat(document.getElementById("sdg-seg-opacity").value) / 100.0;
 
   // Load RGB & Seg images
-  const rgbImg = await loadImage(`/sdg_media/${frame.rgbImage}`);
-  const segImg = await loadImage(`/sdg_media/${frame.segmentationMask}`);
+  const rgbImg = await loadImage(`sdg_media/${frame.rgbImage}`);
+  const segImg = await loadImage(`sdg_media/${frame.segmentationMask}`);
 
   canvas.width = rgbImg.width;
   canvas.height = rgbImg.height;

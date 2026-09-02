@@ -32,7 +32,7 @@ def build_static_demo():
         shutil.rmtree(DOCS_DIR)
     os.makedirs(DOCS_DIR, exist_ok=True)
 
-    # 1. Copy static web assets
+    # 1. Copy static web assets directly (clean, uncorrupted)
     for item in os.listdir(STATIC_SRC):
         s = os.path.join(STATIC_SRC, item)
         d = os.path.join(DOCS_DIR, item)
@@ -77,26 +77,6 @@ def build_static_demo():
         ann_src = os.path.join(SDG_SRC, "dataset_annotations.json")
         if os.path.exists(ann_src):
             shutil.copy2(ann_src, os.path.join(api_dir, "sdg.json"))
-
-    # 4. Patch viewer.js in docs to use static JSON endpoints on GitHub Pages
-    docs_viewer_js = os.path.join(DOCS_DIR, "viewer.js")
-    with open(docs_viewer_js, "r", encoding="utf-8") as f:
-        content = f.read()
-
-    # Pre-baked fallback for static hosting
-    patched = content.replace(
-        'const res = await fetch("/api/stages");',
-        'const res = await fetch(window.location.origin.includes("github.io") || window.location.protocol === "file:" ? "api/stages.json" : "/api/stages");'
-    ).replace(
-        'const res = await fetch(`/api/stage?path=${encodeURIComponent(stagePath)}`);',
-        'const res = await fetch(window.location.origin.includes("github.io") || window.location.protocol === "file:" ? "api/stage_data.json" : `/api/stage?path=${encodeURIComponent(stagePath)}`);\n    if (window.location.origin.includes("github.io") || window.location.protocol === "file:") {\n      const allData = await res.json();\n      stageData = allData[stagePath] || Object.values(allData)[0];\n    } else {'
-    ).replace(
-        'const res = await fetch("/api/sdg");',
-        'const res = await fetch(window.location.origin.includes("github.io") || window.location.protocol === "file:" ? "api/sdg.json" : "/api/sdg");'
-    )
-
-    with open(docs_viewer_js, "w", encoding="utf-8") as f:
-        f.write(patched)
 
     print(f"[OK] Static GitHub Pages build complete in: {DOCS_DIR}")
 
