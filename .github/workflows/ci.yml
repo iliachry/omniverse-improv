@@ -35,18 +35,32 @@ jobs:
           pip install -r requirements.txt
           pip install pytest pytest-cov
 
-      - name: Test OpenUSD Scene Generators
-        run: |
-          python usd_generators/generate_physics_playground.py
-          python usd_generators/generate_procedural_scene.py
-          python usd_generators/generate_robotics_arm.py
-          python usd_generators/generate_block_tower.py
-          python usd_generators/generate_warehouse_digital_twin.py
-          python usd_generators/prompt_to_usd.py
-          python robotics/ik_solver.py
-          python replicator/generate_synthetic_dataset_standalone.py
-          python replicator/export_coco_yolo.py
+      - name: Generate Kinetic Physics Playground
+        run: python usd_generators/generate_physics_playground.py
+
+      - name: Generate Procedural Sci-Fi Scene
+        run: python usd_generators/generate_procedural_scene.py
+
+      - name: Generate 6-DOF Robotics Arm
+        run: python usd_generators/generate_robotics_arm.py
+
+      - name: Generate Destructible Block Tower
+        run: python usd_generators/generate_block_tower.py
+
+      - name: Generate Industrial Warehouse Digital Twin
+        run: python usd_generators/generate_warehouse_digital_twin.py
+
+      - name: Generate Prompt-to-USD Stage
+        run: python usd_generators/prompt_to_usd.py
+
+      - name: Run 6-DOF Inverse Kinematics (IK) Solver
+        run: python robotics/ik_solver.py
+
+      - name: Run Synthetic Data Generation (SDG) Pipeline
+        run: python replicator/generate_synthetic_dataset_standalone.py
+
+      - name: Export YOLOv8 & COCO Synthetic Datasets
+        run: python replicator/export_coco_yolo.py
 
       - name: Run Pytest Test Suite
-        run: |
-          pytest tests/ -v
+        run: pytest tests/ -v
