@@ -1,5 +1,11 @@
 [
   {
+    "name": "output_prompt_generated.usda",
+    "relPath": "output_prompt_generated.usda",
+    "fullPath": "D:\\GitLab\\omniverse-improv\\output_prompt_generated.usda",
+    "size": 14360
+  },
+  {
     "name": "output_block_tower.usda",
     "relPath": "usd_generators/output_block_tower.usda",
     "fullPath": "D:\\GitLab\\omniverse-improv\\usd_generators\\output_block_tower.usda",
@@ -21,7 +27,7 @@
     "name": "output_prompt_generated.usda",
     "relPath": "usd_generators/output_prompt_generated.usda",
     "fullPath": "D:\\GitLab\\omniverse-improv\\usd_generators\\output_prompt_generated.usda",
-    "size": 14360
+    "size": 14366
   },
   {
     "name": "output_robotics_arm.usda",
@@ -33,6 +39,6 @@
     "name": "output_warehouse_digital_twin.usda",
     "relPath": "usd_generators/output_warehouse_digital_twin.usda",
     "fullPath": "D:\\GitLab\\omniverse-improv\\usd_generators\\output_warehouse_digital_twin.usda",
-    "size": 36277
+    "size": 36283
   }
 ]

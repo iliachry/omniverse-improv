@@ -49,6 +49,7 @@ def build_warehouse_digital_twin(output_path: str = "output_warehouse_digital_tw
     UsdGeom.Xform.Define(stage, "/World/RackingSystem")
     UsdGeom.Xform.Define(stage, "/World/ConveyorLine")
     UsdGeom.Xform.Define(stage, "/World/MobileFleet")
+    UsdGeom.Xform.Define(stage, "/World/Cameras")
 
     # Physics & Environment Lighting
     setup_physics_scene(stage, "/World/PhysicsScene", gravity_magnitude=981.0)

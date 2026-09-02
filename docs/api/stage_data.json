@@ -1,4 +1,1886 @@
 {
+  "output_prompt_generated.usda": {
+    "filename": "output_prompt_generated.usda",
+    "stagePath": "D:\\GitLab\\omniverse-improv\\output_prompt_generated.usda",
+    "metadata": {
+      "upAxis": "Y",
+      "metersPerUnit": 0.01,
+      "primCount": 26,
+      "materialCount": 4,
+      "lightCount": 2,
+      "cameraCount": 1,
+      "rigidBodyCount": 0,
+      "colliderCount": 1
+    },
+    "hierarchy": {
+      "path": "/",
+      "name": "/",
+      "type": "Xform",
+      "hasRigidBody": false,
+      "hasCollision": false,
+      "children": [
+        {
+          "path": "/World",
+          "name": "World",
+          "type": "Xform",
+          "hasRigidBody": false,
+          "hasCollision": false,
+          "children": [
+            {
+              "path": "/World/Environment",
+              "name": "Environment",
+              "type": "Xform",
+              "hasRigidBody": false,
+              "hasCollision": false,
+              "children": [
+                {
+                  "path": "/World/Environment/DomeLight",
+                  "name": "DomeLight",
+                  "type": "DomeLight",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Environment/KeyLight",
+                  "name": "KeyLight",
+                  "type": "DistantLight",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Environment/GroundPlane",
+                  "name": "GroundPlane",
+                  "type": "Plane",
+                  "hasRigidBody": false,
+                  "hasCollision": true,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "path": "/World/Materials",
+              "name": "Materials",
+              "type": "Xform",
+              "hasRigidBody": false,
+              "hasCollision": false,
+              "children": [
+                {
+                  "path": "/World/Materials/M_Base",
+                  "name": "M_Base",
+                  "type": "Material",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": [
+                    {
+                      "path": "/World/Materials/M_Base/PBRShader",
+                      "name": "PBRShader",
+                      "type": "Shader",
+                      "hasRigidBody": false,
+                      "hasCollision": false,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "path": "/World/Materials/M_Glow",
+                  "name": "M_Glow",
+                  "type": "Material",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": [
+                    {
+                      "path": "/World/Materials/M_Glow/PBRShader",
+                      "name": "PBRShader",
+                      "type": "Shader",
+                      "hasRigidBody": false,
+                      "hasCollision": false,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "path": "/World/Materials/M_Accent",
+                  "name": "M_Accent",
+                  "type": "Material",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": [
+                    {
+                      "path": "/World/Materials/M_Accent/PBRShader",
+                      "name": "PBRShader",
+                      "type": "Shader",
+                      "hasRigidBody": false,
+                      "hasCollision": false,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "path": "/World/Materials/M_Ground",
+                  "name": "M_Ground",
+                  "type": "Material",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": [
+                    {
+                      "path": "/World/Materials/M_Ground/PBRShader",
+                      "name": "PBRShader",
+                      "type": "Shader",
+                      "hasRigidBody": false,
+                      "hasCollision": false,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "path": "/World/Architecture",
+              "name": "Architecture",
+              "type": "Xform",
+              "hasRigidBody": false,
+              "hasCollision": false,
+              "children": [
+                {
+                  "path": "/World/Architecture/Pillar_00",
+                  "name": "Pillar_00",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/RingCap_00",
+                  "name": "RingCap_00",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/Pillar_01",
+                  "name": "Pillar_01",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/RingCap_01",
+                  "name": "RingCap_01",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/Pillar_02",
+                  "name": "Pillar_02",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/RingCap_02",
+                  "name": "RingCap_02",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/Pillar_03",
+                  "name": "Pillar_03",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/RingCap_03",
+                  "name": "RingCap_03",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/Pillar_04",
+                  "name": "Pillar_04",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/RingCap_04",
+                  "name": "RingCap_04",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/Pillar_05",
+                  "name": "Pillar_05",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/RingCap_05",
+                  "name": "RingCap_05",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/Pillar_06",
+                  "name": "Pillar_06",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/RingCap_06",
+                  "name": "RingCap_06",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/Pillar_07",
+                  "name": "Pillar_07",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/RingCap_07",
+                  "name": "RingCap_07",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/Pillar_08",
+                  "name": "Pillar_08",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/RingCap_08",
+                  "name": "RingCap_08",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/Pillar_09",
+                  "name": "Pillar_09",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/RingCap_09",
+                  "name": "RingCap_09",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/Pillar_10",
+                  "name": "Pillar_10",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/RingCap_10",
+                  "name": "RingCap_10",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/Pillar_11",
+                  "name": "Pillar_11",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/RingCap_11",
+                  "name": "RingCap_11",
+                  "type": "Cylinder",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                },
+                {
+                  "path": "/World/Architecture/CentralCore",
+                  "name": "CentralCore",
+                  "type": "Sphere",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "path": "/World/PhysicsScene",
+              "name": "PhysicsScene",
+              "type": "PhysicsScene",
+              "hasRigidBody": false,
+              "hasCollision": false,
+              "children": []
+            },
+            {
+              "path": "/World/Cameras",
+              "name": "Cameras",
+              "type": "Xform",
+              "hasRigidBody": false,
+              "hasCollision": false,
+              "children": [
+                {
+                  "path": "/World/Cameras/MainCamera",
+                  "name": "MainCamera",
+                  "type": "Camera",
+                  "hasRigidBody": false,
+                  "hasCollision": false,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "materials": {
+      "/World/Materials/M_Base": {
+        "path": "/World/Materials/M_Base",
+        "name": "M_Base",
+        "diffuseColor": [
+          0.07999999821186066,
+          0.07999999821186066,
+          0.11999999731779099
+        ],
+        "emissiveColor": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "roughness": 0.25,
+        "metallic": 0.800000011920929,
+        "opacity": 1.0,
+        "ior": 1.5
+      },
+      "/World/Materials/M_Glow": {
+        "path": "/World/Materials/M_Glow",
+        "name": "M_Glow",
+        "diffuseColor": [
+          1.0,
+          0.8500000238418579,
+          0.0
+        ],
+        "emissiveColor": [
+          1.0,
+          0.8500000238418579,
+          0.0
+        ],
+        "roughness": 0.10000000149011612,
+        "metallic": 0.0,
+        "opacity": 1.0,
+        "ior": 1.5
+      },
+      "/World/Materials/M_Accent": {
+        "path": "/World/Materials/M_Accent",
+        "name": "M_Accent",
+        "diffuseColor": [
+          0.0,
+          0.800000011920929,
+          1.0
+        ],
+        "emissiveColor": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "roughness": 0.20000000298023224,
+        "metallic": 0.4000000059604645,
+        "opacity": 1.0,
+        "ior": 1.5
+      },
+      "/World/Materials/M_Ground": {
+        "path": "/World/Materials/M_Ground",
+        "name": "M_Ground",
+        "diffuseColor": [
+          0.07999999821186066,
+          0.09000000357627869,
+          0.10999999940395355
+        ],
+        "emissiveColor": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "roughness": 0.6000000238418579,
+        "metallic": 0.0,
+        "opacity": 1.0,
+        "ior": 1.5
+      }
+    },
+    "lights": [
+      {
+        "path": "/World/Environment/DomeLight",
+        "name": "DomeLight",
+        "type": "DomeLight",
+        "color": [
+          0.8500000238418579,
+          0.8999999761581421,
+          1.0
+        ],
+        "intensity": 600.0,
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      {
+        "path": "/World/Environment/KeyLight",
+        "name": "KeyLight",
+        "type": "DistantLight",
+        "color": [
+          1.0,
+          0.9599999785423279,
+          0.8999999761581421
+        ],
+        "intensity": 3500.0,
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation": [
+          -50.67731009035999,
+          23.927464720758913,
+          26.3410010685859
+        ],
+        "matrix": [
+          0.8191520442889918,
+          -0.40557978767263886,
+          0.4055797876726388,
+          0.0,
+          0.0,
+          0.7071067811865475,
+          0.7071067811865476,
+          0.0,
+          -0.573576436351046,
+          -0.5792279653395692,
+          0.5792279653395691,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    ],
+    "cameras": [
+      {
+        "path": "/World/Cameras/MainCamera",
+        "name": "MainCamera",
+        "focalLength": 35.0,
+        "fov": 24.644271351547395,
+        "position": [
+          0.0,
+          160.0,
+          360.0
+        ],
+        "rotation": [
+          -17.999999999999968,
+          0.0,
+          -0.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.9510565162951535,
+          0.30901699437494745,
+          160.0,
+          0.0,
+          -0.30901699437494745,
+          0.9510565162951535,
+          360.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    ],
+    "prims": [
+      {
+        "path": "/World/Environment/GroundPlane",
+        "name": "GroundPlane",
+        "type": "Plane",
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Ground",
+        "geomProps": {
+          "width": 3000.0,
+          "length": 3000.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": true,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/Pillar_00",
+        "name": "Pillar_00",
+        "type": "Cylinder",
+        "position": [
+          160.0,
+          40.0,
+          0.0
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          160.0,
+          0.0,
+          1.0,
+          0.0,
+          40.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Base",
+        "geomProps": {
+          "radius": 8.0,
+          "height": 80.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/RingCap_00",
+        "name": "RingCap_00",
+        "type": "Cylinder",
+        "position": [
+          160.0,
+          82.0,
+          0.0
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          160.0,
+          0.0,
+          1.0,
+          0.0,
+          82.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Glow",
+        "geomProps": {
+          "radius": 9.0,
+          "height": 4.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/Pillar_01",
+        "name": "Pillar_01",
+        "type": "Cylinder",
+        "position": [
+          138.5640646055102,
+          40.0,
+          79.99999999999999
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          138.5640646055102,
+          0.0,
+          1.0,
+          0.0,
+          40.0,
+          0.0,
+          0.0,
+          1.0,
+          79.99999999999999,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Base",
+        "geomProps": {
+          "radius": 8.0,
+          "height": 80.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/RingCap_01",
+        "name": "RingCap_01",
+        "type": "Cylinder",
+        "position": [
+          138.5640646055102,
+          82.0,
+          79.99999999999999
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          138.5640646055102,
+          0.0,
+          1.0,
+          0.0,
+          82.0,
+          0.0,
+          0.0,
+          1.0,
+          79.99999999999999,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Glow",
+        "geomProps": {
+          "radius": 9.0,
+          "height": 4.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/Pillar_02",
+        "name": "Pillar_02",
+        "type": "Cylinder",
+        "position": [
+          80.00000000000001,
+          40.0,
+          138.56406460551017
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          80.00000000000001,
+          0.0,
+          1.0,
+          0.0,
+          40.0,
+          0.0,
+          0.0,
+          1.0,
+          138.56406460551017,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Base",
+        "geomProps": {
+          "radius": 8.0,
+          "height": 80.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/RingCap_02",
+        "name": "RingCap_02",
+        "type": "Cylinder",
+        "position": [
+          80.00000000000001,
+          82.0,
+          138.56406460551017
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          80.00000000000001,
+          0.0,
+          1.0,
+          0.0,
+          82.0,
+          0.0,
+          0.0,
+          1.0,
+          138.56406460551017,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Glow",
+        "geomProps": {
+          "radius": 9.0,
+          "height": 4.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/Pillar_03",
+        "name": "Pillar_03",
+        "type": "Cylinder",
+        "position": [
+          9.797174393178826e-15,
+          40.0,
+          160.0
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          9.797174393178826e-15,
+          0.0,
+          1.0,
+          0.0,
+          40.0,
+          0.0,
+          0.0,
+          1.0,
+          160.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Base",
+        "geomProps": {
+          "radius": 8.0,
+          "height": 80.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/RingCap_03",
+        "name": "RingCap_03",
+        "type": "Cylinder",
+        "position": [
+          9.797174393178826e-15,
+          82.0,
+          160.0
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          9.797174393178826e-15,
+          0.0,
+          1.0,
+          0.0,
+          82.0,
+          0.0,
+          0.0,
+          1.0,
+          160.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Glow",
+        "geomProps": {
+          "radius": 9.0,
+          "height": 4.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/Pillar_04",
+        "name": "Pillar_04",
+        "type": "Cylinder",
+        "position": [
+          -79.99999999999997,
+          40.0,
+          138.5640646055102
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -79.99999999999997,
+          0.0,
+          1.0,
+          0.0,
+          40.0,
+          0.0,
+          0.0,
+          1.0,
+          138.5640646055102,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Base",
+        "geomProps": {
+          "radius": 8.0,
+          "height": 80.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/RingCap_04",
+        "name": "RingCap_04",
+        "type": "Cylinder",
+        "position": [
+          -79.99999999999997,
+          82.0,
+          138.5640646055102
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -79.99999999999997,
+          0.0,
+          1.0,
+          0.0,
+          82.0,
+          0.0,
+          0.0,
+          1.0,
+          138.5640646055102,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Glow",
+        "geomProps": {
+          "radius": 9.0,
+          "height": 4.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/Pillar_05",
+        "name": "Pillar_05",
+        "type": "Cylinder",
+        "position": [
+          -138.5640646055102,
+          40.0,
+          79.99999999999999
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -138.5640646055102,
+          0.0,
+          1.0,
+          0.0,
+          40.0,
+          0.0,
+          0.0,
+          1.0,
+          79.99999999999999,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Base",
+        "geomProps": {
+          "radius": 8.0,
+          "height": 80.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/RingCap_05",
+        "name": "RingCap_05",
+        "type": "Cylinder",
+        "position": [
+          -138.5640646055102,
+          82.0,
+          79.99999999999999
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -138.5640646055102,
+          0.0,
+          1.0,
+          0.0,
+          82.0,
+          0.0,
+          0.0,
+          1.0,
+          79.99999999999999,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Glow",
+        "geomProps": {
+          "radius": 9.0,
+          "height": 4.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/Pillar_06",
+        "name": "Pillar_06",
+        "type": "Cylinder",
+        "position": [
+          -160.0,
+          40.0,
+          1.9594348786357652e-14
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -160.0,
+          0.0,
+          1.0,
+          0.0,
+          40.0,
+          0.0,
+          0.0,
+          1.0,
+          1.9594348786357652e-14,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Base",
+        "geomProps": {
+          "radius": 8.0,
+          "height": 80.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/RingCap_06",
+        "name": "RingCap_06",
+        "type": "Cylinder",
+        "position": [
+          -160.0,
+          82.0,
+          1.9594348786357652e-14
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -160.0,
+          0.0,
+          1.0,
+          0.0,
+          82.0,
+          0.0,
+          0.0,
+          1.0,
+          1.9594348786357652e-14,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Glow",
+        "geomProps": {
+          "radius": 9.0,
+          "height": 4.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/Pillar_07",
+        "name": "Pillar_07",
+        "type": "Cylinder",
+        "position": [
+          -138.56406460551023,
+          40.0,
+          -79.99999999999996
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -138.56406460551023,
+          0.0,
+          1.0,
+          0.0,
+          40.0,
+          0.0,
+          0.0,
+          1.0,
+          -79.99999999999996,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Base",
+        "geomProps": {
+          "radius": 8.0,
+          "height": 80.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/RingCap_07",
+        "name": "RingCap_07",
+        "type": "Cylinder",
+        "position": [
+          -138.56406460551023,
+          82.0,
+          -79.99999999999996
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -138.56406460551023,
+          0.0,
+          1.0,
+          0.0,
+          82.0,
+          0.0,
+          0.0,
+          1.0,
+          -79.99999999999996,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Glow",
+        "geomProps": {
+          "radius": 9.0,
+          "height": 4.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/Pillar_08",
+        "name": "Pillar_08",
+        "type": "Cylinder",
+        "position": [
+          -80.00000000000007,
+          40.0,
+          -138.56406460551017
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -80.00000000000007,
+          0.0,
+          1.0,
+          0.0,
+          40.0,
+          0.0,
+          0.0,
+          1.0,
+          -138.56406460551017,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Base",
+        "geomProps": {
+          "radius": 8.0,
+          "height": 80.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/RingCap_08",
+        "name": "RingCap_08",
+        "type": "Cylinder",
+        "position": [
+          -80.00000000000007,
+          82.0,
+          -138.56406460551017
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -80.00000000000007,
+          0.0,
+          1.0,
+          0.0,
+          82.0,
+          0.0,
+          0.0,
+          1.0,
+          -138.56406460551017,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Glow",
+        "geomProps": {
+          "radius": 9.0,
+          "height": 4.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/Pillar_09",
+        "name": "Pillar_09",
+        "type": "Cylinder",
+        "position": [
+          -2.9391523179536473e-14,
+          40.0,
+          -160.0
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -2.9391523179536473e-14,
+          0.0,
+          1.0,
+          0.0,
+          40.0,
+          0.0,
+          0.0,
+          1.0,
+          -160.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Base",
+        "geomProps": {
+          "radius": 8.0,
+          "height": 80.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/RingCap_09",
+        "name": "RingCap_09",
+        "type": "Cylinder",
+        "position": [
+          -2.9391523179536473e-14,
+          82.0,
+          -160.0
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -2.9391523179536473e-14,
+          0.0,
+          1.0,
+          0.0,
+          82.0,
+          0.0,
+          0.0,
+          1.0,
+          -160.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Glow",
+        "geomProps": {
+          "radius": 9.0,
+          "height": 4.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/Pillar_10",
+        "name": "Pillar_10",
+        "type": "Cylinder",
+        "position": [
+          80.00000000000001,
+          40.0,
+          -138.56406460551017
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          80.00000000000001,
+          0.0,
+          1.0,
+          0.0,
+          40.0,
+          0.0,
+          0.0,
+          1.0,
+          -138.56406460551017,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Base",
+        "geomProps": {
+          "radius": 8.0,
+          "height": 80.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/RingCap_10",
+        "name": "RingCap_10",
+        "type": "Cylinder",
+        "position": [
+          80.00000000000001,
+          82.0,
+          -138.56406460551017
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          80.00000000000001,
+          0.0,
+          1.0,
+          0.0,
+          82.0,
+          0.0,
+          0.0,
+          1.0,
+          -138.56406460551017,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Glow",
+        "geomProps": {
+          "radius": 9.0,
+          "height": 4.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/Pillar_11",
+        "name": "Pillar_11",
+        "type": "Cylinder",
+        "position": [
+          138.56406460551014,
+          40.0,
+          -80.00000000000007
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          138.56406460551014,
+          0.0,
+          1.0,
+          0.0,
+          40.0,
+          0.0,
+          0.0,
+          1.0,
+          -80.00000000000007,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Base",
+        "geomProps": {
+          "radius": 8.0,
+          "height": 80.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/RingCap_11",
+        "name": "RingCap_11",
+        "type": "Cylinder",
+        "position": [
+          138.56406460551014,
+          82.0,
+          -80.00000000000007
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          138.56406460551014,
+          0.0,
+          1.0,
+          0.0,
+          82.0,
+          0.0,
+          0.0,
+          1.0,
+          -80.00000000000007,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Glow",
+        "geomProps": {
+          "radius": 9.0,
+          "height": 4.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      },
+      {
+        "path": "/World/Architecture/CentralCore",
+        "name": "CentralCore",
+        "type": "Sphere",
+        "position": [
+          0.0,
+          75.0,
+          0.0
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          75.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/M_Glow",
+        "geomProps": {
+          "radius": 22.0
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        }
+      }
+    ]
+  },
   "usd_generators/output_block_tower.usda": {
     "filename": "output_block_tower.usda",
     "stagePath": "D:\\GitLab\\omniverse-improv\\usd_generators\\output_block_tower.usda",
@@ -8214,14 +10096,6 @@
               ]
             },
             {
-              "path": "/World/PhysicsScene",
-              "name": "PhysicsScene",
-              "type": "PhysicsScene",
-              "hasRigidBody": false,
-              "hasCollision": false,
-              "children": []
-            },
-            {
               "path": "/World/Cameras",
               "name": "Cameras",
               "type": "Xform",
@@ -8237,6 +10111,14 @@
                   "children": []
                 }
               ]
+            },
+            {
+              "path": "/World/PhysicsScene",
+              "name": "PhysicsScene",
+              "type": "PhysicsScene",
+              "hasRigidBody": false,
+              "hasCollision": false,
+              "children": []
             }
           ]
         }
@@ -11603,14 +13485,6 @@
               ]
             },
             {
-              "path": "/World/PhysicsScene",
-              "name": "PhysicsScene",
-              "type": "PhysicsScene",
-              "hasRigidBody": false,
-              "hasCollision": false,
-              "children": []
-            },
-            {
               "path": "/World/Cameras",
               "name": "Cameras",
               "type": "Xform",
@@ -11626,6 +13500,14 @@
                   "children": []
                 }
               ]
+            },
+            {
+              "path": "/World/PhysicsScene",
+              "name": "PhysicsScene",
+              "type": "PhysicsScene",
+              "hasRigidBody": false,
+              "hasCollision": false,
+              "children": []
             }
           ]
         }

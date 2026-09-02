@@ -7,7 +7,9 @@
 
 ## 🚨 Cardinal Rule: CI/CD Pipelines Must Never Fail
 
-Before completing any task, submitting code, or pushing commits to `main`, every AI agent **MUST** run and pass the full local validation protocol. **No exceptions.**
+1. **Local Pre-Verification**: Before pushing, every AI agent **MUST** run and pass the full local validation protocol (unit tests, USD generators, robotics solvers, and static bundle build).
+2. **Push & Monitor**: The agent **MUST** push commits to `origin main` and monitor GitHub Actions CI runs via the GitHub API to guarantee that remote CI runners on all platforms (`ubuntu-latest`, `windows-latest`) report **SUCCESS** (`conclusion: "success"`).
+3. **Zero Tolerance for Failures**: If any CI pipeline fails remotely, the agent must immediately inspect run logs, fix the failure, re-verify locally, push again, and confirm green status before declaring the task complete.
 
 ---
 
@@ -38,6 +40,10 @@ python usd_generators/export_usdz.py --input usd_generators/output_physics_playg
 # 5. Rebuild the static GitHub Pages bundle and validate JavaScript syntax
 python usd_viewer/export_static_demo.py
 node -c docs/viewer.js
+
+# 6. Push and Verify Remote GitHub Actions CI Run Status
+git push origin main
+# Query GitHub Actions API to confirm conclusion is "success"
 ```
 
 ---

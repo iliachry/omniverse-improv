@@ -103,6 +103,7 @@ def generate_usd_from_prompt(prompt: str, output_path: str = "output_prompt_gene
     UsdGeom.Xform.Define(stage, "/World/Environment")
     UsdGeom.Xform.Define(stage, "/World/Materials")
     UsdGeom.Xform.Define(stage, "/World/Architecture")
+    UsdGeom.Xform.Define(stage, "/World/Cameras")
 
     # Physics & Lighting
     setup_physics_scene(stage, "/World/PhysicsScene", gravity_magnitude=981.0)
@@ -213,9 +214,10 @@ def generate_usd_from_prompt(prompt: str, output_path: str = "output_prompt_gene
 
 
 if __name__ == "__main__":
+    default_out = os.path.join(CURRENT_DIR, "output_prompt_generated.usda")
     parser = argparse.ArgumentParser(description="Prompt-to-USD Procedural Scene Generator.")
     parser.add_argument("--prompt", "-p", type=str, default="Cyberpunk neon arena with 12 pillars and floating ruby crystal core", help="Scene text description")
-    parser.add_argument("--output", "-o", type=str, default="output_prompt_generated.usda", help="Output .usda path")
+    parser.add_argument("--output", "-o", type=str, default=default_out, help="Output .usda path")
     args = parser.parse_args()
 
     generate_usd_from_prompt(args.prompt, args.output)

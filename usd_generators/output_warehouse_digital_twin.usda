@@ -943,13 +943,7 @@ def Xform "World"
         }
     }
 
-    def PhysicsScene "PhysicsScene"
-    {
-        vector3f physics:gravityDirection = (0, -1, 0)
-        float physics:gravityMagnitude = 981
-    }
-
-    def "Cameras"
+    def Xform "Cameras"
     {
         def Camera "MainCamera"
         {
@@ -958,6 +952,12 @@ def Xform "World"
             double3 xformOp:translate = (280, 220, 290)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ"]
         }
+    }
+
+    def PhysicsScene "PhysicsScene"
+    {
+        vector3f physics:gravityDirection = (0, -1, 0)
+        float physics:gravityMagnitude = 981
     }
 }
 
