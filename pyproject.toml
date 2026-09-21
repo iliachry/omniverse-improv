@@ -18,5 +18,6 @@ where = ["exts/omni.improv.starter", "usd_generators", "replicator", "robotics"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
 norecursedirs = ["kit-app-template", ".venv", "build", "dist", ".git"]
 addopts = "-v"

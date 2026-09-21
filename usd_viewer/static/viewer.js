@@ -47,6 +47,11 @@ let isXRayMode = false;
 let solarHour = 12.0;
 let dirSunLight = null;
 
+// CesiumJS Globe State
+let cesiumViewer = null;
+let isCesiumMode = false;
+let cesiumFacilityEntities = [];
+
 // Initialize on DOM ready
 document.addEventListener("DOMContentLoaded", () => {
   initThree();
@@ -1180,6 +1185,151 @@ function applyBimFilters() {
   });
 }
 
+// -------------------------------------------------------------
+// 8c. Live CesiumJS 3D Earth Globe Engine
+// -------------------------------------------------------------
+function initCesiumViewer() {
+  if (cesiumViewer || typeof Cesium === "undefined") return;
+
+  // Zero-key open configuration
+  Cesium.Ion.defaultAccessToken = "";
+
+  try {
+    cesiumViewer = new Cesium.Viewer("cesium-container", {
+      baseLayer: new Cesium.ImageryLayer(
+        new Cesium.OpenStreetMapImageryProvider({
+          url: "https://tile.openstreetmap.org/"
+        })
+      ),
+      baseLayerPicker: false,
+      geocoder: false,
+      homeButton: false,
+      infoBox: true,
+      selectionIndicator: true,
+      timeline: false,
+      animation: false,
+      navigationHelpButton: false,
+      sceneModePicker: false
+    });
+
+    // Entity selection listener in Cesium
+    cesiumViewer.screenSpaceEventHandler.setInputAction((movement) => {
+      const picked = cesiumViewer.scene.pick(movement.position);
+      if (Cesium.defined(picked) && picked.id && picked.id._bimPath) {
+        selectPrim(picked.id._bimPath);
+      }
+    }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+  } catch (err) {
+    console.error("CesiumJS initialization error:", err);
+  }
+}
+
+function switchViewMode(mode) {
+  const isCesium = (mode === "cesium");
+  isCesiumMode = isCesium;
+
+  const btnThree = document.getElementById("btn-mode-three");
+  const btnCesium = document.getElementById("btn-mode-cesium");
+  const btnFly = document.getElementById("btn-cesium-flyto");
+  const canvas = document.getElementById("webgl-canvas");
+  const cesiumContainer = document.getElementById("cesium-container");
+
+  if (btnThree) btnThree.classList.toggle("active", !isCesium);
+  if (btnCesium) btnCesium.classList.toggle("active", isCesium);
+  if (btnFly) btnFly.classList.toggle("hidden", !isCesium);
+
+  if (isCesium) {
+    if (canvas) canvas.style.display = "none";
+    if (cesiumContainer) cesiumContainer.classList.remove("hidden");
+    initCesiumViewer();
+    populateCesiumBimFacility();
+    flyCesiumToSite();
+  } else {
+    if (canvas) canvas.style.display = "block";
+    if (cesiumContainer) cesiumContainer.classList.add("hidden");
+  }
+}
+
+function populateCesiumBimFacility() {
+  if (!cesiumViewer || typeof Cesium === "undefined" || !stageData) return;
+
+  cesiumFacilityEntities.forEach(ent => cesiumViewer.entities.remove(ent));
+  cesiumFacilityEntities = [];
+
+  const lat = (stageData.cesium && stageData.cesium.latitude) ? stageData.cesium.latitude : 37.9753;
+  const lon = (stageData.cesium && stageData.cesium.longitude) ? stageData.cesium.longitude : 23.7361;
+  const alt = (stageData.cesium && stageData.cesium.height) ? stageData.cesium.height : 120.0;
+
+  // Pin & Label
+  const pin = cesiumViewer.entities.add({
+    name: "Smart Tech Campus Facility",
+    position: Cesium.Cartesian3.fromDegrees(lon, lat, alt + 35.0),
+    label: {
+      text: `🏛️ BIM Smart Campus\n(${lat.toFixed(4)}° N, ${lon.toFixed(4)}° E)`,
+      font: "bold 13px Inter, sans-serif",
+      fillColor: Cesium.Color.WHITE,
+      outlineColor: Cesium.Color.BLACK,
+      outlineWidth: 3,
+      style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+      pixelOffset: new Cesium.Cartesian2(0, -20),
+      distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0.0, 100000.0)
+    }
+  });
+  cesiumFacilityEntities.push(pin);
+
+  // 3D Storeys Extruded Volumes (Ground, Lab, Offices, Rooftop)
+  const storeys = [
+    { name: "Ground Floor (Public Atrium & Foundation)", h0: 0.0, h1: 4.0, color: "#38bdf8", path: "/World/BIM_Facility/Storey_00_Ground" },
+    { name: "Storey 1 (High-Tech Cleanroom & Server Cluster)", h0: 4.0, h1: 7.8, color: "#c084fc", path: "/World/BIM_Facility/Storey_01_Lab" },
+    { name: "Storey 2 (Executive Collaboration & Offices)", h0: 7.8, h1: 11.6, color: "#facc15", path: "/World/BIM_Facility/Storey_02_Offices" },
+    { name: "Storey 3 (Rooftop Penthouse & PV Array)", h0: 11.6, h1: 15.5, color: "#4ade80", path: "/World/BIM_Facility/Storey_03_Rooftop" },
+  ];
+
+  // Footprint: 32m x 24m
+  const dLat = 12.0 / 111320.0;
+  const dLon = 16.0 / (111320.0 * Math.max(0.1, Math.cos(lat * Math.PI / 180.0)));
+
+  storeys.forEach(st => {
+    const ent = cesiumViewer.entities.add({
+      name: st.name,
+      polygon: {
+        hierarchy: Cesium.Cartesian3.fromDegreesArray([
+          lon - dLon, lat - dLat,
+          lon + dLon, lat - dLat,
+          lon + dLon, lat + dLat,
+          lon - dLon, lat + dLat
+        ]),
+        height: alt + st.h0,
+        extrudedHeight: alt + st.h1,
+        material: Cesium.Color.fromCssColorString(st.color).withAlpha(0.6),
+        outline: true,
+        outlineColor: Cesium.Color.WHITE
+      }
+    });
+    ent._bimPath = st.path;
+    cesiumFacilityEntities.push(ent);
+  });
+}
+
+function flyCesiumToSite() {
+  if (!cesiumViewer || typeof Cesium === "undefined") return;
+
+  const lat = (stageData && stageData.cesium && stageData.cesium.latitude) ? stageData.cesium.latitude : 37.9753;
+  const lon = (stageData && stageData.cesium && stageData.cesium.longitude) ? stageData.cesium.longitude : 23.7361;
+  const alt = (stageData && stageData.cesium && stageData.cesium.height) ? stageData.cesium.height : 120.0;
+
+  cesiumViewer.camera.flyTo({
+    destination: Cesium.Cartesian3.fromDegrees(lon, lat - 0.0035, alt + 380.0),
+    orientation: {
+      heading: Cesium.Math.toRadians(0.0),
+      pitch: Cesium.Math.toRadians(-38.0),
+      roll: 0.0
+    },
+    duration: 2.0
+  });
+}
+
 async function loadSdgDataset() {
   try {
     let res = await fetch("api/sdg.json").catch(() => null);
@@ -1395,6 +1545,20 @@ function initEventListeners() {
   const solarSlider = document.getElementById("bim-solar-slider");
   if (solarSlider) {
     solarSlider.addEventListener("input", (e) => updateSolarPosition(parseFloat(e.target.value)));
+  }
+
+  // Cesium Mode Switcher Listeners
+  const btnModeThree = document.getElementById("btn-mode-three");
+  if (btnModeThree) {
+    btnModeThree.addEventListener("click", () => switchViewMode("three"));
+  }
+  const btnModeCesium = document.getElementById("btn-mode-cesium");
+  if (btnModeCesium) {
+    btnModeCesium.addEventListener("click", () => switchViewMode("cesium"));
+  }
+  const btnFlyTo = document.getElementById("btn-cesium-flyto");
+  if (btnFlyTo) {
+    btnFlyTo.addEventListener("click", flyCesiumToSite);
   }
 
   window.addEventListener("keydown", (e) => {
