@@ -5,13 +5,13 @@
     "metadata": {
       "upAxis": "Y",
       "metersPerUnit": 0.01,
-      "primCount": 80,
+      "primCount": 85,
       "materialCount": 11,
       "lightCount": 2,
       "cameraCount": 0,
       "rigidBodyCount": 0,
-      "colliderCount": 78,
-      "bimCount": 79,
+      "colliderCount": 83,
+      "bimCount": 84,
       "hasCesium": true
     },
     "cesium": {
@@ -21,7 +21,7 @@
       "binding": "WGS84"
     },
     "bimSummary": {
-      "elementCount": 79,
+      "elementCount": 84,
       "storeys": [
         "Storey_00_Ground",
         "Storey_01_Lab",
@@ -433,6 +433,22 @@
                           "children": []
                         },
                         {
+                          "path": "/World/BIM_Facility/Storey_01_Lab/Architectural/CurtainWall_East",
+                          "name": "CurtainWall_East",
+                          "type": "Cube",
+                          "hasRigidBody": false,
+                          "hasCollision": true,
+                          "children": []
+                        },
+                        {
+                          "path": "/World/BIM_Facility/Storey_01_Lab/Architectural/CurtainWall_West",
+                          "name": "CurtainWall_West",
+                          "type": "Cube",
+                          "hasRigidBody": false,
+                          "hasCollision": true,
+                          "children": []
+                        },
+                        {
                           "path": "/World/BIM_Facility/Storey_01_Lab/Architectural/ServerRow_1",
                           "name": "ServerRow_1",
                           "type": "Cube",
@@ -631,6 +647,30 @@
                         {
                           "path": "/World/BIM_Facility/Storey_02_Offices/Architectural/CurtainWall_SouthRibbon",
                           "name": "CurtainWall_SouthRibbon",
+                          "type": "Cube",
+                          "hasRigidBody": false,
+                          "hasCollision": true,
+                          "children": []
+                        },
+                        {
+                          "path": "/World/BIM_Facility/Storey_02_Offices/Architectural/CurtainWall_NorthRibbon",
+                          "name": "CurtainWall_NorthRibbon",
+                          "type": "Cube",
+                          "hasRigidBody": false,
+                          "hasCollision": true,
+                          "children": []
+                        },
+                        {
+                          "path": "/World/BIM_Facility/Storey_02_Offices/Architectural/CurtainWall_EastRibbon",
+                          "name": "CurtainWall_EastRibbon",
+                          "type": "Cube",
+                          "hasRigidBody": false,
+                          "hasCollision": true,
+                          "children": []
+                        },
+                        {
+                          "path": "/World/BIM_Facility/Storey_02_Offices/Architectural/CurtainWall_WestRibbon",
+                          "name": "CurtainWall_WestRibbon",
                           "type": "Cube",
                           "hasRigidBody": false,
                           "hasCollision": true,
@@ -1136,27 +1176,27 @@
         "path": "/World/Materials/CurtainGlass",
         "name": "CurtainGlass",
         "diffuseColor": [
-          0.8199999928474426,
-          0.9200000166893005,
-          1.0
+          0.20000000298023224,
+          0.44999998807907104,
+          0.6499999761581421
         ],
         "emissiveColor": [
           0.0,
           0.0,
           0.0
         ],
-        "roughness": 0.05000000074505806,
-        "metallic": 0.10000000149011612,
-        "opacity": 0.3499999940395355,
+        "roughness": 0.07999999821186066,
+        "metallic": 0.20000000298023224,
+        "opacity": 0.4000000059604645,
         "ior": 1.5199999809265137
       },
       "/World/Materials/InteriorGlass": {
         "path": "/World/Materials/InteriorGlass",
         "name": "InteriorGlass",
         "diffuseColor": [
-          0.8999999761581421,
-          0.949999988079071,
-          1.0
+          0.25,
+          0.5,
+          0.699999988079071
         ],
         "emissiveColor": [
           0.0,
@@ -1164,8 +1204,8 @@
           0.0
         ],
         "roughness": 0.10000000149011612,
-        "metallic": 0.05000000074505806,
-        "opacity": 0.25,
+        "metallic": 0.10000000149011612,
+        "opacity": 0.30000001192092896,
         "ior": 1.5
       },
       "/World/Materials/Drywall": {
@@ -3543,6 +3583,118 @@
         "cesiumAnchor": null
       },
       {
+        "path": "/World/BIM_Facility/Storey_01_Lab/Architectural/CurtainWall_East",
+        "name": "CurtainWall_East",
+        "type": "Cube",
+        "position": [
+          1600.0,
+          590.0,
+          0.0
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          10.0,
+          355.0,
+          2400.0
+        ],
+        "matrix": [
+          10.0,
+          0.0,
+          0.0,
+          1600.0,
+          0.0,
+          355.0,
+          0.0,
+          590.0,
+          0.0,
+          0.0,
+          2400.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/CurtainGlass",
+        "geomProps": {
+          "size": 1.0
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": true,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        },
+        "bim": {
+          "ifcClass": "IfcCurtainWall",
+          "discipline": "Architectural",
+          "storey": "Storey_01_Lab",
+          "psets": {}
+        },
+        "cesiumAnchor": null
+      },
+      {
+        "path": "/World/BIM_Facility/Storey_01_Lab/Architectural/CurtainWall_West",
+        "name": "CurtainWall_West",
+        "type": "Cube",
+        "position": [
+          -1600.0,
+          590.0,
+          0.0
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          10.0,
+          355.0,
+          2400.0
+        ],
+        "matrix": [
+          10.0,
+          0.0,
+          0.0,
+          -1600.0,
+          0.0,
+          355.0,
+          0.0,
+          590.0,
+          0.0,
+          0.0,
+          2400.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/CurtainGlass",
+        "geomProps": {
+          "size": 1.0
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": true,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        },
+        "bim": {
+          "ifcClass": "IfcCurtainWall",
+          "discipline": "Architectural",
+          "storey": "Storey_01_Lab",
+          "psets": {}
+        },
+        "cesiumAnchor": null
+      },
+      {
         "path": "/World/BIM_Facility/Storey_01_Lab/Architectural/ServerRow_1",
         "name": "ServerRow_1",
         "type": "Cube",
@@ -4740,6 +4892,180 @@
           0.0,
           10.0,
           1200.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/CurtainGlass",
+        "geomProps": {
+          "size": 1.0
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": true,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        },
+        "bim": {
+          "ifcClass": "IfcCurtainWall",
+          "discipline": "Architectural",
+          "storey": "Storey_02_Offices",
+          "psets": {
+            "Pset_Shading:SolarHeatGainCoeff": 0.2800000011920929
+          }
+        },
+        "cesiumAnchor": null
+      },
+      {
+        "path": "/World/BIM_Facility/Storey_02_Offices/Architectural/CurtainWall_NorthRibbon",
+        "name": "CurtainWall_NorthRibbon",
+        "type": "Cube",
+        "position": [
+          0.0,
+          970.0,
+          -1200.0
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          3200.0,
+          355.0,
+          10.0
+        ],
+        "matrix": [
+          3200.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          355.0,
+          0.0,
+          970.0,
+          0.0,
+          0.0,
+          10.0,
+          -1200.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/CurtainGlass",
+        "geomProps": {
+          "size": 1.0
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": true,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        },
+        "bim": {
+          "ifcClass": "IfcCurtainWall",
+          "discipline": "Architectural",
+          "storey": "Storey_02_Offices",
+          "psets": {
+            "Pset_Shading:SolarHeatGainCoeff": 0.2800000011920929
+          }
+        },
+        "cesiumAnchor": null
+      },
+      {
+        "path": "/World/BIM_Facility/Storey_02_Offices/Architectural/CurtainWall_EastRibbon",
+        "name": "CurtainWall_EastRibbon",
+        "type": "Cube",
+        "position": [
+          1600.0,
+          970.0,
+          0.0
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          10.0,
+          355.0,
+          2400.0
+        ],
+        "matrix": [
+          10.0,
+          0.0,
+          0.0,
+          1600.0,
+          0.0,
+          355.0,
+          0.0,
+          970.0,
+          0.0,
+          0.0,
+          2400.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/CurtainGlass",
+        "geomProps": {
+          "size": 1.0
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": true,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        },
+        "bim": {
+          "ifcClass": "IfcCurtainWall",
+          "discipline": "Architectural",
+          "storey": "Storey_02_Offices",
+          "psets": {
+            "Pset_Shading:SolarHeatGainCoeff": 0.2800000011920929
+          }
+        },
+        "cesiumAnchor": null
+      },
+      {
+        "path": "/World/BIM_Facility/Storey_02_Offices/Architectural/CurtainWall_WestRibbon",
+        "name": "CurtainWall_WestRibbon",
+        "type": "Cube",
+        "position": [
+          -1600.0,
+          970.0,
+          0.0
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          10.0,
+          355.0,
+          2400.0
+        ],
+        "matrix": [
+          10.0,
+          0.0,
+          0.0,
+          -1600.0,
+          0.0,
+          355.0,
+          0.0,
+          970.0,
+          0.0,
+          0.0,
+          2400.0,
+          0.0,
           0.0,
           0.0,
           0.0,

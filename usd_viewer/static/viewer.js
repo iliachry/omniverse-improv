@@ -226,8 +226,9 @@ async function loadStage(stagePath) {
       if (bimToolbar) bimToolbar.classList.add("hidden");
     }
 
-    // Auto-frame camera
-    frameScene();
+    // Reset selection and auto-frame full building scene
+    selectPrim(null);
+    frameScene(true);
   } catch (err) {
     console.error("Failed to load stage:", err);
   }
@@ -337,6 +338,7 @@ function buildMaterials(usdMaterials) {
       emissiveIntensity: hasEmissive ? 2.5 : 0.0,
       transparent: mat.opacity < 0.99,
       opacity: mat.opacity,
+      depthWrite: mat.opacity >= 0.99,
       ior: mat.ior || 1.5,
       clearcoat: mat.metallic > 0.5 ? 0.3 : 0.0,
       clearcoatRoughness: 0.1,
@@ -1203,6 +1205,16 @@ function applyBimFilters() {
       }
     }
   });
+
+  if (cesiumFacilityEntities && cesiumFacilityEntities.length > 0) {
+    cesiumFacilityEntities.forEach(ent => {
+      const prim = ent._prim;
+      if (!prim || !prim.bim) return;
+      const matchStorey = (activeStoreyFilter === "ALL") || (prim.bim.storey === activeStoreyFilter);
+      const matchDisc = activeDisciplines[prim.bim.discipline] !== false;
+      ent.show = matchStorey && matchDisc;
+    });
+  }
 }
 
 // -------------------------------------------------------------
@@ -1338,7 +1350,10 @@ function populateCesiumBimFacility() {
       // In local East-North-Up: X = East, Y = North, Z = Up
       const localEnu = new Cesium.Cartesian3(px, pz, py);
       const worldPos = Cesium.Matrix4.multiplyByPoint(enuToFixed, localEnu, new Cesium.Cartesian3());
-      const orientation = Cesium.Transforms.headingPitchRollQuaternion(worldPos, new Cesium.HeadingPitchRoll(0, 0, 0));
+      // True East-North-Up local coordinate orientation (aligns local X with East, Y with North, Z with Up)
+      const enuMatrix = Cesium.Transforms.eastNorthUpToFixedFrame(worldPos);
+      const rotMat3 = Cesium.Matrix4.getMatrix3(enuMatrix, new Cesium.Matrix3());
+      const orientation = Cesium.Quaternion.fromRotationMatrix(rotMat3);
 
       const props = prim.geomProps || {};
       const scale = prim.scale || [1, 1, 1];
@@ -1349,24 +1364,31 @@ function populateCesiumBimFacility() {
       const dimY = Math.max(0.08, baseSize * scale[2]);
       const dimZ = Math.max(0.08, baseSize * scale[1]);
 
-      // Semantic BIM Discipline Coloring
+      // Direct 1-to-1 Material Synchronization with OpenUSD PBR materials
       let matColor = Cesium.Color.fromCssColorString("#94a3b8");
-      if (prim.bim) {
+      const mat = (stageData.materials && prim.materialPath) ? stageData.materials[prim.materialPath] : null;
+      if (mat && mat.diffuseColor) {
+        const r = mat.diffuseColor[0];
+        const g = mat.diffuseColor[1];
+        const b = mat.diffuseColor[2];
+        const a = (mat.opacity !== undefined && mat.opacity < 0.99) ? mat.opacity : 1.0;
+        matColor = new Cesium.Color(r, g, b, a);
+      } else if (prim.bim) {
         if (prim.bim.discipline === "Structural") {
           matColor = Cesium.Color.fromCssColorString("#64748b");
         } else if (prim.bim.discipline === "Architectural") {
           if (prim.name.includes("Glass") || prim.path.includes("Curtain")) {
-            matColor = Cesium.Color.fromCssColorString("#38bdf8").withAlpha(0.4);
+            matColor = Cesium.Color.fromCssColorString("#2074a6").withAlpha(0.40);
           } else {
             matColor = Cesium.Color.fromCssColorString("#cbd5e1");
           }
         } else if (prim.bim.discipline === "MEP") {
           if (prim.name.includes("Solar") || prim.path.includes("Solar")) {
-            matColor = Cesium.Color.fromCssColorString("#0284c7");
+            matColor = Cesium.Color.fromCssColorString("#0a192f");
           } else if (prim.name.includes("Chiller")) {
-            matColor = Cesium.Color.fromCssColorString("#0d9488");
+            matColor = Cesium.Color.fromCssColorString("#525e75");
           } else {
-            matColor = Cesium.Color.fromCssColorString("#f97316");
+            matColor = Cesium.Color.fromCssColorString("#c2410c");
           }
         }
       }
@@ -1375,10 +1397,13 @@ function populateCesiumBimFacility() {
         const cylRadius = ((props.radius || 0.5) * mpu) * scale[0];
         const cylHeight = ((props.height || 2.0) * mpu) * scale[1];
         
-        // Orient horizontal sprinkler and chilled water pipe segments along X
+        // Orient horizontal sprinkler and chilled water pipe segments along East-West (local X)
         const isHorizontal = prim.name.includes("Sprinkler") || prim.name.includes("Water") || prim.path.includes("Pipe");
-        const hpr = isHorizontal ? new Cesium.HeadingPitchRoll(0, Cesium.Math.toRadians(90), 0) : new Cesium.HeadingPitchRoll(0, 0, 0);
-        const cylOrientation = Cesium.Transforms.headingPitchRollQuaternion(worldPos, hpr);
+        let cylOrientation = orientation;
+        if (isHorizontal) {
+          const rotY90 = Cesium.Quaternion.fromAxisAngle(Cesium.Cartesian3.UNIT_Y, Cesium.Math.PI_OVER_TWO);
+          cylOrientation = Cesium.Quaternion.multiply(orientation, rotY90, new Cesium.Quaternion());
+        }
 
         const ent = cesiumViewer.entities.add({
           name: prim.name || prim.path,
@@ -1392,6 +1417,7 @@ function populateCesiumBimFacility() {
           }
         });
         ent._bimPath = prim.path;
+        ent._prim = prim;
         cesiumFacilityEntities.push(ent);
       } else {
         const ent = cesiumViewer.entities.add({
@@ -1404,6 +1430,7 @@ function populateCesiumBimFacility() {
           }
         });
         ent._bimPath = prim.path;
+        ent._prim = prim;
         cesiumFacilityEntities.push(ent);
       }
     });
@@ -1738,14 +1765,28 @@ function applyShadingMode(mode) {
   });
 }
 
-function frameScene() {
-  if (selectedPrimPath && scenePrims.has(selectedPrimPath)) {
+function frameScene(forceAll = false) {
+  if (!forceAll && selectedPrimPath && scenePrims.has(selectedPrimPath)) {
     const mesh = scenePrims.get(selectedPrimPath);
-    controls.target.copy(mesh.position);
-    camera.position.set(mesh.position.x + 80, mesh.position.y + 60, mesh.position.z + 120);
+    const box = new THREE.Box3().setFromObject(mesh);
+    const center = new THREE.Vector3();
+    box.getCenter(center);
+    controls.target.copy(center);
+    const size = new THREE.Vector3();
+    box.getSize(size);
+    const maxDim = Math.max(size.x, size.y, size.z, 20.0);
+    camera.position.set(center.x + maxDim * 1.2, center.y + maxDim * 0.8, center.z + maxDim * 1.4);
+    camera.lookAt(center);
   } else {
     const box = new THREE.Box3();
-    scenePrims.forEach(mesh => box.expandByObject(mesh));
+    scenePrims.forEach((mesh, path) => {
+      // Exclude ground terrain from framing calculations to keep focus tight on building
+      if (path.toLowerCase().includes("terrain") || path.toLowerCase().includes("ground")) return;
+      box.expandByObject(mesh);
+    });
+    if (box.isEmpty()) {
+      scenePrims.forEach(mesh => box.expandByObject(mesh));
+    }
     const center = new THREE.Vector3();
     box.getCenter(center);
     controls.target.copy(center);
@@ -1753,7 +1794,7 @@ function frameScene() {
     const size = new THREE.Vector3();
     box.getSize(size);
     const maxDim = Math.max(size.x, size.y, size.z, 150.0);
-    camera.position.set(center.x + maxDim * 0.95, center.y + maxDim * 0.65, center.z + maxDim * 1.25);
+    camera.position.set(center.x + maxDim * 1.05, center.y + maxDim * 0.70, center.z + maxDim * 1.35);
     camera.lookAt(center);
   }
 }

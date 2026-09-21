@@ -167,8 +167,8 @@ def build_bim_cesium_stage(
     mats = {
         "Concrete": create_pbr_material(stage, "/World/Materials/Concrete", diffuse_color=(0.62, 0.62, 0.65), roughness=0.7, metallic=0.0),
         "StructuralSteel": create_pbr_material(stage, "/World/Materials/StructuralSteel", diffuse_color=(0.18, 0.20, 0.24), roughness=0.35, metallic=0.85),
-        "CurtainGlass": create_pbr_material(stage, "/World/Materials/CurtainGlass", diffuse_color=(0.82, 0.92, 1.0), roughness=0.05, metallic=0.1, opacity=0.35, ior=1.52),
-        "InteriorGlass": create_pbr_material(stage, "/World/Materials/InteriorGlass", diffuse_color=(0.90, 0.95, 1.0), roughness=0.10, metallic=0.05, opacity=0.25, ior=1.5),
+        "CurtainGlass": create_pbr_material(stage, "/World/Materials/CurtainGlass", diffuse_color=(0.20, 0.45, 0.65), roughness=0.08, metallic=0.20, opacity=0.40, ior=1.52),
+        "InteriorGlass": create_pbr_material(stage, "/World/Materials/InteriorGlass", diffuse_color=(0.25, 0.50, 0.70), roughness=0.10, metallic=0.10, opacity=0.30, ior=1.50),
         "Drywall": create_pbr_material(stage, "/World/Materials/Drywall", diffuse_color=(0.92, 0.92, 0.90), roughness=0.85, metallic=0.0),
         "TimberDoor": create_pbr_material(stage, "/World/Materials/TimberDoor", diffuse_color=(0.45, 0.28, 0.16), roughness=0.55, metallic=0.0),
         "HVACGalvanized": create_pbr_material(stage, "/World/Materials/HVACGalvanized", diffuse_color=(0.76, 0.80, 0.82), roughness=0.25, metallic=0.90),
@@ -371,6 +371,18 @@ def build_bim_cesium_stage(
         mat_path="/World/Materials/CurtainGlass",
         ifc_class="IfcCurtainWall", discipline="Architectural", storey=s_id
     )
+    add_cube_element(
+        stage, f"/World/BIM_Facility/{s_id}/Architectural/CurtainWall_East",
+        pos=(total_w / 2.0, y_base + (h_lab / 2.0), 0.0), size_xyz=(10.0, h_lab - 25.0, total_d),
+        mat_path="/World/Materials/CurtainGlass",
+        ifc_class="IfcCurtainWall", discipline="Architectural", storey=s_id
+    )
+    add_cube_element(
+        stage, f"/World/BIM_Facility/{s_id}/Architectural/CurtainWall_West",
+        pos=(-total_w / 2.0, y_base + (h_lab / 2.0), 0.0), size_xyz=(10.0, h_lab - 25.0, total_d),
+        mat_path="/World/Materials/CurtainGlass",
+        ifc_class="IfcCurtainWall", discipline="Architectural", storey=s_id
+    )
 
     # Server Cluster Enclosures (Architectural / Equipment)
     for rack_i, r_z in enumerate([-350.0, -150.0, 50.0, 250.0]):
@@ -436,10 +448,31 @@ def build_bim_cesium_stage(
         psets={"Pset_SlabCommon:Waterproofing": "EPDM Membrane 2.0mm"}
     )
 
-    # Executive Curtain Glazing & Shading Louvers
+    # Executive Curtain Glazing & Shading Louvers (Complete 4-sided perimeter)
     add_cube_element(
         stage, f"/World/BIM_Facility/{s_id}/Architectural/CurtainWall_SouthRibbon",
         pos=(0.0, y_base + (h_office / 2.0), total_d / 2.0), size_xyz=(total_w, h_office - 25.0, 10.0),
+        mat_path="/World/Materials/CurtainGlass",
+        ifc_class="IfcCurtainWall", discipline="Architectural", storey=s_id,
+        psets={"Pset_Shading:SolarHeatGainCoeff": 0.28}
+    )
+    add_cube_element(
+        stage, f"/World/BIM_Facility/{s_id}/Architectural/CurtainWall_NorthRibbon",
+        pos=(0.0, y_base + (h_office / 2.0), -total_d / 2.0), size_xyz=(total_w, h_office - 25.0, 10.0),
+        mat_path="/World/Materials/CurtainGlass",
+        ifc_class="IfcCurtainWall", discipline="Architectural", storey=s_id,
+        psets={"Pset_Shading:SolarHeatGainCoeff": 0.28}
+    )
+    add_cube_element(
+        stage, f"/World/BIM_Facility/{s_id}/Architectural/CurtainWall_EastRibbon",
+        pos=(total_w / 2.0, y_base + (h_office / 2.0), 0.0), size_xyz=(10.0, h_office - 25.0, total_d),
+        mat_path="/World/Materials/CurtainGlass",
+        ifc_class="IfcCurtainWall", discipline="Architectural", storey=s_id,
+        psets={"Pset_Shading:SolarHeatGainCoeff": 0.28}
+    )
+    add_cube_element(
+        stage, f"/World/BIM_Facility/{s_id}/Architectural/CurtainWall_WestRibbon",
+        pos=(-total_w / 2.0, y_base + (h_office / 2.0), 0.0), size_xyz=(10.0, h_office - 25.0, total_d),
         mat_path="/World/Materials/CurtainGlass",
         ifc_class="IfcCurtainWall", discipline="Architectural", storey=s_id,
         psets={"Pset_Shading:SolarHeatGainCoeff": 0.28}

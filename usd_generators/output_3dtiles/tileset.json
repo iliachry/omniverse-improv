@@ -52,7 +52,7 @@
         "height": 120.0
       },
       "totalStoreys": 4,
-      "totalElements": 79
+      "totalElements": 84
     },
     "children": [
       {
@@ -102,7 +102,7 @@
         "refine": "ADD",
         "metadata": {
           "storeyId": "Storey_01_Lab",
-          "elementCount": 22,
+          "elementCount": 24,
           "disciplines": [
             "Architectural",
             "MEP",
@@ -133,7 +133,7 @@
         "refine": "ADD",
         "metadata": {
           "storeyId": "Storey_02_Offices",
-          "elementCount": 16,
+          "elementCount": 19,
           "disciplines": [
             "Architectural",
             "MEP",
