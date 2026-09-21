@@ -947,6 +947,8 @@ body, html {
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--accent-cyan);
+}
+
 /* ---------------- BIM & Cesium Geospatial Toolbar ---------------- */
 #bim-toolbar {
   position: absolute;

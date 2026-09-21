@@ -155,7 +155,15 @@ async function fetchStageList() {
       select.appendChild(opt);
     });
 
-    const defaultStg = stages.find(s => s.name.includes("robotics")) || stages[0];
+    const urlParams = new URLSearchParams(window.location.search);
+    const requestedStage = urlParams.get("stage");
+    let defaultStg = null;
+    if (requestedStage) {
+      defaultStg = stages.find(s => s.relPath.includes(requestedStage) || s.name.includes(requestedStage));
+    }
+    if (!defaultStg) {
+      defaultStg = stages.find(s => s.name.includes("bim_cesium")) || stages.find(s => s.name.includes("robotics")) || stages[0];
+    }
     select.value = defaultStg.relPath;
     loadStage(select.value);
   } catch (err) {
@@ -164,12 +172,17 @@ async function fetchStageList() {
 }
 
 async function loadStage(stagePath) {
-  currentStagePath = stagePath;
+  let resolvedPath = stagePath;
   const select = document.getElementById("stage-select");
-  if (select && select.value !== stagePath) {
-    select.value = stagePath;
+  if (select) {
+    const match = Array.from(select.options).find(o => o.value === stagePath || o.value.includes(stagePath) || o.value.endsWith(stagePath));
+    if (match) {
+      resolvedPath = match.value;
+      select.value = match.value;
+    }
   }
 
+  currentStagePath = resolvedPath;
   stopPhysicsSimulation();
 
   try {
@@ -178,12 +191,14 @@ async function loadStage(stagePath) {
       const staticRes = await fetch("api/stage_data.json");
       if (staticRes.ok) {
         const allData = await staticRes.json();
-        loadedData = allData[stagePath] || Object.values(allData)[0];
+        loadedData = allData[resolvedPath] || 
+                     allData["usd_generators/" + resolvedPath] || 
+                     Object.values(allData).find(d => d.filename === resolvedPath || (d.stagePath && d.stagePath.includes(resolvedPath)));
       }
     } catch (e) {}
 
     if (!loadedData) {
-      const res = await fetch(`/api/stage?path=${encodeURIComponent(stagePath)}`);
+      const res = await fetch(`/api/stage?path=${encodeURIComponent(resolvedPath)}`);
       if (!res.ok) throw new Error(`HTTP error ${res.status}`);
       loadedData = await res.json();
     }
@@ -396,12 +411,17 @@ function createMeshForPrim(prim, matsMap) {
 
   const mesh = new THREE.Mesh(geometry, material);
 
-  if (prim.matrix && prim.matrix.length === 16) {
-    const mat = new THREE.Matrix4();
-    mat.fromArray(prim.matrix);
-    mat.decompose(mesh.position, mesh.quaternion, mesh.scale);
-  } else {
+  if (prim.position && prim.position.length === 3) {
     mesh.position.set(prim.position[0], prim.position[1], prim.position[2]);
+  }
+  if (prim.rotation && prim.rotation.length === 3) {
+    mesh.rotation.set(
+      THREE.MathUtils.degToRad(prim.rotation[0]),
+      THREE.MathUtils.degToRad(prim.rotation[1]),
+      THREE.MathUtils.degToRad(prim.rotation[2])
+    );
+  }
+  if (prim.scale && prim.scale.length === 3) {
     mesh.scale.set(prim.scale[0], prim.scale[1], prim.scale[2]);
   }
 
@@ -1261,6 +1281,8 @@ function populateCesiumBimFacility() {
   const lon = (stageData.cesium && stageData.cesium.longitude) ? stageData.cesium.longitude : 23.7361;
   const alt = (stageData.cesium && stageData.cesium.height) ? stageData.cesium.height : 120.0;
 
+  const mpu = (stageData.metadata && stageData.metadata.metersPerUnit) ? stageData.metadata.metersPerUnit : 0.01;
+
   // Center coordinate on Earth
   const centerCartesian = Cesium.Cartesian3.fromDegrees(lon, lat, alt);
   const enuToFixed = Cesium.Transforms.eastNorthUpToFixedFrame(centerCartesian);
@@ -1268,16 +1290,16 @@ function populateCesiumBimFacility() {
   // Pin & Label
   const pin = cesiumViewer.entities.add({
     name: "Smart Tech Campus Facility",
-    position: Cesium.Cartesian3.fromDegrees(lon, lat, alt + 30.0),
+    position: Cesium.Cartesian3.fromDegrees(lon, lat, alt + 26.0),
     label: {
-      text: `🏛️ Smart Tech Campus Facility\n(${lat.toFixed(4)}° N, ${lon.toFixed(4)}° E)`,
+      text: `🏛️ BIM Smart Tech Campus\n(${lat.toFixed(4)}° N, ${lon.toFixed(4)}° E)`,
       font: "bold 13px Inter, sans-serif",
       fillColor: Cesium.Color.WHITE,
       outlineColor: Cesium.Color.BLACK,
       outlineWidth: 3,
       style: Cesium.LabelStyle.FILL_AND_OUTLINE,
       pixelOffset: new Cesium.Cartesian2(0, -25),
-      distanceDisplayCondition: new Cesium.DistanceDisplayCondition(250.0, 100000.0)
+      distanceDisplayCondition: new Cesium.DistanceDisplayCondition(80.0, 100000.0)
     }
   });
   cesiumFacilityEntities.push(pin);
@@ -1295,7 +1317,7 @@ function populateCesiumBimFacility() {
         lon - dLon, lat + dLat
       ]),
       height: alt - 0.2,
-      extrudedHeight: alt + 0.05,
+      extrudedHeight: alt + 0.1,
       material: Cesium.Color.fromCssColorString("#1e293b").withAlpha(0.85),
       outline: true,
       outlineColor: Cesium.Color.fromCssColorString("#38bdf8")
@@ -1308,19 +1330,24 @@ function populateCesiumBimFacility() {
     stageData.prims.forEach(prim => {
       if (prim.type === "Plane" || prim.path.includes("ground") || !prim.position) return;
 
-      // In OpenUSD stage (Y-up): X = East, Z = North, Y = Up
-      const localEnu = new Cesium.Cartesian3(prim.position[0], prim.position[2], prim.position[1]);
+      // Convert stage coordinates (cm) to real-world meters
+      const px = prim.position[0] * mpu;
+      const py = prim.position[1] * mpu; // USD Y is Up
+      const pz = prim.position[2] * mpu; // USD Z is North/South
+
+      // In local East-North-Up: X = East, Y = North, Z = Up
+      const localEnu = new Cesium.Cartesian3(px, pz, py);
       const worldPos = Cesium.Matrix4.multiplyByPoint(enuToFixed, localEnu, new Cesium.Cartesian3());
       const orientation = Cesium.Transforms.headingPitchRollQuaternion(worldPos, new Cesium.HeadingPitchRoll(0, 0, 0));
 
       const props = prim.geomProps || {};
       const scale = prim.scale || [1, 1, 1];
-      const baseSize = props.size || 1.0;
+      const baseSize = (props.size || 1.0) * mpu;
 
-      // Width (East/West), Depth (North/South), Height (Up)
-      const dimX = Math.max(0.15, baseSize * scale[0]);
-      const dimY = Math.max(0.15, baseSize * scale[2]);
-      const dimZ = Math.max(0.15, baseSize * scale[1]);
+      // Real-world dimensions in meters
+      const dimX = Math.max(0.08, baseSize * scale[0]);
+      const dimY = Math.max(0.08, baseSize * scale[2]);
+      const dimZ = Math.max(0.08, baseSize * scale[1]);
 
       // Semantic BIM Discipline Coloring
       let matColor = Cesium.Color.fromCssColorString("#94a3b8");
@@ -1329,7 +1356,7 @@ function populateCesiumBimFacility() {
           matColor = Cesium.Color.fromCssColorString("#64748b");
         } else if (prim.bim.discipline === "Architectural") {
           if (prim.name.includes("Glass") || prim.path.includes("Curtain")) {
-            matColor = Cesium.Color.fromCssColorString("#38bdf8").withAlpha(0.45);
+            matColor = Cesium.Color.fromCssColorString("#38bdf8").withAlpha(0.4);
           } else {
             matColor = Cesium.Color.fromCssColorString("#cbd5e1");
           }
@@ -1345,16 +1372,22 @@ function populateCesiumBimFacility() {
       }
 
       if (prim.type === "Cylinder") {
-        const cylRadius = (props.radius || 0.5) * scale[0];
-        const cylHeight = (props.height || 2.0) * scale[1];
+        const cylRadius = ((props.radius || 0.5) * mpu) * scale[0];
+        const cylHeight = ((props.height || 2.0) * mpu) * scale[1];
+        
+        // Orient horizontal sprinkler and chilled water pipe segments along X
+        const isHorizontal = prim.name.includes("Sprinkler") || prim.name.includes("Water") || prim.path.includes("Pipe");
+        const hpr = isHorizontal ? new Cesium.HeadingPitchRoll(0, Cesium.Math.toRadians(90), 0) : new Cesium.HeadingPitchRoll(0, 0, 0);
+        const cylOrientation = Cesium.Transforms.headingPitchRollQuaternion(worldPos, hpr);
+
         const ent = cesiumViewer.entities.add({
           name: prim.name || prim.path,
           position: worldPos,
-          orientation: orientation,
+          orientation: cylOrientation,
           cylinder: {
-            length: cylHeight,
-            topRadius: cylRadius,
-            bottomRadius: cylRadius,
+            length: Math.max(0.1, cylHeight),
+            topRadius: Math.max(0.05, cylRadius),
+            bottomRadius: Math.max(0.05, cylRadius),
             material: matColor
           }
         });
@@ -1384,14 +1417,15 @@ function flyCesiumToSite() {
   const lon = (stageData && stageData.cesium && stageData.cesium.longitude) ? stageData.cesium.longitude : 23.7361;
   const alt = (stageData && stageData.cesium && stageData.cesium.height) ? stageData.cesium.height : 120.0;
 
+  // Cinematic 3/4 aerial view framing the entire facility on Athens street grid
   cesiumViewer.camera.flyTo({
-    destination: Cesium.Cartesian3.fromDegrees(lon, lat - 0.00075, alt + 48.0),
+    destination: Cesium.Cartesian3.fromDegrees(lon + 0.00038, lat - 0.00055, alt + 32.0),
     orientation: {
-      heading: Cesium.Math.toRadians(0.0),
-      pitch: Cesium.Math.toRadians(-26.0),
+      heading: Cesium.Math.toRadians(-28.0),
+      pitch: Cesium.Math.toRadians(-22.0),
       roll: 0.0
     },
-    duration: 2.0
+    duration: 2.5
   });
 }
 
@@ -1715,7 +1749,12 @@ function frameScene() {
     const center = new THREE.Vector3();
     box.getCenter(center);
     controls.target.copy(center);
-    camera.position.set(center.x + 180, center.y + 220, center.z + 360);
+
+    const size = new THREE.Vector3();
+    box.getSize(size);
+    const maxDim = Math.max(size.x, size.y, size.z, 150.0);
+    camera.position.set(center.x + maxDim * 0.95, center.y + maxDim * 0.65, center.z + maxDim * 1.25);
+    camera.lookAt(center);
   }
 }
 

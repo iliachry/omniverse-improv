@@ -25,3 +25,4 @@ _exported_dataset/
 
 # USD generated binaries/temporary
 *.usdc.tmp
+*.mp4
