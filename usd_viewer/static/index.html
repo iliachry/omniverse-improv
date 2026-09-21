@@ -154,6 +154,61 @@
             </div>
           </div>
 
+          <!-- BIM & Cesium Geospatial Toolbar -->
+          <div id="bim-toolbar" class="hidden">
+            <div class="bim-header">
+              <div class="bim-title-group">
+                <span class="pulse-dot pulse-cyan"></span>
+                <span class="bim-title">BIM & Cesium Geospatial Studio</span>
+                <span id="bim-coords-badge" class="badge badge-gis">Lat: 37.9753° N | Lon: 23.7361° E | 120m WGS84</span>
+              </div>
+            </div>
+
+            <div class="bim-controls">
+              <!-- Storey Isolation -->
+              <div class="bim-control-group">
+                <span class="bim-group-label">Storey:</span>
+                <div class="bim-chips" id="bim-storey-chips">
+                  <button class="bim-chip active" data-storey="ALL">All</button>
+                  <button class="bim-chip" data-storey="Storey_00_Ground">Ground</button>
+                  <button class="bim-chip" data-storey="Storey_01_Lab">Lab L1</button>
+                  <button class="bim-chip" data-storey="Storey_02_Offices">Offices L2</button>
+                  <button class="bim-chip" data-storey="Storey_03_Rooftop">Rooftop</button>
+                </div>
+              </div>
+
+              <!-- Discipline Filters -->
+              <div class="bim-control-group">
+                <span class="bim-group-label">Disciplines:</span>
+                <label class="bim-toggle-label">
+                  <input type="checkbox" id="bim-toggle-struct" checked />
+                  <span class="badge-dot badge-dot-struct"></span> Structural
+                </label>
+                <label class="bim-toggle-label">
+                  <input type="checkbox" id="bim-toggle-arch" checked />
+                  <span class="badge-dot badge-dot-arch"></span> Architectural
+                </label>
+                <label class="bim-toggle-label">
+                  <input type="checkbox" id="bim-toggle-mep" checked />
+                  <span class="badge-dot badge-dot-mep"></span> MEP
+                </label>
+              </div>
+
+              <!-- X-Ray Mode -->
+              <button id="btn-bim-xray" class="btn-bim-action" title="Toggle X-Ray Transparency for Architectural Enclosure">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                X-Ray
+              </button>
+
+              <!-- Solar Study Slider -->
+              <div class="bim-solar-group">
+                <span class="bim-group-label">☀️ Sun:</span>
+                <input type="range" id="bim-solar-slider" min="6" max="20" step="0.25" value="12" />
+                <span id="bim-solar-readout" class="bim-solar-val">12:00 (52°)</span>
+              </div>
+            </div>
+          </div>
+
           <!-- Viewport Help Tooltip -->
           <div class="viewport-hints">
             <span>🖱️ Orbit: Left Click | Pan: Right Click | Zoom: Scroll | Frame: F | Play: Space</span>

@@ -53,6 +53,12 @@ jobs:
       - name: Generate Prompt-to-USD Stage
         run: python usd_generators/prompt_to_usd.py
 
+      - name: Generate Georeferenced BIM Cesium Facility
+        run: python usd_generators/generate_bim_cesium_stage.py
+
+      - name: Export OGC 3D Tileset
+        run: python usd_generators/export_3dtiles.py
+
       - name: Run 6-DOF Inverse Kinematics (IK) Solver
         run: python robotics/ik_solver.py
 

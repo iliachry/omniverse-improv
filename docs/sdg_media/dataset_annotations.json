@@ -16,97 +16,157 @@
       "rgbImage": "rgb_0000.png",
       "segmentationMask": "segmentation_0000.png",
       "bboxOverlay": "bbox_overlay_0000.png",
-      "objectsCount": 6,
+      "objectsCount": 10,
       "annotations": [
         {
           "objectId": 0,
-          "class": "cylinder",
+          "class": "sphere",
           "box2d": [
-            348,
-            277,
-            400,
-            351
+            105,
+            241,
+            153,
+            291
           ],
           "center": [
-            374,
-            314
+            129,
+            266
           ],
-          "area": 3848
+          "area": 2400
         },
         {
           "objectId": 1,
           "class": "cube",
           "box2d": [
-            383,
-            415,
-            441,
-            459
+            340,
+            319,
+            384,
+            357
           ],
           "center": [
-            412,
-            437
+            362,
+            338
           ],
-          "area": 2552
+          "area": 1672
         },
         {
           "objectId": 2,
-          "class": "sphere",
+          "class": "cube",
           "box2d": [
-            263,
-            419,
-            319,
-            477
+            155,
+            393,
+            229,
+            437
           ],
           "center": [
-            291,
-            448
+            192,
+            415
           ],
-          "area": 3248
+          "area": 3256
         },
         {
           "objectId": 3,
           "class": "sphere",
           "box2d": [
-            212,
-            275,
-            270,
-            323
+            258,
+            320,
+            326,
+            366
           ],
           "center": [
-            241,
-            299
+            292,
+            343
           ],
-          "area": 2784
+          "area": 3128
         },
         {
           "objectId": 4,
           "class": "sphere",
           "box2d": [
-            62,
-            417,
-            112,
-            457
+            406,
+            337,
+            468,
+            389
           ],
           "center": [
-            87,
-            437
+            437,
+            363
           ],
-          "area": 2000
+          "area": 3224
         },
         {
           "objectId": 5,
-          "class": "sphere",
+          "class": "cube",
           "box2d": [
-            67,
-            364,
-            117,
-            434
+            419,
+            282,
+            477,
+            354
           ],
           "center": [
-            92,
-            399
+            448,
+            318
           ],
-          "area": 3500
+          "area": 4176
+        },
+        {
+          "objectId": 6,
+          "class": "cylinder",
+          "box2d": [
+            50,
+            419,
+            104,
+            483
+          ],
+          "center": [
+            77,
+            451
+          ],
+          "area": 3456
+        },
+        {
+          "objectId": 7,
+          "class": "sphere",
+          "box2d": [
+            319,
+            274,
+            375,
+            322
+          ],
+          "center": [
+            347,
+            298
+          ],
+          "area": 2688
+        },
+        {
+          "objectId": 8,
+          "class": "sphere",
+          "box2d": [
+            108,
+            276,
+            150,
+            324
+          ],
+          "center": [
+            129,
+            300
+          ],
+          "area": 2016
+        },
+        {
+          "objectId": 9,
+          "class": "cylinder",
+          "box2d": [
+            38,
+            260,
+            106,
+            316
+          ],
+          "center": [
+            72,
+            288
+          ],
+          "area": 3808
         }
       ]
     },
@@ -119,157 +179,127 @@
       "rgbImage": "rgb_0001.png",
       "segmentationMask": "segmentation_0001.png",
       "bboxOverlay": "bbox_overlay_0001.png",
-      "objectsCount": 10,
+      "objectsCount": 8,
       "annotations": [
         {
           "objectId": 0,
-          "class": "cube",
+          "class": "cylinder",
           "box2d": [
-            85,
-            420,
-            127,
-            472
+            217,
+            337,
+            273,
+            381
           ],
           "center": [
-            106,
-            446
+            245,
+            359
           ],
-          "area": 2184
+          "area": 2464
         },
         {
           "objectId": 1,
-          "class": "sphere",
+          "class": "cube",
           "box2d": [
-            228,
-            421,
-            282,
-            469
+            296,
+            357,
+            362,
+            423
           ],
           "center": [
-            255,
-            445
+            329,
+            390
           ],
-          "area": 2592
+          "area": 4356
         },
         {
           "objectId": 2,
-          "class": "cube",
-          "box2d": [
-            321,
-            411,
-            377,
-            449
-          ],
-          "center": [
-            349,
-            430
-          ],
-          "area": 2128
-        },
-        {
-          "objectId": 3,
           "class": "sphere",
           "box2d": [
+            145,
             337,
-            349,
-            383,
+            203,
             397
           ],
           "center": [
-            360,
-            373
+            174,
+            367
           ],
-          "area": 2208
+          "area": 3480
+        },
+        {
+          "objectId": 3,
+          "class": "cylinder",
+          "box2d": [
+            247,
+            365,
+            315,
+            431
+          ],
+          "center": [
+            281,
+            398
+          ],
+          "area": 4488
         },
         {
           "objectId": 4,
           "class": "sphere",
           "box2d": [
-            242,
-            360,
-            308,
-            428
+            161,
+            355,
+            209,
+            409
           ],
           "center": [
-            275,
-            394
+            185,
+            382
           ],
-          "area": 4488
+          "area": 2592
         },
         {
           "objectId": 5,
-          "class": "sphere",
+          "class": "cylinder",
           "box2d": [
-            282,
-            272,
-            352,
-            334
+            89,
+            318,
+            157,
+            390
           ],
           "center": [
-            317,
-            303
+            123,
+            354
           ],
-          "area": 4340
+          "area": 4896
         },
         {
           "objectId": 6,
           "class": "cube",
           "box2d": [
-            276,
-            358,
-            318,
-            412
+            190,
+            304,
+            236,
+            372
           ],
           "center": [
-            297,
-            385
+            213,
+            338
           ],
-          "area": 2268
+          "area": 3128
         },
         {
           "objectId": 7,
-          "class": "sphere",
-          "box2d": [
-            348,
-            427,
-            394,
-            475
-          ],
-          "center": [
-            371,
-            451
-          ],
-          "area": 2208
-        },
-        {
-          "objectId": 8,
-          "class": "cylinder",
-          "box2d": [
-            382,
-            348,
-            444,
-            386
-          ],
-          "center": [
-            413,
-            367
-          ],
-          "area": 2356
-        },
-        {
-          "objectId": 9,
           "class": "cube",
           "box2d": [
-            69,
-            388,
-            139,
-            436
+            203,
+            284,
+            249,
+            320
           ],
           "center": [
-            104,
-            412
+            226,
+            302
           ],
-          "area": 3360
+          "area": 1656
         }
       ]
     },
@@ -282,157 +312,112 @@
       "rgbImage": "rgb_0002.png",
       "segmentationMask": "segmentation_0002.png",
       "bboxOverlay": "bbox_overlay_0002.png",
-      "objectsCount": 10,
+      "objectsCount": 7,
       "annotations": [
         {
           "objectId": 0,
           "class": "cylinder",
           "box2d": [
-            369,
-            289,
-            429,
-            353
+            109,
+            247,
+            183,
+            315
           ],
           "center": [
-            399,
-            321
+            146,
+            281
           ],
-          "area": 3840
+          "area": 5032
         },
         {
           "objectId": 1,
           "class": "cylinder",
           "box2d": [
-            99,
-            237,
-            149,
-            303
+            251,
+            418,
+            311,
+            470
           ],
           "center": [
-            124,
-            270
+            281,
+            444
           ],
-          "area": 3300
+          "area": 3120
         },
         {
           "objectId": 2,
           "class": "sphere",
           "box2d": [
-            131,
-            285,
-            169,
-            359
+            405,
+            318,
+            451,
+            388
           ],
           "center": [
-            150,
-            322
+            428,
+            353
           ],
-          "area": 2812
+          "area": 3220
         },
         {
           "objectId": 3,
           "class": "sphere",
           "box2d": [
-            220,
-            249,
-            274,
-            313
+            231,
+            374,
+            301,
+            448
           ],
           "center": [
-            247,
-            281
+            266,
+            411
           ],
-          "area": 3456
+          "area": 5180
         },
         {
           "objectId": 4,
-          "class": "cylinder",
+          "class": "sphere",
           "box2d": [
-            227,
-            259,
-            287,
-            317
+            311,
+            399,
+            379,
+            445
           ],
           "center": [
-            257,
-            288
+            345,
+            422
           ],
-          "area": 3480
+          "area": 3128
         },
         {
           "objectId": 5,
-          "class": "sphere",
+          "class": "cube",
           "box2d": [
-            373,
-            375,
-            443,
-            413
+            385,
+            289,
+            445,
+            341
           ],
           "center": [
-            408,
-            394
+            415,
+            315
           ],
-          "area": 2660
+          "area": 3120
         },
         {
           "objectId": 6,
-          "class": "cube",
+          "class": "sphere",
           "box2d": [
-            339,
-            336,
-            405,
+            410,
+            367,
+            478,
+            409
+          ],
+          "center": [
+            444,
             388
           ],
-          "center": [
-            372,
-            362
-          ],
-          "area": 3432
-        },
-        {
-          "objectId": 7,
-          "class": "cube",
-          "box2d": [
-            237,
-            266,
-            273,
-            326
-          ],
-          "center": [
-            255,
-            296
-          ],
-          "area": 2160
-        },
-        {
-          "objectId": 8,
-          "class": "sphere",
-          "box2d": [
-            317,
-            339,
-            389,
-            403
-          ],
-          "center": [
-            353,
-            371
-          ],
-          "area": 4608
-        },
-        {
-          "objectId": 9,
-          "class": "sphere",
-          "box2d": [
-            82,
-            377,
-            128,
-            447
-          ],
-          "center": [
-            105,
-            412
-          ],
-          "area": 3220
+          "area": 2856
         }
       ]
     },
@@ -445,112 +430,127 @@
       "rgbImage": "rgb_0003.png",
       "segmentationMask": "segmentation_0003.png",
       "bboxOverlay": "bbox_overlay_0003.png",
-      "objectsCount": 7,
+      "objectsCount": 8,
       "annotations": [
         {
           "objectId": 0,
           "class": "sphere",
           "box2d": [
-            304,
-            288,
-            344,
-            352
+            276,
+            409,
+            338,
+            465
           ],
           "center": [
-            324,
-            320
+            307,
+            437
           ],
-          "area": 2560
+          "area": 3472
         },
         {
           "objectId": 1,
-          "class": "cube",
+          "class": "cylinder",
           "box2d": [
-            304,
-            273,
-            340,
-            323
+            403,
+            238,
+            473,
+            300
           ],
           "center": [
-            322,
-            298
+            438,
+            269
           ],
-          "area": 1800
+          "area": 4340
         },
         {
           "objectId": 2,
           "class": "sphere",
           "box2d": [
-            220,
-            399,
-            294,
-            463
+            419,
+            277,
+            471,
+            315
           ],
           "center": [
-            257,
-            431
+            445,
+            296
           ],
-          "area": 4736
+          "area": 1976
         },
         {
           "objectId": 3,
-          "class": "cube",
+          "class": "cylinder",
           "box2d": [
-            294,
-            283,
-            334,
-            343
+            210,
+            269,
+            254,
+            339
           ],
           "center": [
-            314,
-            313
+            232,
+            304
           ],
-          "area": 2400
+          "area": 3080
         },
         {
           "objectId": 4,
-          "class": "cube",
+          "class": "sphere",
           "box2d": [
-            100,
-            314,
-            140,
-            360
+            132,
+            259,
+            188,
+            295
           ],
           "center": [
-            120,
-            337
+            160,
+            277
           ],
-          "area": 1840
+          "area": 2016
         },
         {
           "objectId": 5,
           "class": "sphere",
           "box2d": [
-            296,
-            267,
-            346,
-            339
+            264,
+            393,
+            322,
+            451
           ],
           "center": [
-            321,
-            303
+            293,
+            422
           ],
-          "area": 3600
+          "area": 3364
         },
         {
           "objectId": 6,
           "class": "cylinder",
           "box2d": [
-            313,
-            408,
-            375,
-            450
+            356,
+            280,
+            430,
+            350
           ],
           "center": [
-            344,
-            429
+            393,
+            315
           ],
-          "area": 2604
+          "area": 5180
+        },
+        {
+          "objectId": 7,
+          "class": "cube",
+          "box2d": [
+            41,
+            302,
+            105,
+            344
+          ],
+          "center": [
+            73,
+            323
+          ],
+          "area": 2688
         }
       ]
     },
@@ -563,142 +563,157 @@
       "rgbImage": "rgb_0004.png",
       "segmentationMask": "segmentation_0004.png",
       "bboxOverlay": "bbox_overlay_0004.png",
-      "objectsCount": 9,
+      "objectsCount": 10,
       "annotations": [
         {
           "objectId": 0,
-          "class": "cube",
+          "class": "sphere",
           "box2d": [
-            294,
-            362,
-            336,
-            422
+            324,
+            272,
+            368,
+            312
           ],
           "center": [
-            315,
-            392
+            346,
+            292
           ],
-          "area": 2520
+          "area": 1760
         },
         {
           "objectId": 1,
-          "class": "cylinder",
+          "class": "sphere",
           "box2d": [
-            288,
-            344,
-            340,
-            412
+            256,
+            347,
+            298,
+            385
           ],
           "center": [
-            314,
-            378
+            277,
+            366
           ],
-          "area": 3536
+          "area": 1596
         },
         {
           "objectId": 2,
           "class": "cube",
           "box2d": [
-            236,
-            315,
-            304,
-            373
-          ],
-          "center": [
-            270,
-            344
-          ],
-          "area": 3944
-        },
-        {
-          "objectId": 3,
-          "class": "cylinder",
-          "box2d": [
-            367,
-            266,
-            411,
-            340
-          ],
-          "center": [
-            389,
-            303
-          ],
-          "area": 3256
-        },
-        {
-          "objectId": 4,
-          "class": "cube",
-          "box2d": [
-            280,
-            417,
-            336,
+            87,
+            387,
+            133,
             453
           ],
           "center": [
-            308,
-            435
+            110,
+            420
           ],
-          "area": 2016
+          "area": 3036
+        },
+        {
+          "objectId": 3,
+          "class": "cube",
+          "box2d": [
+            216,
+            305,
+            256,
+            377
+          ],
+          "center": [
+            236,
+            341
+          ],
+          "area": 2880
+        },
+        {
+          "objectId": 4,
+          "class": "cylinder",
+          "box2d": [
+            403,
+            347,
+            471,
+            421
+          ],
+          "center": [
+            437,
+            384
+          ],
+          "area": 5032
         },
         {
           "objectId": 5,
-          "class": "cube",
+          "class": "cylinder",
           "box2d": [
-            115,
-            407,
-            159,
-            469
+            390,
+            323,
+            448,
+            357
           ],
           "center": [
-            137,
-            438
+            419,
+            340
           ],
-          "area": 2728
+          "area": 1972
         },
         {
           "objectId": 6,
           "class": "cube",
           "box2d": [
-            215,
-            398,
-            273,
-            448
+            302,
+            412,
+            372,
+            452
           ],
           "center": [
-            244,
-            423
+            337,
+            432
           ],
-          "area": 2900
+          "area": 2800
         },
         {
           "objectId": 7,
-          "class": "cylinder",
+          "class": "cube",
           "box2d": [
-            372,
-            273,
-            446,
-            341
+            63,
+            287,
+            131,
+            339
           ],
           "center": [
-            409,
-            307
+            97,
+            313
           ],
-          "area": 5032
+          "area": 3536
         },
         {
           "objectId": 8,
           "class": "sphere",
           "box2d": [
-            279,
-            306,
-            347,
-            370
+            43,
+            295,
+            113,
+            359
           ],
           "center": [
-            313,
-            338
+            78,
+            327
           ],
-          "area": 4352
+          "area": 4480
+        },
+        {
+          "objectId": 9,
+          "class": "sphere",
+          "box2d": [
+            368,
+            412,
+            438,
+            454
+          ],
+          "center": [
+            403,
+            433
+          ],
+          "area": 2940
         }
       ]
     }

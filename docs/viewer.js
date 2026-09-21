@@ -36,6 +36,17 @@ let sdgData = null;
 let currentSdgFrameIdx = 0;
 let cachedImages = new Map();
 
+// BIM & Cesium Geospatial State
+let activeStoreyFilter = "ALL";
+let activeDisciplines = {
+  Structural: true,
+  Architectural: true,
+  MEP: true
+};
+let isXRayMode = false;
+let solarHour = 12.0;
+let dirSunLight = null;
+
 // Initialize on DOM ready
 document.addEventListener("DOMContentLoaded", () => {
   initThree();
@@ -186,6 +197,15 @@ async function loadStage(stagePath) {
       document.getElementById("physics-toolbar").classList.add("hidden");
     }
 
+    // Setup BIM & Cesium Controls
+    const bimToolbar = document.getElementById("bim-toolbar");
+    if (stageData.cesium || stageData.bimSummary) {
+      if (bimToolbar) bimToolbar.classList.remove("hidden");
+      setupBimControls(stageData);
+    } else {
+      if (bimToolbar) bimToolbar.classList.add("hidden");
+    }
+
     // Auto-frame camera
     frameScene();
   } catch (err) {
@@ -249,6 +269,7 @@ function buildLights(usdLights) {
     } else if (l.type === "DistantLight") {
       hasDistant = true;
       const dirLight = new THREE.DirectionalLight(color, intensity);
+      dirSunLight = dirLight;
       if (l.position) {
         dirLight.position.set(l.position[0], l.position[1], l.position[2]);
       } else {
@@ -273,6 +294,7 @@ function buildLights(usdLights) {
   if (!hasDome) scene.add(new THREE.AmbientLight(0xdde5f4, 0.6));
   if (!hasDistant) {
     const key = new THREE.DirectionalLight(0xfff5e6, 1.2);
+    dirSunLight = key;
     key.position.set(200, 400, 200);
     key.castShadow = true;
     scene.add(key);
@@ -693,6 +715,48 @@ function renderInspector(path) {
     `;
   }
 
+  // BIM & IFC Semantics Inspector
+  if (prim && prim.bim) {
+    const disc = prim.bim.discipline || "Architectural";
+    const discClass = `badge-discipline-${disc.toLowerCase()}`;
+    let psetsHtml = "";
+    if (prim.bim.psets && Object.keys(prim.bim.psets).length > 0) {
+      psetsHtml = `<table class="pset-table">`;
+      for (const [key, val] of Object.entries(prim.bim.psets)) {
+        psetsHtml += `<tr><td class="pset-key">${key}</td><td class="pset-val">${val}</td></tr>`;
+      }
+      psetsHtml += `</table>`;
+    } else {
+      psetsHtml = `<div class="prop-value" style="margin-top: 4px; color: var(--text-dim);">No custom property sets</div>`;
+    }
+
+    html += `
+      <div class="inspector-section">
+        <div class="section-header">
+          <span>BIM & IFC Semantics</span>
+          <span class="badge ${discClass}">${disc}</span>
+        </div>
+        <div class="section-body">
+          <div class="prop-row">
+            <span class="prop-label">IFC Class</span>
+            <span class="prop-value" style="color: var(--accent-cyan); font-weight: 600;">${prim.bim.ifcClass}</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Storey</span>
+            <span class="prop-value">${prim.bim.storey ? prim.bim.storey.replace('_', ' ') : 'None'}</span>
+          </div>
+          ${prim.cesiumAnchor ? `
+          <div class="prop-row">
+            <span class="prop-label">Cesium WGS84</span>
+            <span class="prop-value">${prim.cesiumAnchor.latitude.toFixed(4)}°, ${prim.cesiumAnchor.longitude.toFixed(4)}° (${prim.cesiumAnchor.height}m)</span>
+          </div>` : ''}
+          <div class="prop-label" style="margin-top: 8px;">Property Sets (Psets)</div>
+          ${psetsHtml}
+        </div>
+      </div>
+    `;
+  }
+
   // Live PBR Material Editor
   if (prim && prim.materialPath && stageData.materials[prim.materialPath]) {
     const mat = stageData.materials[prim.materialPath];
@@ -983,6 +1047,139 @@ async function initSdgDashboard() {
   });
 }
 
+// -------------------------------------------------------------
+// 8b. BIM & Cesium Geospatial Functions
+// -------------------------------------------------------------
+function setupBimControls(data) {
+  if (data.cesium) {
+    const badge = document.getElementById("bim-coords-badge");
+    if (badge) {
+      badge.textContent = `Lat: ${data.cesium.latitude.toFixed(4)}° N | Lon: ${data.cesium.longitude.toFixed(4)}° E | ${data.cesium.height}m (${data.cesium.binding})`;
+    }
+  }
+
+  const chipsContainer = document.getElementById("bim-storey-chips");
+  if (chipsContainer && data.bimSummary && data.bimSummary.storeys && data.bimSummary.storeys.length > 0) {
+    chipsContainer.innerHTML = `<button class="bim-chip active" data-storey="ALL">All</button>`;
+    data.bimSummary.storeys.forEach(s => {
+      const btn = document.createElement("button");
+      btn.className = "bim-chip";
+      btn.dataset.storey = s;
+      const cleanName = s.replace("Storey_", "").replace(/_/g, " ");
+      btn.textContent = cleanName;
+      chipsContainer.appendChild(btn);
+    });
+
+    chipsContainer.querySelectorAll(".bim-chip").forEach(btn => {
+      btn.addEventListener("click", () => {
+        chipsContainer.querySelectorAll(".bim-chip").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        setStoreyFilter(btn.dataset.storey);
+      });
+    });
+  }
+
+  activeStoreyFilter = "ALL";
+  activeDisciplines = { Structural: true, Architectural: true, MEP: true };
+  isXRayMode = false;
+  const xrayBtn = document.getElementById("btn-bim-xray");
+  if (xrayBtn) xrayBtn.classList.remove("active");
+
+  const s1 = document.getElementById("bim-toggle-struct");
+  const s2 = document.getElementById("bim-toggle-arch");
+  const s3 = document.getElementById("bim-toggle-mep");
+  if (s1) s1.checked = true;
+  if (s2) s2.checked = true;
+  if (s3) s3.checked = true;
+
+  updateSolarPosition(12.0);
+  applyBimFilters();
+}
+
+function setStoreyFilter(storey) {
+  activeStoreyFilter = storey;
+  applyBimFilters();
+}
+
+function setDiscipline(discipline, enabled) {
+  activeDisciplines[discipline] = enabled;
+  applyBimFilters();
+}
+
+function toggleXRayMode() {
+  isXRayMode = !isXRayMode;
+  const btn = document.getElementById("btn-bim-xray");
+  if (btn) btn.classList.toggle("active", isXRayMode);
+  applyBimFilters();
+}
+
+function updateSolarPosition(hour) {
+  solarHour = hour;
+  const latDeg = (stageData && stageData.cesium) ? stageData.cesium.latitude : 38.0;
+  const latRad = latDeg * (Math.PI / 180.0);
+
+  const declination = 0.25; 
+  const hourAngle = (hour - 12.0) * (Math.PI / 12.0);
+
+  const sinAlt = Math.sin(latRad) * Math.sin(declination) + Math.cos(latRad) * Math.cos(declination) * Math.cos(hourAngle);
+  const altitude = Math.asin(Math.max(-1, Math.min(1, sinAlt)));
+
+  const cosAz = (Math.sin(declination) - Math.sin(latRad) * sinAlt) / (Math.cos(latRad) * Math.cos(altitude));
+  let azimuth = Math.acos(Math.max(-1, Math.min(1, cosAz)));
+  if (hourAngle > 0) azimuth = 2 * Math.PI - azimuth;
+
+  const dist = 600.0;
+  const y = dist * Math.sin(Math.max(0.08, altitude));
+  const hDist = dist * Math.cos(Math.max(0.08, altitude));
+  const x = hDist * Math.sin(azimuth);
+  const z = hDist * Math.cos(azimuth);
+
+  if (dirSunLight) {
+    dirSunLight.position.set(x, y, z);
+    dirSunLight.target.position.set(0, 30, 0);
+    dirSunLight.target.updateMatrixWorld();
+  }
+
+  const readout = document.getElementById("bim-solar-readout");
+  if (readout) {
+    const hh = Math.floor(hour);
+    const mm = Math.round((hour - hh) * 60);
+    const timeStr = `${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')}`;
+    const altDeg = (altitude * 180.0 / Math.PI).toFixed(0);
+    readout.textContent = `${timeStr} (${altDeg}°)`;
+  }
+}
+
+function applyBimFilters() {
+  scenePrims.forEach((mesh, path) => {
+    const prim = mesh.userData;
+    if (!prim) return;
+
+    if (prim.bim) {
+      const matchStorey = (activeStoreyFilter === "ALL") || (prim.bim.storey === activeStoreyFilter);
+      const matchDisc = activeDisciplines[prim.bim.discipline] !== false;
+      const visible = matchStorey && matchDisc;
+      mesh.visible = visible;
+
+      if (visible && isXRayMode && (prim.bim.ifcClass.includes("Wall") || prim.bim.ifcClass.includes("Slab"))) {
+        if (mesh.material) {
+          if (mesh.userData._origOpacity === undefined) {
+            mesh.userData._origOpacity = mesh.material.opacity;
+            mesh.userData._origTransparent = mesh.material.transparent;
+          }
+          mesh.material.transparent = true;
+          mesh.material.opacity = 0.2;
+          mesh.material.needsUpdate = true;
+        }
+      } else if (mesh.userData._origOpacity !== undefined && mesh.material) {
+        mesh.material.opacity = mesh.userData._origOpacity;
+        mesh.material.transparent = mesh.userData._origTransparent;
+        mesh.material.needsUpdate = true;
+      }
+    }
+  });
+}
+
 async function loadSdgDataset() {
   try {
     let res = await fetch("api/sdg.json").catch(() => null);
@@ -1177,6 +1374,28 @@ function initEventListeners() {
       physicsWorld.gravity.set(0, -gravityMagnitude * 100, 0);
     }
   });
+
+  // BIM & Geospatial Listeners
+  const toggleStruct = document.getElementById("bim-toggle-struct");
+  if (toggleStruct) {
+    toggleStruct.addEventListener("change", (e) => setDiscipline("Structural", e.target.checked));
+  }
+  const toggleArch = document.getElementById("bim-toggle-arch");
+  if (toggleArch) {
+    toggleArch.addEventListener("change", (e) => setDiscipline("Architectural", e.target.checked));
+  }
+  const toggleMep = document.getElementById("bim-toggle-mep");
+  if (toggleMep) {
+    toggleMep.addEventListener("change", (e) => setDiscipline("MEP", e.target.checked));
+  }
+  const btnXray = document.getElementById("btn-bim-xray");
+  if (btnXray) {
+    btnXray.addEventListener("click", toggleXRayMode);
+  }
+  const solarSlider = document.getElementById("bim-solar-slider");
+  if (solarSlider) {
+    solarSlider.addEventListener("input", (e) => updateSolarPosition(parseFloat(e.target.value)));
+  }
 
   window.addEventListener("keydown", (e) => {
     if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;

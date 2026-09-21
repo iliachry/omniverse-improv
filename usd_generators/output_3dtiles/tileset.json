@@ -1,0 +1,181 @@
+{
+  "asset": {
+    "version": "1.0",
+    "generator": "omniverse-improv OGC 3D Tiles BIM Exporter",
+    "tilesetVersion": "1.0.0"
+  },
+  "properties": {
+    "IFC_Class": {
+      "description": "Industry Foundation Classes entity category"
+    },
+    "Discipline": {
+      "description": "BIM architectural, structural, or MEP subsystem"
+    }
+  },
+  "geometricError": 100.0,
+  "root": {
+    "boundingVolume": {
+      "region": [
+        0.41426951644016863,
+        0.6627918244342826,
+        0.4142766767250835,
+        0.6627962144309226,
+        120.0,
+        136.0
+      ]
+    },
+    "geometricError": 50.0,
+    "refine": "REPLACE",
+    "transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "metadata": {
+      "georeference": {
+        "datum": "WGS84",
+        "latitude": 37.9753,
+        "longitude": 23.7361,
+        "height": 120.0
+      },
+      "totalStoreys": 4,
+      "totalElements": 79
+    },
+    "children": [
+      {
+        "boundingVolume": {
+          "region": [
+            0.41426951644016863,
+            0.6627918244342826,
+            0.4142766767250835,
+            0.6627962144309226,
+            120.0,
+            124.0
+          ]
+        },
+        "geometricError": 15.0,
+        "refine": "ADD",
+        "metadata": {
+          "storeyId": "Storey_00_Ground",
+          "elementCount": 22,
+          "disciplines": [
+            "Architectural",
+            "MEP",
+            "Structural"
+          ],
+          "ifcClasses": [
+            "IfcColumn",
+            "IfcCurtainWall",
+            "IfcDoor",
+            "IfcDuctSegment",
+            "IfcPipeSegment",
+            "IfcSlab",
+            "IfcWallStandardCase"
+          ]
+        }
+      },
+      {
+        "boundingVolume": {
+          "region": [
+            0.41426951644016863,
+            0.6627918244342826,
+            0.4142766767250835,
+            0.6627962144309226,
+            124.0,
+            127.8
+          ]
+        },
+        "geometricError": 15.0,
+        "refine": "ADD",
+        "metadata": {
+          "storeyId": "Storey_01_Lab",
+          "elementCount": 22,
+          "disciplines": [
+            "Architectural",
+            "MEP",
+            "Structural"
+          ],
+          "ifcClasses": [
+            "IfcColumn",
+            "IfcCurtainWall",
+            "IfcDiscreteAccessory",
+            "IfcDuctSegment",
+            "IfcPipeSegment",
+            "IfcSlab"
+          ]
+        }
+      },
+      {
+        "boundingVolume": {
+          "region": [
+            0.41426951644016863,
+            0.6627918244342826,
+            0.4142766767250835,
+            0.6627962144309226,
+            127.8,
+            131.6
+          ]
+        },
+        "geometricError": 15.0,
+        "refine": "ADD",
+        "metadata": {
+          "storeyId": "Storey_02_Offices",
+          "elementCount": 16,
+          "disciplines": [
+            "Architectural",
+            "MEP",
+            "Structural"
+          ],
+          "ifcClasses": [
+            "IfcColumn",
+            "IfcCurtainWall",
+            "IfcDuctSegment",
+            "IfcSlab",
+            "IfcWallStandardCase"
+          ]
+        }
+      },
+      {
+        "boundingVolume": {
+          "region": [
+            0.41426951644016863,
+            0.6627918244342826,
+            0.4142766767250835,
+            0.6627962144309226,
+            131.6,
+            135.5
+          ]
+        },
+        "geometricError": 15.0,
+        "refine": "ADD",
+        "metadata": {
+          "storeyId": "Storey_03_Rooftop",
+          "elementCount": 19,
+          "disciplines": [
+            "Architectural",
+            "MEP"
+          ],
+          "ifcClasses": [
+            "IfcBuildingElementProxy",
+            "IfcChiller",
+            "IfcSolarDevice",
+            "IfcWall"
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -947,7 +947,220 @@ body, html {
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--accent-cyan);
-  line-height: 1.4;
+/* ---------------- BIM & Cesium Geospatial Toolbar ---------------- */
+#bim-toolbar {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(22, 27, 34, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 45;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  max-width: calc(100% - 28px);
+}
+
+.bim-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bim-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bim-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--accent-cyan);
+}
+
+.pulse-cyan {
+  background-color: var(--accent-cyan);
+  box-shadow: 0 0 8px var(--accent-cyan);
+}
+
+.badge-gis {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent-cyan);
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.bim-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.bim-control-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bim-group-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.bim-chips {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.bim-chip {
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  transition: all 0.15s ease;
+}
+
+.bim-chip:hover {
+  background: var(--bg-hover);
+  color: #fff;
+}
+
+.bim-chip.active {
+  background: var(--accent-cyan);
+  color: #0b0f14;
+  font-weight: 600;
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+}
+
+.bim-toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text-main);
+  cursor: pointer;
+  user-select: none;
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.badge-dot-struct { background: #38bdf8; }
+.badge-dot-arch { background: #94a3b8; }
+.badge-dot-mep { background: #fb923c; }
+
+.btn-bim-action {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-main);
+  transition: all 0.15s ease;
+}
+
+.btn-bim-action:hover {
+  background: var(--bg-hover);
+}
+
+.btn-bim-action.active {
+  background: rgba(192, 132, 252, 0.2);
+  color: var(--accent-purple);
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 8px rgba(192, 132, 252, 0.4);
+}
+
+.bim-solar-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bim-solar-group input[type="range"] {
+  width: 90px;
+  height: 4px;
+  accent-color: var(--accent-yellow);
+  cursor: pointer;
+}
+
+.bim-solar-val {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-yellow);
+  min-width: 70px;
+}
+
+/* BIM Inspector Badges & Tables */
+.badge-discipline-structural {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.badge-discipline-architectural {
+  background: rgba(148, 163, 184, 0.15);
+  color: #cbd5e1;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.badge-discipline-mep {
+  background: rgba(251, 146, 60, 0.15);
+  color: #fb923c;
+  border: 1px solid rgba(251, 146, 60, 0.3);
+}
+
+.pset-table {
+  width: 100%;
+  margin-top: 6px;
+  font-size: 11px;
+  border-collapse: collapse;
+}
+
+.pset-table tr {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.pset-table td {
+  padding: 4px 0;
+}
+
+.pset-key {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  width: 55%;
+}
+
+.pset-val {
+  color: var(--text-main);
+  text-align: right;
+  font-weight: 500;
 }
 
 /* Scrollbars */

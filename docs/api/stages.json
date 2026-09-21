@@ -1,5 +1,11 @@
 [
   {
+    "name": "output_bim_cesium.usda",
+    "relPath": "usd_generators/output_bim_cesium.usda",
+    "fullPath": "D:\\GitLab\\omniverse-improv\\usd_generators\\output_bim_cesium.usda",
+    "size": 82467
+  },
+  {
     "name": "output_block_tower.usda",
     "relPath": "usd_generators/output_block_tower.usda",
     "fullPath": "D:\\GitLab\\omniverse-improv\\usd_generators\\output_block_tower.usda",

@@ -1,0 +1,1665 @@
+#usda 1.0
+(
+    metersPerUnit = 0.01
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def CesiumGeoreference "CesiumGeoreference" (
+        prepend apiSchemas = ["CesiumGeoreferenceAPI"]
+    )
+    {
+        custom token cesium:georeferenceBinding = "WGS84"
+        custom double cesium:height = 120
+        custom double cesium:latitude = 37.9753
+        custom double cesium:longitude = 23.7361
+    }
+
+    def Xform "BIM_Facility" (
+        prepend apiSchemas = ["CesiumGlobeAnchorAPI"]
+    )
+    {
+        custom bool cesium:anchor:adjustOrientationForGlobeWhenMoving = 1
+        custom double cesium:anchor:height = 120
+        custom double cesium:anchor:latitude = 37.9753
+        custom double cesium:anchor:longitude = 23.7361
+
+        def Xform "Storey_00_Ground"
+        {
+            custom string bim:description = "Ground Level & Public Atrium"
+            custom float bim:elevation = 0
+            custom float bim:height = 400
+            custom string bim:ifcClass = "IfcBuildingStorey"
+
+            def Xform "Structural"
+            {
+                def Cube "FoundationSlab" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcSlab"
+                    custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50 Waterproof"
+                    custom bool bim:pset:Pset_SlabCommon:LoadBearing = 1
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/Concrete>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (3300, 30, 2500)
+                    double3 xformOp:translate = (0, -15, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_G_01" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/Concrete>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (50, 400, 50)
+                    double3 xformOp:translate = (-1200, 200, -800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_G_02" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/Concrete>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (50, 400, 50)
+                    double3 xformOp:translate = (-1200, 200, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_G_03" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/Concrete>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (50, 400, 50)
+                    double3 xformOp:translate = (-1200, 200, 800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_G_04" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/Concrete>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (50, 400, 50)
+                    double3 xformOp:translate = (-400, 200, -800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_G_05" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/Concrete>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (50, 400, 50)
+                    double3 xformOp:translate = (-400, 200, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_G_06" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/Concrete>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (50, 400, 50)
+                    double3 xformOp:translate = (-400, 200, 800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_G_07" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/Concrete>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (50, 400, 50)
+                    double3 xformOp:translate = (400, 200, -800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_G_08" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/Concrete>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (50, 400, 50)
+                    double3 xformOp:translate = (400, 200, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_G_09" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/Concrete>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (50, 400, 50)
+                    double3 xformOp:translate = (400, 200, 800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_G_10" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/Concrete>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (50, 400, 50)
+                    double3 xformOp:translate = (1200, 200, -800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_G_11" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/Concrete>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (50, 400, 50)
+                    double3 xformOp:translate = (1200, 200, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_G_12" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/Concrete>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (50, 400, 50)
+                    double3 xformOp:translate = (1200, 200, 800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "FloorSlab_L1" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcSlab"
+                    custom string bim:pset:Pset_SlabCommon:FireRating = "REI 120"
+                    custom bool bim:pset:Pset_SlabCommon:LoadBearing = 1
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/Concrete>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (3200, 25, 2400)
+                    double3 xformOp:translate = (0, 387.5, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+            }
+
+            def Xform "Architectural"
+            {
+                def Cube "CurtainWall_Front" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcCurtainWall"
+                    custom string bim:pset:Pset_Glass:AcousticRating = "42 dB"
+                    custom float bim:pset:Pset_WallCommon:ThermalTransmittance = 0.85
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/CurtainGlass>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (3200, 375, 10)
+                    double3 xformOp:translate = (0, 200, 1200)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "CurtainWall_Back" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcCurtainWall"
+                    custom float bim:pset:Pset_WallCommon:ThermalTransmittance = 0.85
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/CurtainGlass>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (3200, 375, 10)
+                    double3 xformOp:translate = (0, 200, -1200)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "CurtainWall_East" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcCurtainWall"
+                    custom float bim:pset:Pset_WallCommon:ThermalTransmittance = 0.85
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/CurtainGlass>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (10, 375, 2400)
+                    double3 xformOp:translate = (1600, 200, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "CurtainWall_West" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcCurtainWall"
+                    custom float bim:pset:Pset_WallCommon:ThermalTransmittance = 0.85
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/CurtainGlass>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (10, 375, 2400)
+                    double3 xformOp:translate = (-1600, 200, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Partition_Core_North" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcWallStandardCase"
+                    custom string bim:pset:Pset_WallCommon:FireRating = "REI 60"
+                    custom bool bim:pset:Pset_WallCommon:LoadBearing = 0
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/Drywall>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (350, 370, 15)
+                    double3 xformOp:translate = (-150, 185, 100)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "MainEntranceDoor" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcDoor"
+                    custom bool bim:pset:Pset_DoorCommon:Automatic = 1
+                    custom string bim:pset:Pset_DoorCommon:SecurityRating = "RC3"
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/TimberDoor>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (220, 240, 20)
+                    double3 xformOp:translate = (0, 120, 1208)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+            }
+
+            def Xform "MEP"
+            {
+                def Cube "HVAC_MainSupplyDuct_G" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcDuctSegment"
+                    custom string bim:pset:Pset_DuctCommon:AirFlowRate = "5400 m3/h"
+                    custom string bim:pset:Pset_DuctCommon:Insulation = "Rockwool 25mm"
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/HVACGalvanized>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (2800, 35, 50)
+                    double3 xformOp:translate = (0, 360, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cylinder "ChilledWaterSupplyPipe_G" (
+                    prepend apiSchemas = ["MaterialBindingAPI"]
+                )
+                {
+                    uniform token axis = "X"
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcPipeSegment"
+                    custom string bim:pset:Pset_PipeCommon:Fluid = "Chilled Water 6C"
+                    custom string bim:pset:Pset_PipeCommon:PressureRating = "PN16"
+                    custom string bim:storey = "Storey_00_Ground"
+                    double height = 2750
+                    rel material:binding = </World/Materials/FirePipeRed>
+                    double radius = 6
+                    float3 xformOp:rotateXYZ = (0, 0, 90)
+                    double3 xformOp:translate = (0, 345, 45)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ"]
+                }
+            }
+        }
+
+        def Xform "Storey_01_Lab"
+        {
+            custom string bim:description = "High-Tech Cleanroom & Server Cluster"
+            custom float bim:elevation = 400
+            custom float bim:height = 380
+            custom string bim:ifcClass = "IfcBuildingStorey"
+
+            def Xform "Structural"
+            {
+                def Cube "Column_L1_01" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (45, 380, 45)
+                    double3 xformOp:translate = (-1200, 590, -800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L1_02" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (45, 380, 45)
+                    double3 xformOp:translate = (-1200, 590, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L1_03" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (45, 380, 45)
+                    double3 xformOp:translate = (-1200, 590, 800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L1_04" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (45, 380, 45)
+                    double3 xformOp:translate = (-400, 590, -800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L1_05" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (45, 380, 45)
+                    double3 xformOp:translate = (-400, 590, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L1_06" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (45, 380, 45)
+                    double3 xformOp:translate = (-400, 590, 800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L1_07" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (45, 380, 45)
+                    double3 xformOp:translate = (400, 590, -800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L1_08" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (45, 380, 45)
+                    double3 xformOp:translate = (400, 590, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L1_09" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (45, 380, 45)
+                    double3 xformOp:translate = (400, 590, 800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L1_10" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (45, 380, 45)
+                    double3 xformOp:translate = (1200, 590, -800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L1_11" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (45, 380, 45)
+                    double3 xformOp:translate = (1200, 590, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L1_12" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (45, 380, 45)
+                    double3 xformOp:translate = (1200, 590, 800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "FloorSlab_L2" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcSlab"
+                    custom string bim:pset:Pset_SlabCommon:FireRating = "REI 120"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/Concrete>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (3200, 25, 2400)
+                    double3 xformOp:translate = (0, 767.5, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+            }
+
+            def Xform "Architectural"
+            {
+                def Cube "CurtainWall_Front" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcCurtainWall"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/CurtainGlass>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (3200, 355, 10)
+                    double3 xformOp:translate = (0, 590, 1200)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "CurtainWall_Back" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcCurtainWall"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/CurtainGlass>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (3200, 355, 10)
+                    double3 xformOp:translate = (0, 590, -1200)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "ServerRow_1" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcDiscreteAccessory"
+                    custom string bim:pset:Pset_Equipment:ThermalLoad = "24 kW"
+                    custom string bim:pset:Pset_Equipment:Type = "42U High-Density Compute Blade"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/ServerChassis>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (320, 220, 80)
+                    double3 xformOp:translate = (-450, 510, -350)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "ServerRow_2" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcDiscreteAccessory"
+                    custom string bim:pset:Pset_Equipment:ThermalLoad = "24 kW"
+                    custom string bim:pset:Pset_Equipment:Type = "42U High-Density Compute Blade"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/ServerChassis>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (320, 220, 80)
+                    double3 xformOp:translate = (-450, 510, -150)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "ServerRow_3" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcDiscreteAccessory"
+                    custom string bim:pset:Pset_Equipment:ThermalLoad = "24 kW"
+                    custom string bim:pset:Pset_Equipment:Type = "42U High-Density Compute Blade"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/ServerChassis>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (320, 220, 80)
+                    double3 xformOp:translate = (-450, 510, 50)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "ServerRow_4" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcDiscreteAccessory"
+                    custom string bim:pset:Pset_Equipment:ThermalLoad = "24 kW"
+                    custom string bim:pset:Pset_Equipment:Type = "42U High-Density Compute Blade"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/ServerChassis>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (320, 220, 80)
+                    double3 xformOp:translate = (-450, 510, 250)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "CleanroomGlazing" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcCurtainWall"
+                    custom string bim:pset:Pset_SpaceCommon:CleanroomClass = "ISO 5"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/InteriorGlass>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (15, 350, 2100)
+                    double3 xformOp:translate = (200, 590, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+            }
+
+            def Xform "MEP"
+            {
+                def Cube "HVAC_SupplyDuct_L1" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcDuctSegment"
+                    custom string bim:pset:Pset_DuctCommon:FilterGrade = "HEPA H14"
+                    custom string bim:storey = "Storey_01_Lab"
+                    rel material:binding = </World/Materials/HVACGalvanized>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (2900, 30, 45)
+                    double3 xformOp:translate = (0, 740, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cylinder "FireSprinklerLine_L1" (
+                    prepend apiSchemas = ["MaterialBindingAPI"]
+                )
+                {
+                    uniform token axis = "X"
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcPipeSegment"
+                    custom string bim:pset:Pset_FireProtection:System = "Wet Chemical Pre-Action"
+                    custom string bim:storey = "Storey_01_Lab"
+                    double height = 2850
+                    rel material:binding = </World/Materials/FirePipeRed>
+                    double radius = 4.5
+                    float3 xformOp:rotateXYZ = (0, 0, 90)
+                    double3 xformOp:translate = (0, 725, -60)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ"]
+                }
+            }
+        }
+
+        def Xform "Storey_02_Offices"
+        {
+            custom string bim:description = "Executive Collaboration & Engineering Suites"
+            custom float bim:elevation = 780
+            custom float bim:height = 380
+            custom string bim:ifcClass = "IfcBuildingStorey"
+
+            def Xform "Structural"
+            {
+                def Cube "Column_L2_01" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:storey = "Storey_02_Offices"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (40, 380, 40)
+                    double3 xformOp:translate = (-1200, 970, -800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L2_02" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:storey = "Storey_02_Offices"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (40, 380, 40)
+                    double3 xformOp:translate = (-1200, 970, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L2_03" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:storey = "Storey_02_Offices"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (40, 380, 40)
+                    double3 xformOp:translate = (-1200, 970, 800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L2_04" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:storey = "Storey_02_Offices"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (40, 380, 40)
+                    double3 xformOp:translate = (-400, 970, -800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L2_05" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:storey = "Storey_02_Offices"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (40, 380, 40)
+                    double3 xformOp:translate = (-400, 970, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L2_06" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:storey = "Storey_02_Offices"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (40, 380, 40)
+                    double3 xformOp:translate = (-400, 970, 800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L2_07" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:storey = "Storey_02_Offices"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (40, 380, 40)
+                    double3 xformOp:translate = (400, 970, -800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L2_08" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:storey = "Storey_02_Offices"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (40, 380, 40)
+                    double3 xformOp:translate = (400, 970, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L2_09" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:storey = "Storey_02_Offices"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (40, 380, 40)
+                    double3 xformOp:translate = (400, 970, 800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L2_10" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:storey = "Storey_02_Offices"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (40, 380, 40)
+                    double3 xformOp:translate = (1200, 970, -800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L2_11" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:storey = "Storey_02_Offices"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (40, 380, 40)
+                    double3 xformOp:translate = (1200, 970, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Column_L2_12" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcColumn"
+                    custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
+                    custom string bim:storey = "Storey_02_Offices"
+                    rel material:binding = </World/Materials/StructuralSteel>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (40, 380, 40)
+                    double3 xformOp:translate = (1200, 970, 800)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "RoofSlab" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Structural"
+                    custom string bim:ifcClass = "IfcSlab"
+                    custom string bim:pset:Pset_SlabCommon:Waterproofing = "EPDM Membrane 2.0mm"
+                    custom string bim:storey = "Storey_02_Offices"
+                    rel material:binding = </World/Materials/Concrete>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (3200, 25, 2400)
+                    double3 xformOp:translate = (0, 1147.5, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+            }
+
+            def Xform "Architectural"
+            {
+                def Cube "CurtainWall_SouthRibbon" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcCurtainWall"
+                    custom float bim:pset:Pset_Shading:SolarHeatGainCoeff = 0.28
+                    custom string bim:storey = "Storey_02_Offices"
+                    rel material:binding = </World/Materials/CurtainGlass>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (3200, 355, 10)
+                    double3 xformOp:translate = (0, 970, 1200)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "OfficePartition_Boardroom" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcWallStandardCase"
+                    custom int bim:pset:Pset_Acoustic:SoundTransmissionClass = 52
+                    custom string bim:storey = "Storey_02_Offices"
+                    rel material:binding = </World/Materials/Drywall>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (450, 350, 15)
+                    double3 xformOp:translate = (-300, 955, 150)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+            }
+
+            def Xform "MEP"
+            {
+                def Cube "HVAC_SupplyDuct_L2" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcDuctSegment"
+                    custom string bim:storey = "Storey_02_Offices"
+                    rel material:binding = </World/Materials/HVACGalvanized>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (2900, 30, 45)
+                    double3 xformOp:translate = (0, 1120, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+            }
+        }
+
+        def Xform "Storey_03_Rooftop"
+        {
+            custom string bim:description = "Mechanical Penthouse & Solar Energy Array"
+            custom float bim:elevation = 1160
+            custom float bim:height = 140
+            custom string bim:ifcClass = "IfcBuildingStorey"
+
+            def Xform "Structural"
+            {
+            }
+
+            def Xform "Architectural"
+            {
+                def Cube "Parapet_North" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcWall"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/ParapetAlum>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (3200, 120, 20)
+                    double3 xformOp:translate = (0, 1220, 1200)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Parapet_South" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcWall"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/ParapetAlum>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (3200, 120, 20)
+                    double3 xformOp:translate = (0, 1220, -1200)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Parapet_East" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcWall"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/ParapetAlum>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (20, 120, 2400)
+                    double3 xformOp:translate = (1600, 1220, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Parapet_West" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcWall"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/ParapetAlum>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (20, 120, 2400)
+                    double3 xformOp:translate = (-1600, 1220, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "StairPenthouse" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "Architectural"
+                    custom string bim:ifcClass = "IfcBuildingElementProxy"
+                    custom string bim:pset:Pset_BuildingElement:Access = "Rooftop Maintenance Hatch"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/ParapetAlum>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (350, 250, 450)
+                    double3 xformOp:translate = (-800, 1285, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+            }
+
+            def Xform "MEP"
+            {
+                def Cube "ChillerUnit_1" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcChiller"
+                    custom string bim:pset:Pset_ChillerCommon:CoolingCapacity = "350 kW"
+                    custom string bim:pset:Pset_ChillerCommon:Refrigerant = "R1234ze (Low GWP)"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/HVACGalvanized>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (320, 220, 200)
+                    double3 xformOp:translate = (400, 1270, -450)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "ChillerUnit_2" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcChiller"
+                    custom string bim:pset:Pset_ChillerCommon:CoolingCapacity = "350 kW"
+                    custom string bim:pset:Pset_ChillerCommon:Refrigerant = "R1234ze (Low GWP)"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/HVACGalvanized>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (320, 220, 200)
+                    double3 xformOp:translate = (950, 1270, -450)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "SolarArray_R1_P1" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcSolarDevice"
+                    custom float bim:pset:Pset_SolarDevice:Azimuth = 180
+                    custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
+                    custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
+                    custom string bim:pset:Pset_SolarDevice:Type = "Monocrystalline Bifacial PV"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/SolarPV>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float xformOp:rotateX = -25
+                    float3 xformOp:scale = (280, 12, 160)
+                    double3 xformOp:translate = (-400, 1215, -150)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale", "xformOp:rotateX"]
+                }
+
+                def Cube "SolarArray_R1_P2" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcSolarDevice"
+                    custom float bim:pset:Pset_SolarDevice:Azimuth = 180
+                    custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
+                    custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
+                    custom string bim:pset:Pset_SolarDevice:Type = "Monocrystalline Bifacial PV"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/SolarPV>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float xformOp:rotateX = -25
+                    float3 xformOp:scale = (280, 12, 160)
+                    double3 xformOp:translate = (-80, 1215, -150)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale", "xformOp:rotateX"]
+                }
+
+                def Cube "SolarArray_R1_P3" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcSolarDevice"
+                    custom float bim:pset:Pset_SolarDevice:Azimuth = 180
+                    custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
+                    custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
+                    custom string bim:pset:Pset_SolarDevice:Type = "Monocrystalline Bifacial PV"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/SolarPV>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float xformOp:rotateX = -25
+                    float3 xformOp:scale = (280, 12, 160)
+                    double3 xformOp:translate = (240, 1215, -150)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale", "xformOp:rotateX"]
+                }
+
+                def Cube "SolarArray_R1_P4" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcSolarDevice"
+                    custom float bim:pset:Pset_SolarDevice:Azimuth = 180
+                    custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
+                    custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
+                    custom string bim:pset:Pset_SolarDevice:Type = "Monocrystalline Bifacial PV"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/SolarPV>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float xformOp:rotateX = -25
+                    float3 xformOp:scale = (280, 12, 160)
+                    double3 xformOp:translate = (560, 1215, -150)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale", "xformOp:rotateX"]
+                }
+
+                def Cube "SolarArray_R2_P1" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcSolarDevice"
+                    custom float bim:pset:Pset_SolarDevice:Azimuth = 180
+                    custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
+                    custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
+                    custom string bim:pset:Pset_SolarDevice:Type = "Monocrystalline Bifacial PV"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/SolarPV>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float xformOp:rotateX = -25
+                    float3 xformOp:scale = (280, 12, 160)
+                    double3 xformOp:translate = (-400, 1215, 150)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale", "xformOp:rotateX"]
+                }
+
+                def Cube "SolarArray_R2_P2" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcSolarDevice"
+                    custom float bim:pset:Pset_SolarDevice:Azimuth = 180
+                    custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
+                    custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
+                    custom string bim:pset:Pset_SolarDevice:Type = "Monocrystalline Bifacial PV"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/SolarPV>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float xformOp:rotateX = -25
+                    float3 xformOp:scale = (280, 12, 160)
+                    double3 xformOp:translate = (-80, 1215, 150)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale", "xformOp:rotateX"]
+                }
+
+                def Cube "SolarArray_R2_P3" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcSolarDevice"
+                    custom float bim:pset:Pset_SolarDevice:Azimuth = 180
+                    custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
+                    custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
+                    custom string bim:pset:Pset_SolarDevice:Type = "Monocrystalline Bifacial PV"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/SolarPV>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float xformOp:rotateX = -25
+                    float3 xformOp:scale = (280, 12, 160)
+                    double3 xformOp:translate = (240, 1215, 150)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale", "xformOp:rotateX"]
+                }
+
+                def Cube "SolarArray_R2_P4" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcSolarDevice"
+                    custom float bim:pset:Pset_SolarDevice:Azimuth = 180
+                    custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
+                    custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
+                    custom string bim:pset:Pset_SolarDevice:Type = "Monocrystalline Bifacial PV"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/SolarPV>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float xformOp:rotateX = -25
+                    float3 xformOp:scale = (280, 12, 160)
+                    double3 xformOp:translate = (560, 1215, 150)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale", "xformOp:rotateX"]
+                }
+
+                def Cube "SolarArray_R3_P1" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcSolarDevice"
+                    custom float bim:pset:Pset_SolarDevice:Azimuth = 180
+                    custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
+                    custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
+                    custom string bim:pset:Pset_SolarDevice:Type = "Monocrystalline Bifacial PV"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/SolarPV>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float xformOp:rotateX = -25
+                    float3 xformOp:scale = (280, 12, 160)
+                    double3 xformOp:translate = (-400, 1215, 450)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale", "xformOp:rotateX"]
+                }
+
+                def Cube "SolarArray_R3_P2" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcSolarDevice"
+                    custom float bim:pset:Pset_SolarDevice:Azimuth = 180
+                    custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
+                    custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
+                    custom string bim:pset:Pset_SolarDevice:Type = "Monocrystalline Bifacial PV"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/SolarPV>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float xformOp:rotateX = -25
+                    float3 xformOp:scale = (280, 12, 160)
+                    double3 xformOp:translate = (-80, 1215, 450)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale", "xformOp:rotateX"]
+                }
+
+                def Cube "SolarArray_R3_P3" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcSolarDevice"
+                    custom float bim:pset:Pset_SolarDevice:Azimuth = 180
+                    custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
+                    custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
+                    custom string bim:pset:Pset_SolarDevice:Type = "Monocrystalline Bifacial PV"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/SolarPV>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float xformOp:rotateX = -25
+                    float3 xformOp:scale = (280, 12, 160)
+                    double3 xformOp:translate = (240, 1215, 450)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale", "xformOp:rotateX"]
+                }
+
+                def Cube "SolarArray_R3_P4" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcSolarDevice"
+                    custom float bim:pset:Pset_SolarDevice:Azimuth = 180
+                    custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
+                    custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
+                    custom string bim:pset:Pset_SolarDevice:Type = "Monocrystalline Bifacial PV"
+                    custom string bim:storey = "Storey_03_Rooftop"
+                    rel material:binding = </World/Materials/SolarPV>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float xformOp:rotateX = -25
+                    float3 xformOp:scale = (280, 12, 160)
+                    double3 xformOp:translate = (560, 1215, 450)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale", "xformOp:rotateX"]
+                }
+            }
+        }
+    }
+
+    def Xform "Materials"
+    {
+        def Material "Concrete"
+        {
+            token outputs:surface.connect = </World/Materials/Concrete/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.62, 0.62, 0.65)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "StructuralSteel"
+        {
+            token outputs:surface.connect = </World/Materials/StructuralSteel/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.18, 0.2, 0.24)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0.85
+                float inputs:opacity = 1
+                float inputs:roughness = 0.35
+                token outputs:surface
+            }
+        }
+
+        def Material "CurtainGlass"
+        {
+            token outputs:surface.connect = </World/Materials/CurtainGlass/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.82, 0.92, 1)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.52
+                float inputs:metallic = 0.1
+                float inputs:opacity = 0.35
+                float inputs:roughness = 0.05
+                token outputs:surface
+            }
+        }
+
+        def Material "InteriorGlass"
+        {
+            token outputs:surface.connect = </World/Materials/InteriorGlass/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.9, 0.95, 1)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0.05
+                float inputs:opacity = 0.25
+                float inputs:roughness = 0.1
+                token outputs:surface
+            }
+        }
+
+        def Material "Drywall"
+        {
+            token outputs:surface.connect = </World/Materials/Drywall/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.92, 0.92, 0.9)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.85
+                token outputs:surface
+            }
+        }
+
+        def Material "TimberDoor"
+        {
+            token outputs:surface.connect = </World/Materials/TimberDoor/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.45, 0.28, 0.16)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.55
+                token outputs:surface
+            }
+        }
+
+        def Material "HVACGalvanized"
+        {
+            token outputs:surface.connect = </World/Materials/HVACGalvanized/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.76, 0.8, 0.82)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0.9
+                float inputs:opacity = 1
+                float inputs:roughness = 0.25
+                token outputs:surface
+            }
+        }
+
+        def Material "FirePipeRed"
+        {
+            token outputs:surface.connect = </World/Materials/FirePipeRed/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.85, 0.15, 0.12)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0.2
+                float inputs:opacity = 1
+                float inputs:roughness = 0.3
+                token outputs:surface
+            }
+        }
+
+        def Material "SolarPV"
+        {
+            token outputs:surface.connect = </World/Materials/SolarPV/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.04, 0.1, 0.32)
+                color3f inputs:emissiveColor = (0.02, 0.05, 0.12)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0.7
+                float inputs:opacity = 1
+                float inputs:roughness = 0.15
+                token outputs:surface
+            }
+        }
+
+        def Material "ServerChassis"
+        {
+            token outputs:surface.connect = </World/Materials/ServerChassis/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.12, 0.12, 0.14)
+                color3f inputs:emissiveColor = (0, 0.3, 0.8)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0.6
+                float inputs:opacity = 1
+                float inputs:roughness = 0.4
+                token outputs:surface
+            }
+        }
+
+        def Material "ParapetAlum"
+        {
+            token outputs:surface.connect = </World/Materials/ParapetAlum/PBRShader.outputs:surface>
+
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.35, 0.37, 0.4)
+                color3f inputs:emissiveColor = (0, 0, 0)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0.75
+                float inputs:opacity = 1
+                float inputs:roughness = 0.4
+                token outputs:surface
+            }
+        }
+    }
+
+    def Xform "Environment"
+    {
+        def DomeLight "DomeLight"
+        {
+            color3f inputs:color = (0.9, 0.94, 1)
+            float inputs:intensity = 600
+        }
+
+        def DistantLight "SunLight"
+        {
+            color3f inputs:color = (1, 0.98, 0.92)
+            float inputs:intensity = 4500
+            float3 xformOp:rotateXYZ = (-52, 35, 0)
+            uniform token[] xformOpOrder = ["xformOp:rotateXYZ"]
+        }
+
+        def Plane "SiteTerrain" (
+            prepend apiSchemas = ["PhysicsCollisionAPI"]
+        )
+        {
+            uniform token axis = "Y"
+            double length = 6000
+            bool physics:collisionEnabled = 1
+            double width = 6000
+        }
+    }
+
+    def PhysicsScene "PhysicsScene"
+    {
+        vector3f physics:gravityDirection = (0, -1, 0)
+        float physics:gravityMagnitude = 981
+    }
+}
+

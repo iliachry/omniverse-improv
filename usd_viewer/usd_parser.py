@@ -287,6 +287,39 @@ def parse_geometry_prim(prim: Usd.Prim, xform_cache: UsdGeom.XformCache) -> Opti
 
     physics = parse_physics_attributes(prim)
 
+    # BIM Attributes extraction
+    bim_info = None
+    ifc_attr = prim.GetAttribute("bim:ifcClass")
+    disc_attr = prim.GetAttribute("bim:discipline")
+    storey_attr = prim.GetAttribute("bim:storey")
+    if ifc_attr or disc_attr or storey_attr:
+        psets = {}
+        for attr in prim.GetAttributes():
+            name = attr.GetName()
+            if name.startswith("bim:pset:"):
+                key = name[len("bim:pset:"):]
+                val = attr.Get()
+                psets[key] = val
+
+        bim_info = {
+            "ifcClass": str(ifc_attr.Get() or "") if ifc_attr else "IfcBuildingElement",
+            "discipline": str(disc_attr.Get() or "") if disc_attr else "Architectural",
+            "storey": str(storey_attr.Get() or "") if storey_attr else "",
+            "psets": psets,
+        }
+
+    # Cesium Anchor extraction
+    cesium_anchor = None
+    lat_attr = prim.GetAttribute("cesium:anchor:latitude")
+    if lat_attr and lat_attr.Get() is not None:
+        lon_attr = prim.GetAttribute("cesium:anchor:longitude")
+        h_attr = prim.GetAttribute("cesium:anchor:height")
+        cesium_anchor = {
+            "latitude": float(lat_attr.Get()),
+            "longitude": float(lon_attr.Get()) if lon_attr and lon_attr.Get() is not None else 0.0,
+            "height": float(h_attr.Get()) if h_attr and h_attr.Get() is not None else 0.0,
+        }
+
     return {
         "path": path,
         "name": prim.GetName(),
@@ -298,6 +331,8 @@ def parse_geometry_prim(prim: Usd.Prim, xform_cache: UsdGeom.XformCache) -> Opti
         "materialPath": bound_material_path,
         "geomProps": geom_props,
         "physics": physics,
+        "bim": bim_info,
+        "cesiumAnchor": cesium_anchor,
     }
 
 
@@ -348,6 +383,45 @@ def parse_usd_stage(stage_path: str) -> Dict[str, Any]:
     rigid_body_count = sum(1 for p in prims if p["physics"]["isRigidBody"])
     collider_count = sum(1 for p in prims if p["physics"]["isCollisionEnabled"])
 
+    # Extract Cesium Georeference (if authored)
+    cesium_georef = None
+    georef_prim = stage.GetPrimAtPath("/World/CesiumGeoreference")
+    if georef_prim.IsValid():
+        g_lat = georef_prim.GetAttribute("cesium:latitude")
+        g_lon = georef_prim.GetAttribute("cesium:longitude")
+        g_h = georef_prim.GetAttribute("cesium:height")
+        g_binding = georef_prim.GetAttribute("cesium:georeferenceBinding")
+        cesium_georef = {
+            "latitude": float(g_lat.Get()) if g_lat and g_lat.Get() is not None else 0.0,
+            "longitude": float(g_lon.Get()) if g_lon and g_lon.Get() is not None else 0.0,
+            "height": float(g_h.Get()) if g_h and g_h.Get() is not None else 0.0,
+            "binding": str(g_binding.Get()) if g_binding and g_binding.Get() else "WGS84",
+        }
+    else:
+        for p in stage.Traverse():
+            p_lat = p.GetAttribute("cesium:anchor:latitude")
+            if p_lat and p_lat.Get() is not None:
+                p_lon = p.GetAttribute("cesium:anchor:longitude")
+                p_h = p.GetAttribute("cesium:anchor:height")
+                cesium_georef = {
+                    "latitude": float(p_lat.Get()),
+                    "longitude": float(p_lon.Get()) if p_lon and p_lon.Get() is not None else 0.0,
+                    "height": float(p_h.Get()) if p_h and p_h.Get() is not None else 0.0,
+                    "binding": "WGS84"
+                }
+                break
+
+    # Extract BIM Summary
+    bim_elements = [p for p in prims if p.get("bim")]
+    bim_summary = None
+    if bim_elements:
+        bim_summary = {
+            "elementCount": len(bim_elements),
+            "storeys": sorted(list({p["bim"]["storey"] for p in bim_elements if p["bim"].get("storey")})),
+            "disciplines": sorted(list({p["bim"]["discipline"] for p in bim_elements if p["bim"].get("discipline")})),
+            "classes": sorted(list({p["bim"]["ifcClass"] for p in bim_elements if p["bim"].get("ifcClass")})),
+        }
+
     return {
         "filename": os.path.basename(stage_path),
         "stagePath": stage_path,
@@ -360,7 +434,11 @@ def parse_usd_stage(stage_path: str) -> Dict[str, Any]:
             "cameraCount": len(cameras),
             "rigidBodyCount": rigid_body_count,
             "colliderCount": collider_count,
+            "bimCount": len(bim_elements),
+            "hasCesium": cesium_georef is not None,
         },
+        "cesium": cesium_georef,
+        "bimSummary": bim_summary,
         "hierarchy": hierarchy,
         "materials": materials,
         "lights": lights,

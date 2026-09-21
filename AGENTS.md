@@ -27,6 +27,8 @@ python usd_generators/generate_procedural_scene.py
 python usd_generators/generate_robotics_arm.py
 python usd_generators/generate_block_tower.py
 python usd_generators/generate_warehouse_digital_twin.py
+python usd_generators/generate_bim_cesium_stage.py
+python usd_generators/export_3dtiles.py
 python usd_generators/prompt_to_usd.py
 python robotics/ik_solver.py
 
