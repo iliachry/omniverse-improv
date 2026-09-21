@@ -1261,55 +1261,120 @@ function populateCesiumBimFacility() {
   const lon = (stageData.cesium && stageData.cesium.longitude) ? stageData.cesium.longitude : 23.7361;
   const alt = (stageData.cesium && stageData.cesium.height) ? stageData.cesium.height : 120.0;
 
+  // Center coordinate on Earth
+  const centerCartesian = Cesium.Cartesian3.fromDegrees(lon, lat, alt);
+  const enuToFixed = Cesium.Transforms.eastNorthUpToFixedFrame(centerCartesian);
+
   // Pin & Label
   const pin = cesiumViewer.entities.add({
     name: "Smart Tech Campus Facility",
-    position: Cesium.Cartesian3.fromDegrees(lon, lat, alt + 35.0),
+    position: Cesium.Cartesian3.fromDegrees(lon, lat, alt + 30.0),
     label: {
-      text: `🏛️ BIM Smart Campus\n(${lat.toFixed(4)}° N, ${lon.toFixed(4)}° E)`,
+      text: `🏛️ Smart Tech Campus Facility\n(${lat.toFixed(4)}° N, ${lon.toFixed(4)}° E)`,
       font: "bold 13px Inter, sans-serif",
       fillColor: Cesium.Color.WHITE,
       outlineColor: Cesium.Color.BLACK,
       outlineWidth: 3,
       style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-      pixelOffset: new Cesium.Cartesian2(0, -20),
-      distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0.0, 100000.0)
+      pixelOffset: new Cesium.Cartesian2(0, -25),
+      distanceDisplayCondition: new Cesium.DistanceDisplayCondition(250.0, 100000.0)
     }
   });
   cesiumFacilityEntities.push(pin);
 
-  // 3D Storeys Extruded Volumes (Ground, Lab, Offices, Rooftop)
-  const storeys = [
-    { name: "Ground Floor (Public Atrium & Foundation)", h0: 0.0, h1: 4.0, color: "#38bdf8", path: "/World/BIM_Facility/Storey_00_Ground" },
-    { name: "Storey 1 (High-Tech Cleanroom & Server Cluster)", h0: 4.0, h1: 7.8, color: "#c084fc", path: "/World/BIM_Facility/Storey_01_Lab" },
-    { name: "Storey 2 (Executive Collaboration & Offices)", h0: 7.8, h1: 11.6, color: "#facc15", path: "/World/BIM_Facility/Storey_02_Offices" },
-    { name: "Storey 3 (Rooftop Penthouse & PV Array)", h0: 11.6, h1: 15.5, color: "#4ade80", path: "/World/BIM_Facility/Storey_03_Rooftop" },
-  ];
+  // Facility Ground Foundation Slab (36m x 28m)
+  const dLat = 14.0 / 111320.0;
+  const dLon = 18.0 / (111320.0 * Math.max(0.1, Math.cos(lat * Math.PI / 180.0)));
+  const foundation = cesiumViewer.entities.add({
+    name: "Campus Site Foundation",
+    polygon: {
+      hierarchy: Cesium.Cartesian3.fromDegreesArray([
+        lon - dLon, lat - dLat,
+        lon + dLon, lat - dLat,
+        lon + dLon, lat + dLat,
+        lon - dLon, lat + dLat
+      ]),
+      height: alt - 0.2,
+      extrudedHeight: alt + 0.05,
+      material: Cesium.Color.fromCssColorString("#1e293b").withAlpha(0.85),
+      outline: true,
+      outlineColor: Cesium.Color.fromCssColorString("#38bdf8")
+    }
+  });
+  cesiumFacilityEntities.push(foundation);
 
-  // Footprint: 32m x 24m
-  const dLat = 12.0 / 111320.0;
-  const dLon = 16.0 / (111320.0 * Math.max(0.1, Math.cos(lat * Math.PI / 180.0)));
+  // Render Granular 3D OpenUSD BIM Prims (Columns, Beams, Slabs, Curtain Walls, MEP Ducts, PV Arrays)
+  if (stageData.prims && stageData.prims.length > 0) {
+    stageData.prims.forEach(prim => {
+      if (prim.type === "Plane" || prim.path.includes("ground") || !prim.position) return;
 
-  storeys.forEach(st => {
-    const ent = cesiumViewer.entities.add({
-      name: st.name,
-      polygon: {
-        hierarchy: Cesium.Cartesian3.fromDegreesArray([
-          lon - dLon, lat - dLat,
-          lon + dLon, lat - dLat,
-          lon + dLon, lat + dLat,
-          lon - dLon, lat + dLat
-        ]),
-        height: alt + st.h0,
-        extrudedHeight: alt + st.h1,
-        material: Cesium.Color.fromCssColorString(st.color).withAlpha(0.6),
-        outline: true,
-        outlineColor: Cesium.Color.WHITE
+      // In OpenUSD stage (Y-up): X = East, Z = North, Y = Up
+      const localEnu = new Cesium.Cartesian3(prim.position[0], prim.position[2], prim.position[1]);
+      const worldPos = Cesium.Matrix4.multiplyByPoint(enuToFixed, localEnu, new Cesium.Cartesian3());
+      const orientation = Cesium.Transforms.headingPitchRollQuaternion(worldPos, new Cesium.HeadingPitchRoll(0, 0, 0));
+
+      const props = prim.geomProps || {};
+      const scale = prim.scale || [1, 1, 1];
+      const baseSize = props.size || 1.0;
+
+      // Width (East/West), Depth (North/South), Height (Up)
+      const dimX = Math.max(0.15, baseSize * scale[0]);
+      const dimY = Math.max(0.15, baseSize * scale[2]);
+      const dimZ = Math.max(0.15, baseSize * scale[1]);
+
+      // Semantic BIM Discipline Coloring
+      let matColor = Cesium.Color.fromCssColorString("#94a3b8");
+      if (prim.bim) {
+        if (prim.bim.discipline === "Structural") {
+          matColor = Cesium.Color.fromCssColorString("#64748b");
+        } else if (prim.bim.discipline === "Architectural") {
+          if (prim.name.includes("Glass") || prim.path.includes("Curtain")) {
+            matColor = Cesium.Color.fromCssColorString("#38bdf8").withAlpha(0.45);
+          } else {
+            matColor = Cesium.Color.fromCssColorString("#cbd5e1");
+          }
+        } else if (prim.bim.discipline === "MEP") {
+          if (prim.name.includes("Solar") || prim.path.includes("Solar")) {
+            matColor = Cesium.Color.fromCssColorString("#0284c7");
+          } else if (prim.name.includes("Chiller")) {
+            matColor = Cesium.Color.fromCssColorString("#0d9488");
+          } else {
+            matColor = Cesium.Color.fromCssColorString("#f97316");
+          }
+        }
+      }
+
+      if (prim.type === "Cylinder") {
+        const cylRadius = (props.radius || 0.5) * scale[0];
+        const cylHeight = (props.height || 2.0) * scale[1];
+        const ent = cesiumViewer.entities.add({
+          name: prim.name || prim.path,
+          position: worldPos,
+          orientation: orientation,
+          cylinder: {
+            length: cylHeight,
+            topRadius: cylRadius,
+            bottomRadius: cylRadius,
+            material: matColor
+          }
+        });
+        ent._bimPath = prim.path;
+        cesiumFacilityEntities.push(ent);
+      } else {
+        const ent = cesiumViewer.entities.add({
+          name: prim.name || prim.path,
+          position: worldPos,
+          orientation: orientation,
+          box: {
+            dimensions: new Cesium.Cartesian3(dimX, dimY, dimZ),
+            material: matColor
+          }
+        });
+        ent._bimPath = prim.path;
+        cesiumFacilityEntities.push(ent);
       }
     });
-    ent._bimPath = st.path;
-    cesiumFacilityEntities.push(ent);
-  });
+  }
 }
 
 function flyCesiumToSite() {
@@ -1320,10 +1385,10 @@ function flyCesiumToSite() {
   const alt = (stageData && stageData.cesium && stageData.cesium.height) ? stageData.cesium.height : 120.0;
 
   cesiumViewer.camera.flyTo({
-    destination: Cesium.Cartesian3.fromDegrees(lon, lat - 0.0035, alt + 380.0),
+    destination: Cesium.Cartesian3.fromDegrees(lon, lat - 0.00075, alt + 48.0),
     orientation: {
       heading: Cesium.Math.toRadians(0.0),
-      pitch: Cesium.Math.toRadians(-38.0),
+      pitch: Cesium.Math.toRadians(-26.0),
       roll: 0.0
     },
     duration: 2.0
