@@ -10,6 +10,15 @@ from typing import Any, Dict, List, Optional
 from pxr import Gf, Sdf, Usd, UsdGeom, UsdLux, UsdPhysics, UsdShade
 
 
+def clean_float(v: float) -> float:
+    """Rounds float to 6 decimals and eliminates -0.0 and machine epsilon noise."""
+    fv = float(v)
+    if abs(fv) < 1e-12:
+        return 0.0
+    r = round(fv, 6)
+    return 0.0 if r == 0.0 else r
+
+
 def matrix4d_to_list(mat: Gf.Matrix4d) -> List[float]:
     """Convert Gf.Matrix4d (row-major) to a flat 16-element list in column-major order for Three.js."""
     # Three.js uses column-major matrices (elements[col * 4 + row])
@@ -17,13 +26,7 @@ def matrix4d_to_list(mat: Gf.Matrix4d) -> List[float]:
     elements = []
     for col in range(4):
         for row in range(4):
-            val = float(mat[row][col])
-            if abs(val) < 1e-12:
-                val = 0.0
-            else:
-                r = round(val, 6)
-                val = 0.0 if r == 0.0 else r
-            elements.append(val)
+            elements.append(clean_float(mat[row][col]))
     return elements
 
 
@@ -137,10 +140,10 @@ def parse_lights(stage: Usd.Stage, xform_cache: UsdGeom.XformCache) -> List[Dict
                 "path": path,
                 "name": prim.GetName(),
                 "type": "DistantLight",
-                "color": [float(color_attr[0]), float(color_attr[1]), float(color_attr[2])],
-                "intensity": float(intensity_attr),
-                "position": [float(trans[0]), float(trans[1]), float(trans[2])],
-                "rotation": [float(angles[0]), float(angles[1]), float(angles[2])],
+                "color": [clean_float(color_attr[0]), clean_float(color_attr[1]), clean_float(color_attr[2])],
+                "intensity": clean_float(intensity_attr),
+                "position": [clean_float(trans[0]), clean_float(trans[1]), clean_float(trans[2])],
+                "rotation": [clean_float(angles[0]), clean_float(angles[1]), clean_float(angles[2])],
                 "matrix": matrix4d_to_list(world_tf),
             })
         elif prim.IsA(UsdLux.SphereLight) or type_name == "SphereLight":
@@ -152,10 +155,10 @@ def parse_lights(stage: Usd.Stage, xform_cache: UsdGeom.XformCache) -> List[Dict
                 "path": path,
                 "name": prim.GetName(),
                 "type": "SphereLight",
-                "color": [float(color_attr[0]), float(color_attr[1]), float(color_attr[2])],
-                "intensity": float(intensity_attr),
-                "radius": float(radius_attr),
-                "position": [float(trans[0]), float(trans[1]), float(trans[2])],
+                "color": [clean_float(color_attr[0]), clean_float(color_attr[1]), clean_float(color_attr[2])],
+                "intensity": clean_float(intensity_attr),
+                "radius": clean_float(radius_attr),
+                "position": [clean_float(trans[0]), clean_float(trans[1]), clean_float(trans[2])],
                 "matrix": matrix4d_to_list(world_tf),
             })
 
@@ -183,10 +186,10 @@ def parse_cameras(stage: Usd.Stage, xform_cache: UsdGeom.XformCache) -> List[Dic
             cameras.append({
                 "path": str(prim.GetPath()),
                 "name": prim.GetName(),
-                "focalLength": float(focal_length),
-                "fov": float(fov),
-                "position": [float(trans[0]), float(trans[1]), float(trans[2])],
-                "rotation": [float(angles[0]), float(angles[1]), float(angles[2])],
+                "focalLength": clean_float(focal_length),
+                "fov": clean_float(fov),
+                "position": [clean_float(trans[0]), clean_float(trans[1]), clean_float(trans[2])],
+                "rotation": [clean_float(angles[0]), clean_float(angles[1]), clean_float(angles[2])],
                 "matrix": matrix4d_to_list(world_tf),
             })
     return cameras
