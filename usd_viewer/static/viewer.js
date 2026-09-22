@@ -1315,7 +1315,31 @@ function applyBimFilters() {
       const matchDisc = activeDisciplines[prim.bim.discipline] !== false;
       let show = matchStorey && matchDisc;
       if (is4DMode && prim.bim.constructionMonth !== undefined) {
-        show = show && (prim.bim.constructionMonth <= current4DMonth);
+        if (prim.bim.constructionMonth > current4DMonth) {
+          if (is4DGhostUnbuilt && typeof Cesium !== "undefined") {
+            show = matchStorey && matchDisc;
+            const ghostColor = Cesium.Color.fromCssColorString("#38bdf8").withAlpha(0.12);
+            if (ent.box) ent.box.material = ghostColor;
+            if (ent.cylinder) ent.cylinder.material = ghostColor;
+          } else {
+            show = false;
+          }
+        } else {
+          // Element is constructed by this month
+          if (prim.bim.constructionMonth === current4DMonth && is4DMode && current4DMonth > 0 && typeof Cesium !== "undefined") {
+            const activeColor = Cesium.Color.fromCssColorString("#f59e0b");
+            if (ent.box) ent.box.material = activeColor;
+            if (ent.cylinder) ent.cylinder.material = activeColor;
+          } else if (ent._origMaterial) {
+            if (ent.box) ent.box.material = ent._origMaterial;
+            if (ent.cylinder) ent.cylinder.material = ent._origMaterial;
+          }
+        }
+      } else {
+        if (ent._origMaterial) {
+          if (ent.box) ent.box.material = ent._origMaterial;
+          if (ent.cylinder) ent.cylinder.material = ent._origMaterial;
+        }
       }
       ent.show = show;
     });
@@ -1382,9 +1406,11 @@ function switchViewMode(mode) {
     initCesiumViewer();
     populateCesiumBimFacility();
     flyCesiumToSite();
+    applyBimFilters();
   } else {
     if (canvas) canvas.style.display = "block";
     if (cesiumContainer) cesiumContainer.classList.add("hidden");
+    applyBimFilters();
   }
 }
 
@@ -1523,6 +1549,7 @@ function populateCesiumBimFacility() {
         });
         ent._bimPath = prim.path;
         ent._prim = prim;
+        ent._origMaterial = matColor;
         cesiumFacilityEntities.push(ent);
       } else {
         const ent = cesiumViewer.entities.add({
@@ -1536,10 +1563,12 @@ function populateCesiumBimFacility() {
         });
         ent._bimPath = prim.path;
         ent._prim = prim;
+        ent._origMaterial = matColor;
         cesiumFacilityEntities.push(ent);
       }
     });
   }
+  applyBimFilters();
 }
 
 function flyCesiumToSite() {
