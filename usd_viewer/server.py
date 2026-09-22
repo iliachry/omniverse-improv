@@ -41,6 +41,7 @@ def find_usd_files(base_dir: str) -> List[dict]:
                     "fullPath": full_path,
                     "size": os.path.getsize(full_path)
                 })
+    usd_files.sort(key=lambda x: x["relPath"])
     return usd_files
 
 

@@ -33,7 +33,7 @@ def build_static_demo():
     os.makedirs(DOCS_DIR, exist_ok=True)
 
     # 1. Copy static web assets directly (clean, uncorrupted)
-    for item in os.listdir(STATIC_SRC):
+    for item in sorted(os.listdir(STATIC_SRC)):
         s = os.path.join(STATIC_SRC, item)
         d = os.path.join(DOCS_DIR, item)
         if os.path.isdir(s):
@@ -45,7 +45,7 @@ def build_static_demo():
     api_dir = os.path.join(DOCS_DIR, "api")
     os.makedirs(api_dir, exist_ok=True)
 
-    usd_files = find_usd_files(WORKSPACE_DIR)
+    usd_files = sorted(find_usd_files(WORKSPACE_DIR), key=lambda x: x["relPath"])
     # Sanitize for static distribution (portable relative paths)
     sanitized_usd_files = []
     for stg in usd_files:
@@ -78,7 +78,7 @@ def build_static_demo():
     if os.path.exists(SDG_SRC):
         sdg_dest = os.path.join(DOCS_DIR, "sdg_media")
         os.makedirs(sdg_dest, exist_ok=True)
-        for item in os.listdir(SDG_SRC):
+        for item in sorted(os.listdir(SDG_SRC)):
             s = os.path.join(SDG_SRC, item)
             d = os.path.join(sdg_dest, item)
             if not os.path.isdir(s):
