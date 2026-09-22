@@ -35,7 +35,7 @@ def monitor_run(run_id):
                     return conclusion
         except Exception as e:
             print("Error:", e)
-        time.sleep(10)
+        time.sleep(25)
     return None
 
 if __name__ == "__main__":

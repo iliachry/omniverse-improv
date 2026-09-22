@@ -17,7 +17,13 @@ def matrix4d_to_list(mat: Gf.Matrix4d) -> List[float]:
     elements = []
     for col in range(4):
         for row in range(4):
-            elements.append(float(mat[row][col]))
+            val = float(mat[row][col])
+            if abs(val) < 1e-12:
+                val = 0.0
+            else:
+                r = round(val, 6)
+                val = 0.0 if r == 0.0 else r
+            elements.append(val)
     return elements
 
 
@@ -327,13 +333,20 @@ def parse_geometry_prim(prim: Usd.Prim, xform_cache: UsdGeom.XformCache) -> Opti
             "height": float(h_attr.Get()) if h_attr and h_attr.Get() is not None else 0.0,
         }
 
+    def _clean_float(v: float) -> float:
+        fv = float(v)
+        if abs(fv) < 1e-12:
+            return 0.0
+        r = round(fv, 6)
+        return 0.0 if r == 0.0 else r
+
     return {
         "path": path,
         "name": prim.GetName(),
         "type": type_name,
-        "position": [float(trans[0]), float(trans[1]), float(trans[2])],
-        "rotation": [float(angles[0]), float(angles[1]), float(angles[2])],
-        "scale": [float(scale_x), float(scale_y), float(scale_z)],
+        "position": [_clean_float(trans[0]), _clean_float(trans[1]), _clean_float(trans[2])],
+        "rotation": [_clean_float(angles[0]), _clean_float(angles[1]), _clean_float(angles[2])],
+        "scale": [_clean_float(scale_x), _clean_float(scale_y), _clean_float(scale_z)],
         "matrix": matrix4d_to_list(world_tf),
         "materialPath": bound_material_path,
         "geomProps": geom_props,
