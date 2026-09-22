@@ -71,5 +71,16 @@ jobs:
       - name: Export YOLOv8 & COCO Synthetic Datasets
         run: python replicator/export_coco_yolo.py
 
+      - name: Build WebGL 3D Studio Static Demo & Enforce Drift Check
+        run: |
+          python usd_viewer/export_static_demo.py
+          git diff --ignore-space-at-eol --exit-code docs/
+
+      - name: Validate JavaScript ES Modules Syntax
+        run: |
+          node -c docs/viewer.js
+          node -c docs/js/main.js
+          node -c usd_viewer/static/js/main.js
+
       - name: Run Pytest Test Suite
         run: pytest tests/ -v

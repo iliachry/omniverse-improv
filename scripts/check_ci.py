@@ -24,7 +24,7 @@ def check_latest_run():
 def monitor_run(run_id):
     url = f'https://api.github.com/repos/iliachry/omniverse-improv/actions/runs/{run_id}'
     req = urllib.request.Request(url, headers={'User-Agent': 'Antigravity'})
-    for _ in range(12):
+    for _ in range(60):
         try:
             with urllib.request.urlopen(req) as resp:
                 data = json.loads(resp.read().decode())

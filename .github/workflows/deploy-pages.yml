@@ -42,6 +42,8 @@ jobs:
           python usd_generators/generate_block_tower.py
           python usd_generators/generate_warehouse_digital_twin.py
           python usd_generators/prompt_to_usd.py
+          python usd_generators/generate_bim_cesium_stage.py
+          python usd_generators/export_3dtiles.py
           python replicator/generate_synthetic_dataset_standalone.py
           python usd_viewer/export_static_demo.py
 

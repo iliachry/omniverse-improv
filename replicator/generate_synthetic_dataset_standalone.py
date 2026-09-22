@@ -23,6 +23,8 @@ def generate_synthetic_frame(
     height: int = 512,
 ) -> Dict[str, Any]:
     """Generates a single randomized multi-modal synthetic frame."""
+    random.seed(42 + frame_idx)
+    np.random.seed(42 + frame_idx)
     
     # 1. Background (Simulated Studio Environment)
     bg_color = (

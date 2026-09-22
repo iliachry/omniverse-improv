@@ -1,0 +1,10 @@
+{
+  "name": "omniverse-improv",
+  "version": "1.1.0",
+  "description": "Production-grade NVIDIA Omniverse Kit, OpenUSD, WebGL 3D Studio, and Synthetic Data (SDG) starter repository",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "check": "node -c usd_viewer/static/js/main.js"
+  }
+}

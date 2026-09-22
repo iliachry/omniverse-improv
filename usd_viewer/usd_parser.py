@@ -422,35 +422,26 @@ def parse_usd_stage(stage_path: str) -> Dict[str, Any]:
     bim_elements = [p for p in prims if p.get("bim")]
     bim_summary = None
     clashes = []
+    construction_phasing = None
     if bim_elements:
         try:
-            from usd_generators.clash_detector import detect_bim_clashes
+            from core.bim.spatial_clash import detect_bim_clashes
             clashes = detect_bim_clashes(prims)
-        except Exception as e:
-            clashes = []
+        except Exception:
+            try:
+                from usd_generators.clash_detector import detect_bim_clashes
+                clashes = detect_bim_clashes(prims)
+            except Exception:
+                clashes = []
+
         # 4D Construction Phasing Summary
-        construction_phasing = None
         phased_elements = [p for p in bim_elements if p["bim"].get("constructionMonth") is not None]
         if phased_elements:
-            milestones = [
-                {"id": "phase-0", "name": "Phase 0: Substructure & Foundations", "startMonth": 0, "endMonth": 1, "targetMonth": 0, "description": "Site excavation, engineered ground slab, footings & substructure.", "disciplines": ["Structural"]},
-                {"id": "phase-1", "name": "Phase 1: Ground Framing & Transfer Beams", "startMonth": 2, "endMonth": 3, "targetMonth": 2, "description": "Ground floor C40/50 concrete columns, transfer girders, and L1 slab.", "disciplines": ["Structural"]},
-                {"id": "phase-2", "name": "Phase 2: L1 Superstructure & Lab Deck", "startMonth": 4, "endMonth": 5, "targetMonth": 4, "description": "S355 structural steel columns, vibration-isolated cleanroom slab, and floor 2 deck.", "disciplines": ["Structural"]},
-                {"id": "phase-3", "name": "Phase 3: Superstructure Topping Out", "startMonth": 6, "endMonth": 7, "targetMonth": 6, "description": "L2 office columns, reinforced roof deck slab, stair core, and parapet walls.", "disciplines": ["Structural"]},
-                {"id": "phase-4", "name": "Phase 4: Building Enclosure & Glazing", "startMonth": 8, "endMonth": 9, "targetMonth": 8, "description": "Double-glazed curtain wall facades, perimeter ribbon glazing, and entrance vestibules.", "disciplines": ["Architectural"]},
-                {"id": "phase-5", "name": "Phase 5: MEP Rough-in & Services", "startMonth": 10, "endMonth": 11, "targetMonth": 10, "description": "Central HVAC supply ducts, chilled water risers, and fire sprinkler piping loops.", "disciplines": ["MEP"]},
-                {"id": "phase-6", "name": "Phase 6: Interior Fit-out & Commissioning", "startMonth": 12, "endMonth": 12, "targetMonth": 12, "description": "Data cluster server racks, cleanroom partitions, rooftop chillers, and bifacial solar array.", "disciplines": ["Architectural", "MEP"]},
-            ]
-            for m in milestones:
-                m["elementCount"] = sum(1 for p in phased_elements if p["bim"]["constructionMonth"] == m["targetMonth"])
-                m["cumulativeCount"] = sum(1 for p in phased_elements if p["bim"]["constructionMonth"] <= m["targetMonth"])
-                m["progressPercent"] = round((m["cumulativeCount"] / len(phased_elements)) * 100) if phased_elements else 0
-
-            construction_phasing = {
-                "totalMonths": 12,
-                "totalElements": len(phased_elements),
-                "milestones": milestones,
-            }
+            try:
+                from core.bim.phasing_schedule import aggregate_construction_phasing
+                construction_phasing = aggregate_construction_phasing(phased_elements)
+            except Exception:
+                construction_phasing = None
 
         bim_summary = {
             "elementCount": len(bim_elements),

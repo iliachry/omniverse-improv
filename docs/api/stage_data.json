@@ -13,7 +13,7 @@
       "colliderCount": 84,
       "bimCount": 87,
       "hasCesium": true,
-      "clashCount": 3,
+      "clashCount": 2,
       "has4DPhasing": true
     },
     "cesium": {
@@ -24,7 +24,7 @@
     },
     "bimSummary": {
       "elementCount": 87,
-      "clashCount": 3,
+      "clashCount": 2,
       "criticalClashCount": 1,
       "storeys": [
         "Storey_00_Ground",
@@ -303,59 +303,21 @@
       },
       {
         "id": "CLASH-002",
-        "title": "Clash: FireSprinklerBranch_L1 vs Column_L1_08",
-        "severity": "MAJOR",
-        "storey": "Storey_01_Lab",
-        "description": "Major spatial interference: FireSprinklerBranch_L1 encroaches into structural boundary of Column_L1_08.",
-        "mitigation": "Adjust elevation or offset distribution run by minimum 350 mm.",
-        "penetrationDepthCm": 9.0,
-        "overlapVolumeCm3": 3645.0,
-        "centroid": [
-          400.0,
-          725.0,
-          0.0
-        ],
-        "overlapExtents": [
-          9.0,
-          9.0,
-          45.0
-        ],
-        "elementA": {
-          "path": "/World/BIM_Facility/Storey_01_Lab/MEP/FireSprinklerBranch_L1",
-          "name": "FireSprinklerBranch_L1",
-          "discipline": "MEP",
-          "ifcClass": "IfcPipeSegment"
-        },
-        "elementB": {
-          "path": "/World/BIM_Facility/Storey_01_Lab/Structural/Column_L1_08",
-          "name": "Column_L1_08",
-          "discipline": "Structural",
-          "ifcClass": "IfcColumn"
-        },
-        "bcfMetadata": {
-          "topicType": "Clash",
-          "topicStatus": "Active",
-          "priority": "Medium",
-          "assignedTo": "MEP / Structural Coordination Team"
-        }
-      },
-      {
-        "id": "CLASH-003",
         "title": "Clash: ChilledWaterRiser_L2 vs Column_L2_08",
         "severity": "WARNING",
         "storey": "Storey_02_Offices",
         "description": "Clearance tolerance violation: insufficient isolation space between ChilledWaterRiser_L2 and Column_L2_08.",
         "mitigation": "Install firestop sleeve and vibration isolation bracket.",
         "penetrationDepthCm": 5.5,
-        "overlapVolumeCm3": 14630.0,
+        "overlapVolumeCm3": 1540.0,
         "centroid": [
           400.0,
           970.0,
           -17.2
         ],
         "overlapExtents": [
+          40.0,
           7.0,
-          380.0,
           5.5
         ],
         "elementA": {
