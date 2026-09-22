@@ -5,14 +5,15 @@
     "metadata": {
       "upAxis": "Y",
       "metersPerUnit": 0.01,
-      "primCount": 85,
+      "primCount": 88,
       "materialCount": 11,
       "lightCount": 2,
       "cameraCount": 0,
       "rigidBodyCount": 0,
-      "colliderCount": 83,
-      "bimCount": 84,
-      "hasCesium": true
+      "colliderCount": 84,
+      "bimCount": 87,
+      "hasCesium": true,
+      "clashCount": 3
     },
     "cesium": {
       "latitude": 37.9753,
@@ -21,7 +22,9 @@
       "binding": "WGS84"
     },
     "bimSummary": {
-      "elementCount": 84,
+      "elementCount": 87,
+      "clashCount": 3,
+      "criticalClashCount": 1,
       "storeys": [
         "Storey_00_Ground",
         "Storey_01_Lab",
@@ -48,6 +51,122 @@
         "IfcWallStandardCase"
       ]
     },
+    "clashes": [
+      {
+        "id": "CLASH-001",
+        "title": "Clash: HVAC_BranchDuct_Atrium vs Column_G_05",
+        "severity": "CRITICAL",
+        "storey": "Storey_00_Ground",
+        "description": "Hard collision: HVAC_BranchDuct_Atrium penetrates load-bearing Column_G_05 by 35.0 cm.",
+        "mitigation": "Reroute distribution duct/pipe around structural grid or submit RFI for engineered structural sleeve.",
+        "penetrationDepthCm": 35.0,
+        "overlapVolumeCm3": 70875.0,
+        "centroid": [
+          -400.0,
+          360.0,
+          2.5
+        ],
+        "overlapExtents": [
+          45.0,
+          35.0,
+          45.0
+        ],
+        "elementA": {
+          "path": "/World/BIM_Facility/Storey_00_Ground/MEP/HVAC_BranchDuct_Atrium",
+          "name": "HVAC_BranchDuct_Atrium",
+          "discipline": "MEP",
+          "ifcClass": "IfcDuctSegment"
+        },
+        "elementB": {
+          "path": "/World/BIM_Facility/Storey_00_Ground/Structural/Column_G_05",
+          "name": "Column_G_05",
+          "discipline": "Structural",
+          "ifcClass": "IfcColumn"
+        },
+        "bcfMetadata": {
+          "topicType": "Clash",
+          "topicStatus": "Active",
+          "priority": "High",
+          "assignedTo": "MEP / Structural Coordination Team"
+        }
+      },
+      {
+        "id": "CLASH-002",
+        "title": "Clash: FireSprinklerBranch_L1 vs Column_L1_08",
+        "severity": "MAJOR",
+        "storey": "Storey_01_Lab",
+        "description": "Major spatial interference: FireSprinklerBranch_L1 encroaches into structural boundary of Column_L1_08.",
+        "mitigation": "Adjust elevation or offset distribution run by minimum 350 mm.",
+        "penetrationDepthCm": 9.0,
+        "overlapVolumeCm3": 3645.0,
+        "centroid": [
+          400.0,
+          725.0,
+          0.0
+        ],
+        "overlapExtents": [
+          9.0,
+          9.0,
+          45.0
+        ],
+        "elementA": {
+          "path": "/World/BIM_Facility/Storey_01_Lab/MEP/FireSprinklerBranch_L1",
+          "name": "FireSprinklerBranch_L1",
+          "discipline": "MEP",
+          "ifcClass": "IfcPipeSegment"
+        },
+        "elementB": {
+          "path": "/World/BIM_Facility/Storey_01_Lab/Structural/Column_L1_08",
+          "name": "Column_L1_08",
+          "discipline": "Structural",
+          "ifcClass": "IfcColumn"
+        },
+        "bcfMetadata": {
+          "topicType": "Clash",
+          "topicStatus": "Active",
+          "priority": "Medium",
+          "assignedTo": "MEP / Structural Coordination Team"
+        }
+      },
+      {
+        "id": "CLASH-003",
+        "title": "Clash: ChilledWaterRiser_L2 vs Column_L2_08",
+        "severity": "WARNING",
+        "storey": "Storey_02_Offices",
+        "description": "Clearance tolerance violation: insufficient isolation space between ChilledWaterRiser_L2 and Column_L2_08.",
+        "mitigation": "Install firestop sleeve and vibration isolation bracket.",
+        "penetrationDepthCm": 5.5,
+        "overlapVolumeCm3": 14630.0,
+        "centroid": [
+          400.0,
+          970.0,
+          -17.2
+        ],
+        "overlapExtents": [
+          7.0,
+          380.0,
+          5.5
+        ],
+        "elementA": {
+          "path": "/World/BIM_Facility/Storey_02_Offices/MEP/ChilledWaterRiser_L2",
+          "name": "ChilledWaterRiser_L2",
+          "discipline": "MEP",
+          "ifcClass": "IfcPipeSegment"
+        },
+        "elementB": {
+          "path": "/World/BIM_Facility/Storey_02_Offices/Structural/Column_L2_08",
+          "name": "Column_L2_08",
+          "discipline": "Structural",
+          "ifcClass": "IfcColumn"
+        },
+        "bcfMetadata": {
+          "topicType": "Clash",
+          "topicStatus": "Active",
+          "priority": "Medium",
+          "assignedTo": "MEP / Structural Coordination Team"
+        }
+      }
+    ],
     "hierarchy": {
       "path": "/",
       "name": "/",
@@ -272,6 +391,14 @@
                         {
                           "path": "/World/BIM_Facility/Storey_00_Ground/MEP/HVAC_MainSupplyDuct_G",
                           "name": "HVAC_MainSupplyDuct_G",
+                          "type": "Cube",
+                          "hasRigidBody": false,
+                          "hasCollision": true,
+                          "children": []
+                        },
+                        {
+                          "path": "/World/BIM_Facility/Storey_00_Ground/MEP/HVAC_BranchDuct_Atrium",
+                          "name": "HVAC_BranchDuct_Atrium",
                           "type": "Cube",
                           "hasRigidBody": false,
                           "hasCollision": true,
@@ -512,6 +639,14 @@
                           "hasRigidBody": false,
                           "hasCollision": false,
                           "children": []
+                        },
+                        {
+                          "path": "/World/BIM_Facility/Storey_01_Lab/MEP/FireSprinklerBranch_L1",
+                          "name": "FireSprinklerBranch_L1",
+                          "type": "Cylinder",
+                          "hasRigidBody": false,
+                          "hasCollision": false,
+                          "children": []
                         }
                       ]
                     }
@@ -699,6 +834,14 @@
                           "type": "Cube",
                           "hasRigidBody": false,
                           "hasCollision": true,
+                          "children": []
+                        },
+                        {
+                          "path": "/World/BIM_Facility/Storey_02_Offices/MEP/ChilledWaterRiser_L2",
+                          "name": "ChilledWaterRiser_L2",
+                          "type": "Cylinder",
+                          "hasRigidBody": false,
+                          "hasCollision": false,
                           "children": []
                         }
                       ]
@@ -2591,7 +2734,7 @@
         "position": [
           0.0,
           360.0,
-          0.0
+          180.0
         ],
         "rotation": [
           -0.0,
@@ -2615,7 +2758,7 @@
           0.0,
           0.0,
           50.0,
-          0.0,
+          180.0,
           0.0,
           0.0,
           0.0,
@@ -2644,13 +2787,72 @@
         "cesiumAnchor": null
       },
       {
+        "path": "/World/BIM_Facility/Storey_00_Ground/MEP/HVAC_BranchDuct_Atrium",
+        "name": "HVAC_BranchDuct_Atrium",
+        "type": "Cube",
+        "position": [
+          -400.0,
+          360.0,
+          90.0
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          45.0,
+          35.0,
+          220.0
+        ],
+        "matrix": [
+          45.0,
+          0.0,
+          0.0,
+          -400.0,
+          0.0,
+          35.0,
+          0.0,
+          360.0,
+          0.0,
+          0.0,
+          220.0,
+          90.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/HVACGalvanized",
+        "geomProps": {
+          "size": 1.0
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": true,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        },
+        "bim": {
+          "ifcClass": "IfcDuctSegment",
+          "discipline": "MEP",
+          "storey": "Storey_00_Ground",
+          "psets": {
+            "Pset_Coordination:ClashStatus": "Unresolved",
+            "Pset_DuctCommon:AirFlowRate": "1200 m3/h"
+          }
+        },
+        "cesiumAnchor": null
+      },
+      {
         "path": "/World/BIM_Facility/Storey_00_Ground/MEP/ChilledWaterSupplyPipe_G",
         "name": "ChilledWaterSupplyPipe_G",
         "type": "Cylinder",
         "position": [
           0.0,
           345.0,
-          45.0
+          225.0
         ],
         "rotation": [
           -0.0,
@@ -2674,7 +2876,7 @@
           0.0,
           0.0,
           1.0,
-          45.0,
+          225.0,
           0.0,
           0.0,
           0.0,
@@ -3995,7 +4197,7 @@
         "position": [
           0.0,
           740.0,
-          0.0
+          180.0
         ],
         "rotation": [
           -0.0,
@@ -4019,7 +4221,7 @@
           0.0,
           0.0,
           45.0,
-          0.0,
+          180.0,
           0.0,
           0.0,
           0.0,
@@ -4053,7 +4255,7 @@
         "position": [
           0.0,
           725.0,
-          -60.0
+          240.0
         ],
         "rotation": [
           -0.0,
@@ -4077,7 +4279,7 @@
           0.0,
           0.0,
           1.0,
-          -60.0,
+          240.0,
           0.0,
           0.0,
           0.0,
@@ -4101,6 +4303,67 @@
           "discipline": "MEP",
           "storey": "Storey_01_Lab",
           "psets": {
+            "Pset_FireProtection:System": "Wet Chemical Pre-Action"
+          }
+        },
+        "cesiumAnchor": null
+      },
+      {
+        "path": "/World/BIM_Facility/Storey_01_Lab/MEP/FireSprinklerBranch_L1",
+        "name": "FireSprinklerBranch_L1",
+        "type": "Cylinder",
+        "position": [
+          400.0,
+          725.0,
+          60.0
+        ],
+        "rotation": [
+          89.99999999999997,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0000000000000002,
+          1.0000000000000002
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          400.0,
+          0.0,
+          -2.220446049250313e-16,
+          -1.0000000000000002,
+          725.0,
+          0.0,
+          1.0000000000000002,
+          -2.220446049250313e-16,
+          60.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/FirePipeRed",
+        "geomProps": {
+          "radius": 4.5,
+          "height": 180.0,
+          "axis": "Z"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        },
+        "bim": {
+          "ifcClass": "IfcPipeSegment",
+          "discipline": "MEP",
+          "storey": "Storey_01_Lab",
+          "psets": {
+            "Pset_Coordination:ClashStatus": "Unresolved",
             "Pset_FireProtection:System": "Wet Chemical Pre-Action"
           }
         },
@@ -5157,7 +5420,7 @@
         "position": [
           0.0,
           1120.0,
-          0.0
+          180.0
         ],
         "rotation": [
           -0.0,
@@ -5181,7 +5444,7 @@
           0.0,
           0.0,
           45.0,
-          0.0,
+          180.0,
           0.0,
           0.0,
           0.0,
@@ -5203,6 +5466,67 @@
           "discipline": "MEP",
           "storey": "Storey_02_Offices",
           "psets": {}
+        },
+        "cesiumAnchor": null
+      },
+      {
+        "path": "/World/BIM_Facility/Storey_02_Offices/MEP/ChilledWaterRiser_L2",
+        "name": "ChilledWaterRiser_L2",
+        "type": "Cylinder",
+        "position": [
+          400.0,
+          970.0,
+          -18.0
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "matrix": [
+          1.0,
+          0.0,
+          0.0,
+          400.0,
+          0.0,
+          1.0,
+          0.0,
+          970.0,
+          0.0,
+          0.0,
+          1.0,
+          -18.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "materialPath": "/World/Materials/FirePipeRed",
+        "geomProps": {
+          "radius": 3.5,
+          "height": 380.0,
+          "axis": "Y"
+        },
+        "physics": {
+          "isRigidBody": false,
+          "isCollisionEnabled": false,
+          "mass": null,
+          "density": null,
+          "approximation": "none"
+        },
+        "bim": {
+          "ifcClass": "IfcPipeSegment",
+          "discipline": "MEP",
+          "storey": "Storey_02_Offices",
+          "psets": {
+            "Pset_Coordination:ClashStatus": "Unresolved",
+            "Pset_PipeCommon:Fluid": "Chilled Water Return 12C"
+          }
         },
         "cesiumAnchor": null
       },
@@ -6406,10 +6730,12 @@
       "rigidBodyCount": 30,
       "colliderCount": 31,
       "bimCount": 0,
-      "hasCesium": false
+      "hasCesium": false,
+      "clashCount": 0
     },
     "cesium": null,
     "bimSummary": null,
+    "clashes": [],
     "hierarchy": {
       "path": "/",
       "name": "/",
@@ -8665,10 +8991,12 @@
       "rigidBodyCount": 48,
       "colliderCount": 50,
       "bimCount": 0,
-      "hasCesium": false
+      "hasCesium": false,
+      "clashCount": 0
     },
     "cesium": null,
     "bimSummary": null,
+    "clashes": [],
     "hierarchy": {
       "path": "/",
       "name": "/",
@@ -12024,10 +12352,12 @@
       "rigidBodyCount": 0,
       "colliderCount": 0,
       "bimCount": 0,
-      "hasCesium": false
+      "hasCesium": false,
+      "clashCount": 0
     },
     "cesium": null,
     "bimSummary": null,
+    "clashes": [],
     "hierarchy": {
       "path": "/",
       "name": "/",
@@ -14512,10 +14842,12 @@
       "rigidBodyCount": 0,
       "colliderCount": 1,
       "bimCount": 0,
-      "hasCesium": false
+      "hasCesium": false,
+      "clashCount": 0
     },
     "cesium": null,
     "bimSummary": null,
+    "clashes": [],
     "hierarchy": {
       "path": "/",
       "name": "/",
@@ -16450,10 +16782,12 @@
       "rigidBodyCount": 9,
       "colliderCount": 10,
       "bimCount": 0,
-      "hasCesium": false
+      "hasCesium": false,
+      "clashCount": 0
     },
     "cesium": null,
     "bimSummary": null,
+    "clashes": [],
     "hierarchy": {
       "path": "/",
       "name": "/",
@@ -17552,10 +17886,12 @@
       "rigidBodyCount": 22,
       "colliderCount": 67,
       "bimCount": 0,
-      "hasCesium": false
+      "hasCesium": false,
+      "clashCount": 0
     },
     "cesium": null,
     "bimSummary": null,
+    "clashes": [],
     "hierarchy": {
       "path": "/",
       "name": "/",

@@ -214,6 +214,13 @@
                 X-Ray
               </button>
 
+              <!-- Clash Detection Action Button -->
+              <button id="btn-bim-clash" class="btn-bim-action btn-clash" title="Toggle Automated BIM Clash Detection (Structural vs. MEP)">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                <span>⚡ Clashes</span>
+                <span id="clash-badge-count" class="badge-clash-count hidden">0</span>
+              </button>
+
               <!-- Solar Study Slider -->
               <div class="bim-solar-group">
                 <span class="bim-group-label">☀️ Sun:</span>
@@ -226,6 +233,34 @@
           <!-- Viewport Help Tooltip -->
           <div class="viewport-hints">
             <span>🖱️ Orbit: Left Click | Pan: Right Click | Zoom: Scroll | Frame: F | Play: Space</span>
+          </div>
+        </div>
+
+        <!-- BIM Clash Detection & BCF Issue Drawer -->
+        <div id="clash-drawer" class="clash-drawer hidden">
+          <div class="clash-drawer-header">
+            <div class="clash-title-group">
+              <span class="clash-badge">IFC / BCF Coordination</span>
+              <span class="clash-title">⚡ Automated BIM Clash Detection</span>
+              <span id="clash-summary-stats" class="badge-gis">3 Interferences Found</span>
+            </div>
+            <div class="clash-header-actions">
+              <button id="btn-export-bcf" class="btn-tool btn-bcf-export" title="Export BCF / JSON Clash Coordination Report">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                Export BCF Report
+              </button>
+              <button id="btn-close-clash" class="btn-icon" title="Close Clash Panel">✕</button>
+            </div>
+          </div>
+          <div class="clash-filter-bar">
+            <span class="clash-filter-label">Filter Severity:</span>
+            <button class="clash-filter-pill active" data-filter="ALL">All (3)</button>
+            <button class="clash-filter-pill pill-critical" data-filter="CRITICAL">🔴 Critical (1)</button>
+            <button class="clash-filter-pill pill-major" data-filter="MAJOR">🟠 Major (1)</button>
+            <button class="clash-filter-pill pill-warning" data-filter="WARNING">🟡 Warning (1)</button>
+          </div>
+          <div class="clash-list" id="clash-list-container">
+            <!-- Dynamically populated clash cards -->
           </div>
         </div>
 

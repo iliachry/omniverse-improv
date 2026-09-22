@@ -411,12 +411,20 @@ def parse_usd_stage(stage_path: str) -> Dict[str, Any]:
                 }
                 break
 
-    # Extract BIM Summary
+    # Extract BIM Summary & Run Automated Clash Detection
     bim_elements = [p for p in prims if p.get("bim")]
     bim_summary = None
+    clashes = []
     if bim_elements:
+        try:
+            from usd_generators.clash_detector import detect_bim_clashes
+            clashes = detect_bim_clashes(prims)
+        except Exception as e:
+            clashes = []
         bim_summary = {
             "elementCount": len(bim_elements),
+            "clashCount": len(clashes),
+            "criticalClashCount": sum(1 for c in clashes if c.get("severity") == "CRITICAL"),
             "storeys": sorted(list({p["bim"]["storey"] for p in bim_elements if p["bim"].get("storey")})),
             "disciplines": sorted(list({p["bim"]["discipline"] for p in bim_elements if p["bim"].get("discipline")})),
             "classes": sorted(list({p["bim"]["ifcClass"] for p in bim_elements if p["bim"].get("ifcClass")})),
@@ -436,9 +444,11 @@ def parse_usd_stage(stage_path: str) -> Dict[str, Any]:
             "colliderCount": collider_count,
             "bimCount": len(bim_elements),
             "hasCesium": cesium_georef is not None,
+            "clashCount": len(clashes),
         },
         "cesium": cesium_georef,
         "bimSummary": bim_summary,
+        "clashes": clashes,
         "hierarchy": hierarchy,
         "materials": materials,
         "lights": lights,

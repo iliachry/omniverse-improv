@@ -52,6 +52,14 @@ let cesiumViewer = null;
 let isCesiumMode = false;
 let cesiumFacilityEntities = [];
 
+// BIM Automated Clash Detection State
+let isClashMode = false;
+let activeClashes = [];
+let activeClashFilter = "ALL";
+let selectedClashId = null;
+let clashWireframeBox = null;
+let clashHighlightMeshes = new Map();
+
 // Initialize on DOM ready
 document.addEventListener("DOMContentLoaded", () => {
   initThree();
@@ -1118,6 +1126,29 @@ function setupBimControls(data) {
   if (s1) s1.checked = true;
   if (s2) s2.checked = true;
   if (s3) s3.checked = true;
+  // Setup Clash Detection Button & Badge
+  const clashBtn = document.getElementById("btn-bim-clash");
+  const clashBadge = document.getElementById("clash-badge-count");
+  activeClashes = (data.clashes && data.clashes.length > 0) ? data.clashes : [];
+  isClashMode = false;
+  selectedClashId = null;
+
+  if (clashBtn) {
+    clashBtn.classList.remove("active");
+    if (activeClashes.length > 0) {
+      clashBtn.classList.remove("hidden");
+      if (clashBadge) {
+        clashBadge.textContent = activeClashes.length;
+        clashBadge.classList.remove("hidden");
+      }
+    } else {
+      clashBtn.classList.add("hidden");
+      if (clashBadge) clashBadge.classList.add("hidden");
+    }
+  }
+
+  const clashDrawer = document.getElementById("clash-drawer");
+  if (clashDrawer) clashDrawer.classList.add("hidden");
 
   updateSolarPosition(12.0);
   applyBimFilters();
@@ -1456,6 +1487,224 @@ function flyCesiumToSite() {
   });
 }
 
+// -------------------------------------------------------------
+// 8d. Automated BIM Clash Detection & BCF Issue Management
+// -------------------------------------------------------------
+function toggleClashMode(forceState) {
+  if (typeof forceState === "boolean") {
+    isClashMode = forceState;
+  } else {
+    isClashMode = !isClashMode;
+  }
+
+  const btn = document.getElementById("btn-bim-clash");
+  const drawer = document.getElementById("clash-drawer");
+  if (btn) btn.classList.toggle("active", isClashMode);
+  if (drawer) drawer.classList.toggle("hidden", !isClashMode);
+
+  if (isClashMode) {
+    renderClashCards();
+    activateClashVisualization();
+    const firstClash = activeClashes.find(c => c.severity === "CRITICAL") || activeClashes[0];
+    if (firstClash) {
+      focusClash(firstClash.id);
+    }
+  } else {
+    deactivateClashVisualization();
+  }
+}
+
+function renderClashCards() {
+  const container = document.getElementById("clash-list-container");
+  const statsBadge = document.getElementById("clash-summary-stats");
+  if (!container) return;
+
+  if (statsBadge) {
+    const crit = activeClashes.filter(c => c.severity === "CRITICAL").length;
+    statsBadge.textContent = `${activeClashes.length} Interferences (${crit} Critical)`;
+  }
+
+  const filtered = activeClashes.filter(c => {
+    if (activeClashFilter === "ALL") return true;
+    return c.severity === activeClashFilter;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div style="padding: 24px; text-align: center; color: var(--text-muted); font-size: 12px;">
+        No clashes found matching filter "${activeClashFilter}".
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = "";
+  filtered.forEach(clash => {
+    const card = document.createElement("div");
+    card.className = `clash-card severity-${clash.severity} ${selectedClashId === clash.id ? 'selected' : ''}`;
+    card.dataset.id = clash.id;
+
+    card.innerHTML = `
+      <div class="clash-card-header">
+        <span class="clash-card-title">${clash.id}: ${clash.title}</span>
+        <span class="clash-card-severity severity-badge-${clash.severity}">${clash.severity}</span>
+      </div>
+      <div class="clash-card-elements">
+        <span class="clash-elem-tag">${clash.elementA.discipline}:</span> ${clash.elementA.name}
+        <span style="color: #ef4444;">⇄</span>
+        <span class="clash-elem-tag">${clash.elementB.discipline}:</span> ${clash.elementB.name}
+      </div>
+      <div class="clash-card-desc">${clash.description}</div>
+      <div class="clash-card-footer">
+        <span>📍 ${clash.storey.replace("Storey_", "").replace(/_/g, " ")} | Depth: <b>${clash.penetrationDepthCm} cm</b></span>
+        <span class="clash-action-focus">🔍 Focus in 3D</span>
+      </div>
+    `;
+
+    card.addEventListener("click", () => focusClash(clash.id));
+    container.appendChild(card);
+  });
+}
+
+function activateClashVisualization() {
+  const clashingPaths = new Set();
+  activeClashes.forEach(c => {
+    if (c.elementA && c.elementA.path) clashingPaths.add(c.elementA.path);
+    if (c.elementB && c.elementB.path) clashingPaths.add(c.elementB.path);
+  });
+
+  scenePrims.forEach((mesh, path) => {
+    if (!mesh.material) return;
+    if (!clashHighlightMeshes.has(path)) {
+      clashHighlightMeshes.set(path, {
+        material: mesh.material,
+        opacity: mesh.material.opacity,
+        transparent: mesh.material.transparent
+      });
+    }
+
+    if (clashingPaths.has(path)) {
+      const clash = activeClashes.find(c => (c.elementA && c.elementA.path === path) || (c.elementB && c.elementB.path === path));
+      const isMep = clash && clash.elementA && clash.elementA.path === path;
+      const highlightColor = isMep ? 0xf97316 : 0xef4444;
+
+      mesh.material = new THREE.MeshStandardMaterial({
+        color: highlightColor,
+        emissive: highlightColor,
+        emissiveIntensity: 0.6,
+        roughness: 0.2,
+        metalness: 0.5
+      });
+      mesh.visible = true;
+    } else {
+      mesh.material.transparent = true;
+      mesh.material.opacity = 0.12;
+      mesh.material.needsUpdate = true;
+    }
+  });
+}
+
+function deactivateClashVisualization() {
+  clashHighlightMeshes.forEach((saved, path) => {
+    const mesh = scenePrims.get(path);
+    if (mesh) {
+      mesh.material = saved.material;
+      mesh.material.opacity = saved.opacity;
+      mesh.material.transparent = saved.transparent;
+      mesh.material.needsUpdate = true;
+    }
+  });
+  clashHighlightMeshes.clear();
+
+  if (clashWireframeBox) {
+    scene.remove(clashWireframeBox);
+    clashWireframeBox = null;
+  }
+
+  selectedClashId = null;
+  applyBimFilters();
+}
+
+function focusClash(clashId) {
+  selectedClashId = clashId;
+  const clash = activeClashes.find(c => c.id === clashId);
+  if (!clash) return;
+
+  document.querySelectorAll(".clash-card").forEach(c => {
+    c.classList.toggle("selected", c.dataset.id === clashId);
+  });
+
+  const [cx, cy, cz] = clash.centroid;
+  controls.target.set(cx, cy, cz);
+
+  const maxExtent = Math.max(...clash.overlapExtents, 60.0);
+  camera.position.set(cx + maxExtent * 1.6, cy + maxExtent * 1.2, cz + maxExtent * 1.8);
+  camera.lookAt(cx, cy, cz);
+
+  if (clashWireframeBox) {
+    scene.remove(clashWireframeBox);
+  }
+
+  const [ox, oy, oz] = clash.overlapExtents;
+  const boxGeo = new THREE.BoxGeometry(Math.max(ox + 10, 30.0), Math.max(oy + 10, 30.0), Math.max(oz + 10, 30.0));
+  const boxMat = new THREE.MeshBasicMaterial({
+    color: 0xef4444,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.95
+  });
+  clashWireframeBox = new THREE.Mesh(boxGeo, boxMat);
+  clashWireframeBox.position.set(cx, cy, cz);
+  scene.add(clashWireframeBox);
+
+  if (clash.elementA && clash.elementA.path) {
+    selectPrim(clash.elementA.path);
+  }
+}
+
+function exportBcfReport() {
+  if (!activeClashes || activeClashes.length === 0) return;
+
+  const report = {
+    project: "Smart Tech Campus BIM Facility",
+    format: "BCF-JSON v3.0",
+    generatedAt: new Date().toISOString(),
+    georeference: stageData.cesium || { latitude: 37.9753, longitude: 23.7361, height: 120.0 },
+    summary: {
+      totalClashes: activeClashes.length,
+      critical: activeClashes.filter(c => c.severity === "CRITICAL").length,
+      major: activeClashes.filter(c => c.severity === "MAJOR").length,
+      warning: activeClashes.filter(c => c.severity === "WARNING").length
+    },
+    topics: activeClashes.map(c => ({
+      guid: `urn:bcf:${c.id.toLowerCase()}`,
+      topicType: c.bcfMetadata ? c.bcfMetadata.topicType : "Clash",
+      topicStatus: c.bcfMetadata ? c.bcfMetadata.topicStatus : "Active",
+      title: c.title,
+      priority: c.bcfMetadata ? c.bcfMetadata.priority : "High",
+      severity: c.severity,
+      storey: c.storey,
+      description: c.description,
+      mitigationRecommendation: c.mitigation,
+      penetrationDepthCm: c.penetrationDepthCm,
+      clashVolumeCm3: c.clashVolumeCm3,
+      components: [
+        { ifcGuid: c.elementA.path, discipline: c.elementA.discipline, ifcClass: c.elementA.ifcClass },
+        { ifcGuid: c.elementB.path, discipline: c.elementB.discipline, ifcClass: c.elementB.ifcClass }
+      ],
+      viewpoint: {
+        cameraPosition: [c.centroid[0] + 120, c.centroid[1] + 80, c.centroid[2] + 160],
+        cameraTarget: c.centroid
+      }
+    }))
+  };
+
+  const blob = new Blob([JSON.stringify(report, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `BIM_Clash_Coordination_Report_${Date.now()}.json`;
+  a.click();
+}
+
 async function loadSdgDataset() {
   try {
     let res = await fetch("api/sdg.json").catch(() => null);
@@ -1672,6 +1921,28 @@ function initEventListeners() {
   if (solarSlider) {
     solarSlider.addEventListener("input", (e) => updateSolarPosition(parseFloat(e.target.value)));
   }
+
+  // Clash Detection Listeners
+  const btnClash = document.getElementById("btn-bim-clash");
+  if (btnClash) {
+    btnClash.addEventListener("click", () => toggleClashMode());
+  }
+  const btnCloseClash = document.getElementById("btn-close-clash");
+  if (btnCloseClash) {
+    btnCloseClash.addEventListener("click", () => toggleClashMode(false));
+  }
+  const btnExportBcf = document.getElementById("btn-export-bcf");
+  if (btnExportBcf) {
+    btnExportBcf.addEventListener("click", exportBcfReport);
+  }
+  document.querySelectorAll(".clash-filter-pill").forEach(pill => {
+    pill.addEventListener("click", () => {
+      document.querySelectorAll(".clash-filter-pill").forEach(p => p.classList.remove("active"));
+      pill.classList.add("active");
+      activeClashFilter = pill.dataset.filter;
+      renderClashCards();
+    });
+  });
 
   // Cesium Mode Switcher Listeners
   const btnModeThree = document.getElementById("btn-mode-three");

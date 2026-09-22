@@ -162,3 +162,55 @@ def test_usd_parser_bim_cesium_extraction():
     assert first_col is not None
     assert first_col["bim"]["discipline"] == "Structural"
     assert "Pset_ColumnCommon:LoadBearing" in first_col["bim"]["psets"]
+
+
+def test_clash_detection_algorithm():
+    """Verifies synthetic AABB intersection, penetration depth, and severity classification."""
+    from usd_generators.clash_detector import detect_bim_clashes
+
+    mep_duct = {
+        "name": "TestDuct",
+        "type": "Cube",
+        "position": [0.0, 100.0, 0.0],
+        "scale": [1.0, 1.0, 1.0],
+        "geomProps": {"size": 100.0},
+        "bim": {"discipline": "MEP", "ifcClass": "IfcDuctSegment", "storey": "Storey_01"}
+    }
+    struct_col = {
+        "name": "TestCol",
+        "type": "Cube",
+        "position": [40.0, 100.0, 0.0],
+        "scale": [1.0, 1.0, 1.0],
+        "geomProps": {"size": 60.0},
+        "bim": {"discipline": "Structural", "ifcClass": "IfcColumn", "storey": "Storey_01"}
+    }
+    clashes = detect_bim_clashes([mep_duct, struct_col])
+    assert len(clashes) == 1
+    c = clashes[0]
+    assert c["id"] == "CLASH-001"
+    assert c["elementA"]["name"] == "TestDuct"
+    assert c["elementB"]["name"] == "TestCol"
+    assert c["severity"] in ["CRITICAL", "MAJOR", "WARNING"]
+    assert c["penetrationDepthCm"] > 0
+    assert "mitigation" in c
+    assert c["bcfMetadata"]["topicType"] == "Clash"
+
+
+def test_authored_bim_clashes_in_stage():
+    """Verifies that the authored Smart Tech Campus stage detects expected coordination clashes."""
+    from usd_generators.clash_detector import run_clash_detection_on_stage
+
+    default_stage = os.path.join(WORKSPACE_DIR, "usd_generators", "output_bim_cesium.usda")
+    if not os.path.exists(default_stage):
+        build_bim_cesium_stage(output_path=default_stage)
+
+    report = run_clash_detection_on_stage(default_stage)
+    assert report["totalClashes"] >= 2
+    assert report["criticalCount"] >= 1
+    
+    # Check for the critical atrium branch collision
+    atrium_clash = next((c for c in report["clashes"] if "Atrium" in c["title"]), None)
+    assert atrium_clash is not None, "Critical atrium duct clash was not detected"
+    assert atrium_clash["severity"] == "CRITICAL"
+    assert atrium_clash["penetrationDepthCm"] >= 20.0
+

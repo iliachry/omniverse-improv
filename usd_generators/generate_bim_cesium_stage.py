@@ -313,17 +313,25 @@ def build_bim_cesium_stage(
         psets={"Pset_DoorCommon:SecurityRating": "RC3", "Pset_DoorCommon:Automatic": True}
     )
 
-    # Ground MEP: Main HVAC Central Distribution Duct
+    # Ground MEP: Main HVAC Central Distribution Duct (Offset to corridor ceiling)
     add_cube_element(
         stage, f"/World/BIM_Facility/{s_id}/MEP/HVAC_MainSupplyDuct_G",
-        pos=(0.0, h_ground - 40.0, 0.0), size_xyz=(total_w - 400.0, 35.0, 50.0),
+        pos=(0.0, h_ground - 40.0, 180.0), size_xyz=(total_w - 400.0, 35.0, 50.0),
         mat_path="/World/Materials/HVACGalvanized",
         ifc_class="IfcDuctSegment", discipline="MEP", storey=s_id,
         psets={"Pset_DuctCommon:AirFlowRate": "5400 m3/h", "Pset_DuctCommon:Insulation": "Rockwool 25mm"}
     )
+    # Authored Coordination Hard Clash: Branch cross-duct colliding with load-bearing Column_G_05
+    add_cube_element(
+        stage, f"/World/BIM_Facility/{s_id}/MEP/HVAC_BranchDuct_Atrium",
+        pos=(-400.0, h_ground - 40.0, 90.0), size_xyz=(45.0, 35.0, 220.0),
+        mat_path="/World/Materials/HVACGalvanized",
+        ifc_class="IfcDuctSegment", discipline="MEP", storey=s_id,
+        psets={"Pset_DuctCommon:AirFlowRate": "1200 m3/h", "Pset_Coordination:ClashStatus": "Unresolved"}
+    )
     add_cylinder_element(
         stage, f"/World/BIM_Facility/{s_id}/MEP/ChilledWaterSupplyPipe_G",
-        pos=(0.0, h_ground - 55.0, 45.0), radius=6.0, height=total_w - 450.0, axis="X",
+        pos=(0.0, h_ground - 55.0, 225.0), radius=6.0, height=total_w - 450.0, axis="X",
         mat_path="/World/Materials/FirePipeRed",
         ifc_class="IfcPipeSegment", discipline="MEP", storey=s_id,
         rot_xyz=(0.0, 0.0, 90.0),
@@ -406,18 +414,27 @@ def build_bim_cesium_stage(
     # Lab MEP: High-Efficiency HVAC & Fire Suppression Sprinkler
     add_cube_element(
         stage, f"/World/BIM_Facility/{s_id}/MEP/HVAC_SupplyDuct_L1",
-        pos=(0.0, y_lab_top - 40.0, 0.0), size_xyz=(total_w - 300.0, 30.0, 45.0),
+        pos=(0.0, y_lab_top - 40.0, 180.0), size_xyz=(total_w - 300.0, 30.0, 45.0),
         mat_path="/World/Materials/HVACGalvanized",
         ifc_class="IfcDuctSegment", discipline="MEP", storey=s_id,
         psets={"Pset_DuctCommon:FilterGrade": "HEPA H14"}
     )
     add_cylinder_element(
         stage, f"/World/BIM_Facility/{s_id}/MEP/FireSprinklerLine_L1",
-        pos=(0.0, y_lab_top - 55.0, -60.0), radius=4.5, height=total_w - 350.0, axis="X",
+        pos=(0.0, y_lab_top - 55.0, 240.0), radius=4.5, height=total_w - 350.0, axis="X",
         mat_path="/World/Materials/FirePipeRed",
         ifc_class="IfcPipeSegment", discipline="MEP", storey=s_id,
         rot_xyz=(0.0, 0.0, 90.0),
         psets={"Pset_FireProtection:System": "Wet Chemical Pre-Action"}
+    )
+    # Authored Coordination Major Clash: Fire sprinkler branch intersecting steel Column_L1_08
+    add_cylinder_element(
+        stage, f"/World/BIM_Facility/{s_id}/MEP/FireSprinklerBranch_L1",
+        pos=(400.0, y_lab_top - 55.0, 60.0), radius=4.5, height=180.0, axis="Z",
+        mat_path="/World/Materials/FirePipeRed",
+        ifc_class="IfcPipeSegment", discipline="MEP", storey=s_id,
+        rot_xyz=(90.0, 0.0, 0.0),
+        psets={"Pset_FireProtection:System": "Wet Chemical Pre-Action", "Pset_Coordination:ClashStatus": "Unresolved"}
     )
 
     # =============================================================
@@ -485,12 +502,20 @@ def build_bim_cesium_stage(
         psets={"Pset_Acoustic:SoundTransmissionClass": 52}
     )
 
-    # Office HVAC
+    # Office HVAC (Offset to corridor ceiling)
     add_cube_element(
         stage, f"/World/BIM_Facility/{s_id}/MEP/HVAC_SupplyDuct_L2",
-        pos=(0.0, y_office_top - 40.0, 0.0), size_xyz=(total_w - 300.0, 30.0, 45.0),
+        pos=(0.0, y_office_top - 40.0, 180.0), size_xyz=(total_w - 300.0, 30.0, 45.0),
         mat_path="/World/Materials/HVACGalvanized",
         ifc_class="IfcDuctSegment", discipline="MEP", storey=s_id
+    )
+    # Authored Coordination Warning Clash: Chilled water riser grazing Column_L2_08 boundary
+    add_cylinder_element(
+        stage, f"/World/BIM_Facility/{s_id}/MEP/ChilledWaterRiser_L2",
+        pos=(400.0, y_base + (h_office / 2.0), -18.0), radius=3.5, height=h_office, axis="Y",
+        mat_path="/World/Materials/FirePipeRed",
+        ifc_class="IfcPipeSegment", discipline="MEP", storey=s_id,
+        psets={"Pset_PipeCommon:Fluid": "Chilled Water Return 12C", "Pset_Coordination:ClashStatus": "Unresolved"}
     )
 
     # =============================================================

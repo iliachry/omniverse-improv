@@ -390,7 +390,24 @@ def Xform "World"
                     bool physics:collisionEnabled = 1
                     double size = 1
                     float3 xformOp:scale = (2800, 35, 50)
-                    double3 xformOp:translate = (0, 360, 0)
+                    double3 xformOp:translate = (0, 360, 180)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "HVAC_BranchDuct_Atrium" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+                )
+                {
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcDuctSegment"
+                    custom string bim:pset:Pset_Coordination:ClashStatus = "Unresolved"
+                    custom string bim:pset:Pset_DuctCommon:AirFlowRate = "1200 m3/h"
+                    custom string bim:storey = "Storey_00_Ground"
+                    rel material:binding = </World/Materials/HVACGalvanized>
+                    bool physics:collisionEnabled = 1
+                    double size = 1
+                    float3 xformOp:scale = (45, 35, 220)
+                    double3 xformOp:translate = (-400, 360, 90)
                     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
                 }
 
@@ -408,7 +425,7 @@ def Xform "World"
                     rel material:binding = </World/Materials/FirePipeRed>
                     double radius = 6
                     float3 xformOp:rotateXYZ = (0, 0, 90)
-                    double3 xformOp:translate = (0, 345, 45)
+                    double3 xformOp:translate = (0, 345, 225)
                     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ"]
                 }
             }
@@ -805,7 +822,7 @@ def Xform "World"
                     bool physics:collisionEnabled = 1
                     double size = 1
                     float3 xformOp:scale = (2900, 30, 45)
-                    double3 xformOp:translate = (0, 740, 0)
+                    double3 xformOp:translate = (0, 740, 180)
                     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
                 }
 
@@ -822,7 +839,25 @@ def Xform "World"
                     rel material:binding = </World/Materials/FirePipeRed>
                     double radius = 4.5
                     float3 xformOp:rotateXYZ = (0, 0, 90)
-                    double3 xformOp:translate = (0, 725, -60)
+                    double3 xformOp:translate = (0, 725, 240)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ"]
+                }
+
+                def Cylinder "FireSprinklerBranch_L1" (
+                    prepend apiSchemas = ["MaterialBindingAPI"]
+                )
+                {
+                    uniform token axis = "Z"
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcPipeSegment"
+                    custom string bim:pset:Pset_Coordination:ClashStatus = "Unresolved"
+                    custom string bim:pset:Pset_FireProtection:System = "Wet Chemical Pre-Action"
+                    custom string bim:storey = "Storey_01_Lab"
+                    double height = 180
+                    rel material:binding = </World/Materials/FirePipeRed>
+                    double radius = 4.5
+                    float3 xformOp:rotateXYZ = (90, 0, 0)
+                    double3 xformOp:translate = (400, 725, 60)
                     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ"]
                 }
             }
@@ -1142,8 +1177,25 @@ def Xform "World"
                     bool physics:collisionEnabled = 1
                     double size = 1
                     float3 xformOp:scale = (2900, 30, 45)
-                    double3 xformOp:translate = (0, 1120, 0)
+                    double3 xformOp:translate = (0, 1120, 180)
                     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cylinder "ChilledWaterRiser_L2" (
+                    prepend apiSchemas = ["MaterialBindingAPI"]
+                )
+                {
+                    uniform token axis = "Y"
+                    custom string bim:discipline = "MEP"
+                    custom string bim:ifcClass = "IfcPipeSegment"
+                    custom string bim:pset:Pset_Coordination:ClashStatus = "Unresolved"
+                    custom string bim:pset:Pset_PipeCommon:Fluid = "Chilled Water Return 12C"
+                    custom string bim:storey = "Storey_02_Offices"
+                    double height = 380
+                    rel material:binding = </World/Materials/FirePipeRed>
+                    double radius = 3.5
+                    double3 xformOp:translate = (400, 970, -18)
+                    uniform token[] xformOpOrder = ["xformOp:translate"]
                 }
             }
         }

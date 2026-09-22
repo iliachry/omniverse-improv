@@ -52,7 +52,7 @@
         "height": 120.0
       },
       "totalStoreys": 4,
-      "totalElements": 84
+      "totalElements": 87
     },
     "children": [
       {
@@ -70,7 +70,7 @@
         "refine": "ADD",
         "metadata": {
           "storeyId": "Storey_00_Ground",
-          "elementCount": 22,
+          "elementCount": 23,
           "disciplines": [
             "Architectural",
             "MEP",
@@ -102,7 +102,7 @@
         "refine": "ADD",
         "metadata": {
           "storeyId": "Storey_01_Lab",
-          "elementCount": 24,
+          "elementCount": 25,
           "disciplines": [
             "Architectural",
             "MEP",
@@ -133,7 +133,7 @@
         "refine": "ADD",
         "metadata": {
           "storeyId": "Storey_02_Offices",
-          "elementCount": 19,
+          "elementCount": 20,
           "disciplines": [
             "Architectural",
             "MEP",
@@ -143,6 +143,7 @@
             "IfcColumn",
             "IfcCurtainWall",
             "IfcDuctSegment",
+            "IfcPipeSegment",
             "IfcSlab",
             "IfcWallStandardCase"
           ]

@@ -59,6 +59,9 @@ jobs:
       - name: Export OGC 3D Tileset
         run: python usd_generators/export_3dtiles.py
 
+      - name: Run Automated BIM Clash Detection
+        run: python usd_generators/clash_detector.py
+
       - name: Run 6-DOF Inverse Kinematics (IK) Solver
         run: python robotics/ik_solver.py
 
