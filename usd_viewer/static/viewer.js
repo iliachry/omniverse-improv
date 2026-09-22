@@ -65,7 +65,7 @@ let is4DMode = false;
 let current4DMonth = 12;
 let is4DPlaying = false;
 let play4DSpeed = 2;
-let is4DGhostUnbuilt = true;
+let is4DGhostUnbuilt = false;
 let play4DInterval = null;
 
 // Initialize on DOM ready
@@ -276,7 +276,7 @@ function buildScene(data) {
   data.prims.forEach(prim => {
     const mesh = createMeshForPrim(prim, materialsMap);
     if (mesh) {
-      mesh.userData = prim;
+      mesh.userData = { ...prim, _baseMaterial: mesh.material.clone() };
       scenePrims.set(prim.path, mesh);
       scene.add(mesh);
 
@@ -427,7 +427,9 @@ function createMeshForPrim(prim, matsMap) {
     });
   }
 
-  const mesh = new THREE.Mesh(geometry, material);
+  const meshMat = material.clone();
+  const mesh = new THREE.Mesh(geometry, meshMat);
+  mesh.userData = { ...prim, _baseMaterial: meshMat.clone() };
 
   if (prim.position && prim.position.length === 3) {
     mesh.position.set(prim.position[0], prim.position[1], prim.position[2]);
@@ -1249,26 +1251,46 @@ function applyBimFilters() {
 
       if (is4DMode && prim.bim.constructionMonth !== undefined) {
         if (prim.bim.constructionMonth > current4DMonth) {
+          // Future unbuilt element
           if (is4DGhostUnbuilt) {
-            visible = true;
-            if (mesh.userData._origOpacity === undefined && mesh.material) {
-              mesh.userData._origOpacity = mesh.material.opacity;
-              mesh.userData._origTransparent = mesh.material.transparent;
-            }
-            if (mesh.material) {
-              mesh.material.transparent = true;
-              mesh.material.opacity = 0.08;
-              mesh.material.needsUpdate = true;
+            visible = matchStorey && matchDisc;
+            if (!mesh.userData._isGhosted) {
+              mesh.userData._isGhosted = true;
+              mesh.material = new THREE.MeshBasicMaterial({
+                color: 0x38bdf8,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.12
+              });
             }
           } else {
             visible = false;
           }
         } else {
-          // Element is constructed by this month
-          if (mesh.userData._origOpacity !== undefined && mesh.material) {
-            mesh.material.opacity = mesh.userData._origOpacity;
-            mesh.material.transparent = mesh.userData._origTransparent;
-            mesh.material.needsUpdate = true;
+          // Element is built by current schedule month
+          if (mesh.userData._isGhosted) {
+            mesh.userData._isGhosted = false;
+            if (mesh.userData._baseMaterial) {
+              mesh.material = mesh.userData._baseMaterial.clone();
+            }
+          }
+
+          // Active month construction highlight (subtle warm amber tone on freshly erected prims)
+          if (prim.bim.constructionMonth === current4DMonth && is4DMode && current4DMonth > 0) {
+            if (mesh.material && mesh.material.emissive) {
+              mesh.material.emissive.setHex(0xf59e0b);
+              mesh.material.emissiveIntensity = 0.5;
+            }
+          } else if (mesh.material && mesh.material.emissive && mesh.userData._baseMaterial) {
+            mesh.material.emissive.copy(mesh.userData._baseMaterial.emissive);
+            mesh.material.emissiveIntensity = mesh.userData._baseMaterial.emissiveIntensity || 0.0;
+          }
+        }
+      } else {
+        if (mesh.userData._isGhosted) {
+          mesh.userData._isGhosted = false;
+          if (mesh.userData._baseMaterial) {
+            mesh.material = mesh.userData._baseMaterial.clone();
           }
         }
       }
@@ -1277,18 +1299,10 @@ function applyBimFilters() {
 
       if (visible && isXRayMode && (prim.bim.ifcClass.includes("Wall") || prim.bim.ifcClass.includes("Slab"))) {
         if (mesh.material) {
-          if (mesh.userData._origOpacity === undefined) {
-            mesh.userData._origOpacity = mesh.material.opacity;
-            mesh.userData._origTransparent = mesh.material.transparent;
-          }
           mesh.material.transparent = true;
           mesh.material.opacity = 0.2;
           mesh.material.needsUpdate = true;
         }
-      } else if (!is4DMode && mesh.userData._origOpacity !== undefined && mesh.material) {
-        mesh.material.opacity = mesh.userData._origOpacity;
-        mesh.material.transparent = mesh.userData._origTransparent;
-        mesh.material.needsUpdate = true;
       }
     }
   });
@@ -1786,6 +1800,9 @@ function toggle4DPhasingMode(forceState) {
     applyBimFilters();
   } else {
     if (isClashMode) toggleClashMode(false);
+    if (current4DMonth >= 12) {
+      current4DMonth = 0;
+    }
     update4DUI();
     applyBimFilters();
   }
@@ -1839,12 +1856,10 @@ function toggle4DPlayback(forcePlay) {
 
 function restore4DMaterials() {
   scenePrims.forEach((mesh, path) => {
-    if (mesh.userData._origOpacity !== undefined && mesh.material) {
-      mesh.material.opacity = mesh.userData._origOpacity;
-      mesh.material.transparent = mesh.userData._origTransparent;
-      mesh.material.needsUpdate = true;
-      delete mesh.userData._origOpacity;
-      delete mesh.userData._origTransparent;
+    mesh.userData._isGhosted = false;
+    mesh.userData._isUnderConstruction = false;
+    if (mesh.userData._baseMaterial) {
+      mesh.material = mesh.userData._baseMaterial.clone();
     }
   });
 }
