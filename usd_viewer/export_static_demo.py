@@ -53,7 +53,7 @@ def build_static_demo():
             "name": stg["name"],
             "relPath": stg["relPath"],
             "fullPath": stg["relPath"],
-            "size": stg["size"]
+            "size": int(round(stg["size"], -2))
         })
 
     with open(os.path.join(api_dir, "stages.json"), "w", encoding="utf-8", newline="\n") as f:

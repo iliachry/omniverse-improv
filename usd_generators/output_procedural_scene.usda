@@ -109,7 +109,7 @@ def Xform "World"
 
         def Xform "Pillar_01"
         {
-            double3 xformOp:translate = (84.8528137423857, 57, 84.8528137423857)
+            double3 xformOp:translate = (84.8528137423857, 57, 84.85281374238569)
             uniform token[] xformOpOrder = ["xformOp:translate"]
 
             def Cylinder "Shaft" (
@@ -530,7 +530,7 @@ def Xform "World"
         {
             rel material:binding = </World/Materials/M_NeonCyan>
             double radius = 4
-            double3 xformOp:translate = (-25.00000000000002, 57.43197504692072, -43.301270189221924)
+            double3 xformOp:translate = (-25.00000000000002, 57.43197504692072, -43.30127018922192)
             uniform token[] xformOpOrder = ["xformOp:translate"]
         }
     }

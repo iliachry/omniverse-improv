@@ -307,7 +307,7 @@ def Xform "World"
             double height = 80
             rel material:binding = </World/Materials/M_Base>
             double radius = 8
-            double3 xformOp:translate = (-80.00000000000007, 40, -138.56406460551017)
+            double3 xformOp:translate = (-80.00000000000007, 40, -138.56406460551014)
             uniform token[] xformOpOrder = ["xformOp:translate"]
         }
 
@@ -319,7 +319,7 @@ def Xform "World"
             double height = 4
             rel material:binding = </World/Materials/M_Glow>
             double radius = 9
-            double3 xformOp:translate = (-80.00000000000007, 82, -138.56406460551017)
+            double3 xformOp:translate = (-80.00000000000007, 82, -138.56406460551014)
             uniform token[] xformOpOrder = ["xformOp:translate"]
         }
 

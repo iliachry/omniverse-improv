@@ -229,7 +229,7 @@ def Xform "World"
                 double size = 1
                 float xformOp:rotateY = -22.0455
                 float3 xformOp:scale = (3.5, 22, 11)
-                double3 xformOp:translate = (28, 11, 24.748737341529164)
+                double3 xformOp:translate = (28, 11, 24.74873734152916)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
             }
 
@@ -341,7 +341,7 @@ def Xform "World"
                 double size = 1
                 float xformOp:rotateY = 17.649374
                 float3 xformOp:scale = (3.5, 22, 11)
-                double3 xformOp:translate = (112, 11, 29.101436430589086)
+                double3 xformOp:translate = (112, 11, 29.10143643058909)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
             }
 
