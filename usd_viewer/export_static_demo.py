@@ -46,8 +46,18 @@ def build_static_demo():
     os.makedirs(api_dir, exist_ok=True)
 
     usd_files = find_usd_files(WORKSPACE_DIR)
-    with open(os.path.join(api_dir, "stages.json"), "w") as f:
-        json.dump(usd_files, f, indent=2)
+    # Sanitize for static distribution (portable relative paths)
+    sanitized_usd_files = []
+    for stg in usd_files:
+        sanitized_usd_files.append({
+            "name": stg["name"],
+            "relPath": stg["relPath"],
+            "fullPath": stg["relPath"],
+            "size": stg["size"]
+        })
+
+    with open(os.path.join(api_dir, "stages.json"), "w", encoding="utf-8", newline="\n") as f:
+        json.dump(sanitized_usd_files, f, indent=2)
 
     stage_cache = {}
     for stg in usd_files:
@@ -56,11 +66,12 @@ def build_static_demo():
         try:
             print(f"    - Pre-parsing {stg['name']}...")
             parsed = parse_usd_stage(full_path)
+            parsed["stagePath"] = rel_path
             stage_cache[rel_path] = parsed
         except Exception as e:
             print(f"[!] Warning: failed to parse {rel_path}: {e}")
 
-    with open(os.path.join(api_dir, "stage_data.json"), "w") as f:
+    with open(os.path.join(api_dir, "stage_data.json"), "w", encoding="utf-8", newline="\n") as f:
         json.dump(stage_cache, f, indent=2)
 
     # 3. Copy SDG Media & Annotations
@@ -76,7 +87,10 @@ def build_static_demo():
         # Copy annotations to api/sdg.json
         ann_src = os.path.join(SDG_SRC, "dataset_annotations.json")
         if os.path.exists(ann_src):
-            shutil.copy2(ann_src, os.path.join(api_dir, "sdg.json"))
+            with open(ann_src, "r", encoding="utf-8") as f_in:
+                sdg_data = json.load(f_in)
+            with open(os.path.join(api_dir, "sdg.json"), "w", encoding="utf-8", newline="\n") as f_out:
+                json.dump(sdg_data, f_out, indent=2)
 
     print(f"[OK] Static GitHub Pages build complete in: {DOCS_DIR}")
 

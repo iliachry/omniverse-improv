@@ -1,7 +1,7 @@
 {
   "usd_generators/output_bim_cesium.usda": {
     "filename": "output_bim_cesium.usda",
-    "stagePath": "D:\\GitLab\\omniverse-improv\\usd_generators\\output_bim_cesium.usda",
+    "stagePath": "usd_generators/output_bim_cesium.usda",
     "metadata": {
       "upAxis": "Y",
       "metersPerUnit": 0.01,
@@ -7066,7 +7066,7 @@
   },
   "usd_generators/output_block_tower.usda": {
     "filename": "output_block_tower.usda",
-    "stagePath": "D:\\GitLab\\omniverse-improv\\usd_generators\\output_block_tower.usda",
+    "stagePath": "usd_generators/output_block_tower.usda",
     "metadata": {
       "upAxis": "Y",
       "metersPerUnit": 0.01,
@@ -9329,7 +9329,7 @@
   },
   "usd_generators/output_physics_playground.usda": {
     "filename": "output_physics_playground.usda",
-    "stagePath": "D:\\GitLab\\omniverse-improv\\usd_generators\\output_physics_playground.usda",
+    "stagePath": "usd_generators/output_physics_playground.usda",
     "metadata": {
       "upAxis": "Y",
       "metersPerUnit": 0.01,
@@ -12692,7 +12692,7 @@
   },
   "usd_generators/output_procedural_scene.usda": {
     "filename": "output_procedural_scene.usda",
-    "stagePath": "D:\\GitLab\\omniverse-improv\\usd_generators\\output_procedural_scene.usda",
+    "stagePath": "usd_generators/output_procedural_scene.usda",
     "metadata": {
       "upAxis": "Y",
       "metersPerUnit": 0.01,
@@ -15184,7 +15184,7 @@
   },
   "usd_generators/output_prompt_generated.usda": {
     "filename": "output_prompt_generated.usda",
-    "stagePath": "D:\\GitLab\\omniverse-improv\\usd_generators\\output_prompt_generated.usda",
+    "stagePath": "usd_generators/output_prompt_generated.usda",
     "metadata": {
       "upAxis": "Y",
       "metersPerUnit": 0.01,
@@ -17126,7 +17126,7 @@
   },
   "usd_generators/output_robotics_arm.usda": {
     "filename": "output_robotics_arm.usda",
-    "stagePath": "D:\\GitLab\\omniverse-improv\\usd_generators\\output_robotics_arm.usda",
+    "stagePath": "usd_generators/output_robotics_arm.usda",
     "metadata": {
       "upAxis": "Y",
       "metersPerUnit": 0.01,
@@ -18232,7 +18232,7 @@
   },
   "usd_generators/output_warehouse_digital_twin.usda": {
     "filename": "output_warehouse_digital_twin.usda",
-    "stagePath": "D:\\GitLab\\omniverse-improv\\usd_generators\\output_warehouse_digital_twin.usda",
+    "stagePath": "usd_generators/output_warehouse_digital_twin.usda",
     "metadata": {
       "upAxis": "Y",
       "metersPerUnit": 0.01,
