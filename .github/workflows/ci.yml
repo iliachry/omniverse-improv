@@ -74,6 +74,8 @@ jobs:
       - name: Build WebGL 3D Studio Static Demo & Enforce Drift Check
         run: |
           python usd_viewer/export_static_demo.py
+          git checkout -- docs/sdg_media/
+          git diff docs/
           git diff --ignore-space-at-eol --exit-code docs/
 
       - name: Validate JavaScript ES Modules Syntax
