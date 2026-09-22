@@ -1541,3 +1541,280 @@ body, html {
   background: rgba(56, 189, 248, 0.25);
   color: #fff;
 }
+
+/* ==========================================================================
+   4D CONSTRUCTION PHASING & TIMELINE DOCK
+   ========================================================================== */
+
+.btn-4d-phasing {
+  border-color: rgba(129, 140, 248, 0.4) !important;
+  color: #a5b4fc !important;
+}
+
+.btn-4d-phasing:hover {
+  background: rgba(129, 140, 248, 0.2) !important;
+  color: #fff !important;
+}
+
+.btn-4d-phasing.active {
+  background: linear-gradient(135deg, #6366f1, #818cf8) !important;
+  color: #ffffff !important;
+  border-color: #a5b4fc !important;
+  box-shadow: 0 0 14px rgba(129, 140, 248, 0.5) !important;
+}
+
+.phasing-dock {
+  position: absolute;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 740px;
+  max-width: calc(100% - 40px);
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(129, 140, 248, 0.35);
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.65), 0 0 20px rgba(99, 102, 241, 0.15);
+  z-index: 95;
+  padding: 12px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: slideUpPhasing 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.phasing-dock.hidden {
+  display: none !important;
+}
+
+@keyframes slideUpPhasing {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 15px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.phasing-dock-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 8px;
+}
+
+.phasing-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.phasing-badge {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  background: rgba(129, 140, 248, 0.2);
+  color: #c7d2fe;
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid rgba(129, 140, 248, 0.4);
+}
+
+.phasing-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.phasing-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.phasing-ghost-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.phasing-ghost-toggle input {
+  accent-color: #818cf8;
+  cursor: pointer;
+}
+
+.phasing-milestone-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(30, 41, 59, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.phasing-milestone-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.phasing-milestone-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.phasing-milestone-pill {
+  font-size: 12px;
+  font-weight: 700;
+  color: #38bdf8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.phasing-milestone-desc {
+  font-size: 11px;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.phasing-stats-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.phasing-stat-pct {
+  font-size: 14px;
+  font-weight: 800;
+  color: #a5b4fc;
+  font-family: var(--font-mono);
+}
+
+.phasing-stat-sub {
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+.phasing-progress-track {
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.phasing-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #38bdf8, #10b981);
+  border-radius: 3px;
+  transition: width 0.2s ease;
+}
+
+.phasing-timeline-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.phasing-playback-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-4d-play {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(99, 102, 241, 0.25) !important;
+  border-color: rgba(129, 140, 248, 0.5) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  padding: 5px 12px !important;
+  border-radius: 6px !important;
+  font-size: 11px !important;
+}
+
+.btn-4d-play:hover {
+  background: rgba(99, 102, 241, 0.45) !important;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.5) !important;
+}
+
+.phasing-speed-select {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  font-size: 11px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  outline: none;
+}
+
+.phasing-slider-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.phasing-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--text-dim);
+  padding: 0 4px;
+}
+
+.phasing-range {
+  width: 100%;
+  height: 6px;
+  accent-color: #818cf8;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+.phasing-month-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(129, 140, 248, 0.3);
+  padding: 4px 10px;
+  border-radius: 6px;
+  min-width: 80px;
+}
+
+.phasing-month-val {
+  font-size: 12px;
+  font-weight: 800;
+  color: #ffffff;
+  font-family: var(--font-mono);
+}
+
+.phasing-month-lbl {
+  font-size: 9px;
+  color: var(--text-dim);
+}
+

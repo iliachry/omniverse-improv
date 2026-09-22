@@ -301,10 +301,17 @@ def parse_geometry_prim(prim: Usd.Prim, xform_cache: UsdGeom.XformCache) -> Opti
                 val = attr.Get()
                 psets[key] = val
 
+        phase_attr = prim.GetAttribute("bim:phase")
+        month_attr = prim.GetAttribute("bim:constructionMonth")
+        phase_val = str(phase_attr.Get()) if phase_attr and phase_attr.Get() is not None else None
+        month_val = int(month_attr.Get()) if month_attr and month_attr.Get() is not None else None
+
         bim_info = {
             "ifcClass": str(ifc_attr.Get() or "") if ifc_attr else "IfcBuildingElement",
             "discipline": str(disc_attr.Get() or "") if disc_attr else "Architectural",
             "storey": str(storey_attr.Get() or "") if storey_attr else "",
+            "phase": phase_val,
+            "constructionMonth": month_val,
             "psets": psets,
         }
 
@@ -421,6 +428,30 @@ def parse_usd_stage(stage_path: str) -> Dict[str, Any]:
             clashes = detect_bim_clashes(prims)
         except Exception as e:
             clashes = []
+        # 4D Construction Phasing Summary
+        construction_phasing = None
+        phased_elements = [p for p in bim_elements if p["bim"].get("constructionMonth") is not None]
+        if phased_elements:
+            milestones = [
+                {"id": "phase-0", "name": "Phase 0: Substructure & Foundations", "startMonth": 0, "endMonth": 1, "targetMonth": 0, "description": "Site excavation, engineered ground slab, footings & substructure.", "disciplines": ["Structural"]},
+                {"id": "phase-1", "name": "Phase 1: Ground Framing & Transfer Beams", "startMonth": 2, "endMonth": 3, "targetMonth": 2, "description": "Ground floor C40/50 concrete columns, transfer girders, and L1 slab.", "disciplines": ["Structural"]},
+                {"id": "phase-2", "name": "Phase 2: L1 Superstructure & Lab Deck", "startMonth": 4, "endMonth": 5, "targetMonth": 4, "description": "S355 structural steel columns, vibration-isolated cleanroom slab, and floor 2 deck.", "disciplines": ["Structural"]},
+                {"id": "phase-3", "name": "Phase 3: Superstructure Topping Out", "startMonth": 6, "endMonth": 7, "targetMonth": 6, "description": "L2 office columns, reinforced roof deck slab, stair core, and parapet walls.", "disciplines": ["Structural"]},
+                {"id": "phase-4", "name": "Phase 4: Building Enclosure & Glazing", "startMonth": 8, "endMonth": 9, "targetMonth": 8, "description": "Double-glazed curtain wall facades, perimeter ribbon glazing, and entrance vestibules.", "disciplines": ["Architectural"]},
+                {"id": "phase-5", "name": "Phase 5: MEP Rough-in & Services", "startMonth": 10, "endMonth": 11, "targetMonth": 10, "description": "Central HVAC supply ducts, chilled water risers, and fire sprinkler piping loops.", "disciplines": ["MEP"]},
+                {"id": "phase-6", "name": "Phase 6: Interior Fit-out & Commissioning", "startMonth": 12, "endMonth": 12, "targetMonth": 12, "description": "Data cluster server racks, cleanroom partitions, rooftop chillers, and bifacial solar array.", "disciplines": ["Architectural", "MEP"]},
+            ]
+            for m in milestones:
+                m["elementCount"] = sum(1 for p in phased_elements if p["bim"]["constructionMonth"] == m["targetMonth"])
+                m["cumulativeCount"] = sum(1 for p in phased_elements if p["bim"]["constructionMonth"] <= m["targetMonth"])
+                m["progressPercent"] = round((m["cumulativeCount"] / len(phased_elements)) * 100) if phased_elements else 0
+
+            construction_phasing = {
+                "totalMonths": 12,
+                "totalElements": len(phased_elements),
+                "milestones": milestones,
+            }
+
         bim_summary = {
             "elementCount": len(bim_elements),
             "clashCount": len(clashes),
@@ -428,6 +459,7 @@ def parse_usd_stage(stage_path: str) -> Dict[str, Any]:
             "storeys": sorted(list({p["bim"]["storey"] for p in bim_elements if p["bim"].get("storey")})),
             "disciplines": sorted(list({p["bim"]["discipline"] for p in bim_elements if p["bim"].get("discipline")})),
             "classes": sorted(list({p["bim"]["ifcClass"] for p in bim_elements if p["bim"].get("ifcClass")})),
+            "phasing": construction_phasing,
         }
 
     return {
@@ -445,9 +477,11 @@ def parse_usd_stage(stage_path: str) -> Dict[str, Any]:
             "bimCount": len(bim_elements),
             "hasCesium": cesium_georef is not None,
             "clashCount": len(clashes),
+            "has4DPhasing": construction_phasing is not None if bim_elements else False,
         },
         "cesium": cesium_georef,
         "bimSummary": bim_summary,
+        "constructionPhasing": construction_phasing if bim_elements else None,
         "clashes": clashes,
         "hierarchy": hierarchy,
         "materials": materials,

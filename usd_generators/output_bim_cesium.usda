@@ -38,8 +38,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 0
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcSlab"
+                    custom string bim:phase = "Phase 0: Substructure & Foundations"
                     custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50 Waterproof"
                     custom bool bim:pset:Pset_SlabCommon:LoadBearing = 1
                     custom string bim:storey = "Storey_00_Ground"
@@ -55,8 +57,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 2
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 1: Ground Framing & Transfer Beams"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
                     custom string bim:storey = "Storey_00_Ground"
@@ -72,8 +76,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 2
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 1: Ground Framing & Transfer Beams"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
                     custom string bim:storey = "Storey_00_Ground"
@@ -89,8 +95,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 2
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 1: Ground Framing & Transfer Beams"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
                     custom string bim:storey = "Storey_00_Ground"
@@ -106,8 +114,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 2
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 1: Ground Framing & Transfer Beams"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
                     custom string bim:storey = "Storey_00_Ground"
@@ -123,8 +133,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 2
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 1: Ground Framing & Transfer Beams"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
                     custom string bim:storey = "Storey_00_Ground"
@@ -140,8 +152,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 2
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 1: Ground Framing & Transfer Beams"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
                     custom string bim:storey = "Storey_00_Ground"
@@ -157,8 +171,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 2
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 1: Ground Framing & Transfer Beams"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
                     custom string bim:storey = "Storey_00_Ground"
@@ -174,8 +190,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 2
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 1: Ground Framing & Transfer Beams"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
                     custom string bim:storey = "Storey_00_Ground"
@@ -191,8 +209,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 2
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 1: Ground Framing & Transfer Beams"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
                     custom string bim:storey = "Storey_00_Ground"
@@ -208,8 +228,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 2
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 1: Ground Framing & Transfer Beams"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
                     custom string bim:storey = "Storey_00_Ground"
@@ -225,8 +247,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 2
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 1: Ground Framing & Transfer Beams"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
                     custom string bim:storey = "Storey_00_Ground"
@@ -242,8 +266,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 2
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 1: Ground Framing & Transfer Beams"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:ConcreteGrade = "C40/50"
                     custom string bim:storey = "Storey_00_Ground"
@@ -259,8 +285,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 2
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcSlab"
+                    custom string bim:phase = "Phase 1: Ground Framing & Transfer Beams"
                     custom string bim:pset:Pset_SlabCommon:FireRating = "REI 120"
                     custom bool bim:pset:Pset_SlabCommon:LoadBearing = 1
                     custom string bim:storey = "Storey_00_Ground"
@@ -279,8 +307,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 8
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcCurtainWall"
+                    custom string bim:phase = "Phase 4: Building Enclosure & Glazing"
                     custom string bim:pset:Pset_Glass:AcousticRating = "42 dB"
                     custom float bim:pset:Pset_WallCommon:ThermalTransmittance = 0.85
                     custom string bim:storey = "Storey_00_Ground"
@@ -296,8 +326,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 8
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcCurtainWall"
+                    custom string bim:phase = "Phase 4: Building Enclosure & Glazing"
                     custom float bim:pset:Pset_WallCommon:ThermalTransmittance = 0.85
                     custom string bim:storey = "Storey_00_Ground"
                     rel material:binding = </World/Materials/CurtainGlass>
@@ -312,8 +344,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 8
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcCurtainWall"
+                    custom string bim:phase = "Phase 4: Building Enclosure & Glazing"
                     custom float bim:pset:Pset_WallCommon:ThermalTransmittance = 0.85
                     custom string bim:storey = "Storey_00_Ground"
                     rel material:binding = </World/Materials/CurtainGlass>
@@ -328,8 +362,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 8
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcCurtainWall"
+                    custom string bim:phase = "Phase 4: Building Enclosure & Glazing"
                     custom float bim:pset:Pset_WallCommon:ThermalTransmittance = 0.85
                     custom string bim:storey = "Storey_00_Ground"
                     rel material:binding = </World/Materials/CurtainGlass>
@@ -344,8 +380,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcWallStandardCase"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom string bim:pset:Pset_WallCommon:FireRating = "REI 60"
                     custom bool bim:pset:Pset_WallCommon:LoadBearing = 0
                     custom string bim:storey = "Storey_00_Ground"
@@ -361,8 +399,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcDoor"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom bool bim:pset:Pset_DoorCommon:Automatic = 1
                     custom string bim:pset:Pset_DoorCommon:SecurityRating = "RC3"
                     custom string bim:storey = "Storey_00_Ground"
@@ -381,8 +421,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 10
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcDuctSegment"
+                    custom string bim:phase = "Phase 5: MEP Rough-in & Services"
                     custom string bim:pset:Pset_DuctCommon:AirFlowRate = "5400 m3/h"
                     custom string bim:pset:Pset_DuctCommon:Insulation = "Rockwool 25mm"
                     custom string bim:storey = "Storey_00_Ground"
@@ -398,8 +440,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 10
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcDuctSegment"
+                    custom string bim:phase = "Phase 5: MEP Rough-in & Services"
                     custom string bim:pset:Pset_Coordination:ClashStatus = "Unresolved"
                     custom string bim:pset:Pset_DuctCommon:AirFlowRate = "1200 m3/h"
                     custom string bim:storey = "Storey_00_Ground"
@@ -416,8 +460,10 @@ def Xform "World"
                 )
                 {
                     uniform token axis = "X"
+                    custom int bim:constructionMonth = 10
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcPipeSegment"
+                    custom string bim:phase = "Phase 5: MEP Rough-in & Services"
                     custom string bim:pset:Pset_PipeCommon:Fluid = "Chilled Water 6C"
                     custom string bim:pset:Pset_PipeCommon:PressureRating = "PN16"
                     custom string bim:storey = "Storey_00_Ground"
@@ -444,8 +490,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 4
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 2: L1 Superstructure & Lab Deck"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
                     custom string bim:storey = "Storey_01_Lab"
@@ -461,8 +509,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 4
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 2: L1 Superstructure & Lab Deck"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
                     custom string bim:storey = "Storey_01_Lab"
@@ -478,8 +528,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 4
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 2: L1 Superstructure & Lab Deck"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
                     custom string bim:storey = "Storey_01_Lab"
@@ -495,8 +547,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 4
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 2: L1 Superstructure & Lab Deck"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
                     custom string bim:storey = "Storey_01_Lab"
@@ -512,8 +566,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 4
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 2: L1 Superstructure & Lab Deck"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
                     custom string bim:storey = "Storey_01_Lab"
@@ -529,8 +585,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 4
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 2: L1 Superstructure & Lab Deck"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
                     custom string bim:storey = "Storey_01_Lab"
@@ -546,8 +604,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 4
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 2: L1 Superstructure & Lab Deck"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
                     custom string bim:storey = "Storey_01_Lab"
@@ -563,8 +623,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 4
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 2: L1 Superstructure & Lab Deck"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
                     custom string bim:storey = "Storey_01_Lab"
@@ -580,8 +642,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 4
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 2: L1 Superstructure & Lab Deck"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
                     custom string bim:storey = "Storey_01_Lab"
@@ -597,8 +661,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 4
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 2: L1 Superstructure & Lab Deck"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
                     custom string bim:storey = "Storey_01_Lab"
@@ -614,8 +680,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 4
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 2: L1 Superstructure & Lab Deck"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
                     custom string bim:storey = "Storey_01_Lab"
@@ -631,8 +699,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 4
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 2: L1 Superstructure & Lab Deck"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:pset:Pset_Material:SteelGrade = "S355 JR"
                     custom string bim:storey = "Storey_01_Lab"
@@ -648,8 +718,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 4
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcSlab"
+                    custom string bim:phase = "Phase 2: L1 Superstructure & Lab Deck"
                     custom string bim:pset:Pset_SlabCommon:FireRating = "REI 120"
                     custom string bim:storey = "Storey_01_Lab"
                     rel material:binding = </World/Materials/Concrete>
@@ -667,8 +739,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 8
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcCurtainWall"
+                    custom string bim:phase = "Phase 4: Building Enclosure & Glazing"
                     custom string bim:storey = "Storey_01_Lab"
                     rel material:binding = </World/Materials/CurtainGlass>
                     bool physics:collisionEnabled = 1
@@ -682,8 +756,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 8
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcCurtainWall"
+                    custom string bim:phase = "Phase 4: Building Enclosure & Glazing"
                     custom string bim:storey = "Storey_01_Lab"
                     rel material:binding = </World/Materials/CurtainGlass>
                     bool physics:collisionEnabled = 1
@@ -697,8 +773,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 8
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcCurtainWall"
+                    custom string bim:phase = "Phase 4: Building Enclosure & Glazing"
                     custom string bim:storey = "Storey_01_Lab"
                     rel material:binding = </World/Materials/CurtainGlass>
                     bool physics:collisionEnabled = 1
@@ -712,8 +790,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 8
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcCurtainWall"
+                    custom string bim:phase = "Phase 4: Building Enclosure & Glazing"
                     custom string bim:storey = "Storey_01_Lab"
                     rel material:binding = </World/Materials/CurtainGlass>
                     bool physics:collisionEnabled = 1
@@ -727,8 +807,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcDiscreteAccessory"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom string bim:pset:Pset_Equipment:ThermalLoad = "24 kW"
                     custom string bim:pset:Pset_Equipment:Type = "42U High-Density Compute Blade"
                     custom string bim:storey = "Storey_01_Lab"
@@ -744,8 +826,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcDiscreteAccessory"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom string bim:pset:Pset_Equipment:ThermalLoad = "24 kW"
                     custom string bim:pset:Pset_Equipment:Type = "42U High-Density Compute Blade"
                     custom string bim:storey = "Storey_01_Lab"
@@ -761,8 +845,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcDiscreteAccessory"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom string bim:pset:Pset_Equipment:ThermalLoad = "24 kW"
                     custom string bim:pset:Pset_Equipment:Type = "42U High-Density Compute Blade"
                     custom string bim:storey = "Storey_01_Lab"
@@ -778,8 +864,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcDiscreteAccessory"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom string bim:pset:Pset_Equipment:ThermalLoad = "24 kW"
                     custom string bim:pset:Pset_Equipment:Type = "42U High-Density Compute Blade"
                     custom string bim:storey = "Storey_01_Lab"
@@ -795,8 +883,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcCurtainWall"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom string bim:pset:Pset_SpaceCommon:CleanroomClass = "ISO 5"
                     custom string bim:storey = "Storey_01_Lab"
                     rel material:binding = </World/Materials/InteriorGlass>
@@ -814,8 +904,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 10
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcDuctSegment"
+                    custom string bim:phase = "Phase 5: MEP Rough-in & Services"
                     custom string bim:pset:Pset_DuctCommon:FilterGrade = "HEPA H14"
                     custom string bim:storey = "Storey_01_Lab"
                     rel material:binding = </World/Materials/HVACGalvanized>
@@ -831,8 +923,10 @@ def Xform "World"
                 )
                 {
                     uniform token axis = "X"
+                    custom int bim:constructionMonth = 10
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcPipeSegment"
+                    custom string bim:phase = "Phase 5: MEP Rough-in & Services"
                     custom string bim:pset:Pset_FireProtection:System = "Wet Chemical Pre-Action"
                     custom string bim:storey = "Storey_01_Lab"
                     double height = 2850
@@ -848,8 +942,10 @@ def Xform "World"
                 )
                 {
                     uniform token axis = "Z"
+                    custom int bim:constructionMonth = 10
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcPipeSegment"
+                    custom string bim:phase = "Phase 5: MEP Rough-in & Services"
                     custom string bim:pset:Pset_Coordination:ClashStatus = "Unresolved"
                     custom string bim:pset:Pset_FireProtection:System = "Wet Chemical Pre-Action"
                     custom string bim:storey = "Storey_01_Lab"
@@ -876,8 +972,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 6
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 3: Superstructure Topping Out"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/StructuralSteel>
@@ -892,8 +990,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 6
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 3: Superstructure Topping Out"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/StructuralSteel>
@@ -908,8 +1008,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 6
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 3: Superstructure Topping Out"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/StructuralSteel>
@@ -924,8 +1026,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 6
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 3: Superstructure Topping Out"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/StructuralSteel>
@@ -940,8 +1044,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 6
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 3: Superstructure Topping Out"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/StructuralSteel>
@@ -956,8 +1062,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 6
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 3: Superstructure Topping Out"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/StructuralSteel>
@@ -972,8 +1080,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 6
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 3: Superstructure Topping Out"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/StructuralSteel>
@@ -988,8 +1098,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 6
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 3: Superstructure Topping Out"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/StructuralSteel>
@@ -1004,8 +1116,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 6
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 3: Superstructure Topping Out"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/StructuralSteel>
@@ -1020,8 +1134,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 6
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 3: Superstructure Topping Out"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/StructuralSteel>
@@ -1036,8 +1152,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 6
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 3: Superstructure Topping Out"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/StructuralSteel>
@@ -1052,8 +1170,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 6
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcColumn"
+                    custom string bim:phase = "Phase 3: Superstructure Topping Out"
                     custom bool bim:pset:Pset_ColumnCommon:LoadBearing = 1
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/StructuralSteel>
@@ -1068,8 +1188,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 6
                     custom string bim:discipline = "Structural"
                     custom string bim:ifcClass = "IfcSlab"
+                    custom string bim:phase = "Phase 3: Superstructure Topping Out"
                     custom string bim:pset:Pset_SlabCommon:Waterproofing = "EPDM Membrane 2.0mm"
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/Concrete>
@@ -1087,8 +1209,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 8
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcCurtainWall"
+                    custom string bim:phase = "Phase 4: Building Enclosure & Glazing"
                     custom float bim:pset:Pset_Shading:SolarHeatGainCoeff = 0.28
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/CurtainGlass>
@@ -1103,8 +1227,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 8
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcCurtainWall"
+                    custom string bim:phase = "Phase 4: Building Enclosure & Glazing"
                     custom float bim:pset:Pset_Shading:SolarHeatGainCoeff = 0.28
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/CurtainGlass>
@@ -1119,8 +1245,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 8
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcCurtainWall"
+                    custom string bim:phase = "Phase 4: Building Enclosure & Glazing"
                     custom float bim:pset:Pset_Shading:SolarHeatGainCoeff = 0.28
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/CurtainGlass>
@@ -1135,8 +1263,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 8
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcCurtainWall"
+                    custom string bim:phase = "Phase 4: Building Enclosure & Glazing"
                     custom float bim:pset:Pset_Shading:SolarHeatGainCoeff = 0.28
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/CurtainGlass>
@@ -1151,8 +1281,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcWallStandardCase"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom int bim:pset:Pset_Acoustic:SoundTransmissionClass = 52
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/Drywall>
@@ -1170,8 +1302,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 10
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcDuctSegment"
+                    custom string bim:phase = "Phase 5: MEP Rough-in & Services"
                     custom string bim:storey = "Storey_02_Offices"
                     rel material:binding = </World/Materials/HVACGalvanized>
                     bool physics:collisionEnabled = 1
@@ -1186,8 +1320,10 @@ def Xform "World"
                 )
                 {
                     uniform token axis = "Y"
+                    custom int bim:constructionMonth = 10
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcPipeSegment"
+                    custom string bim:phase = "Phase 5: MEP Rough-in & Services"
                     custom string bim:pset:Pset_Coordination:ClashStatus = "Unresolved"
                     custom string bim:pset:Pset_PipeCommon:Fluid = "Chilled Water Return 12C"
                     custom string bim:storey = "Storey_02_Offices"
@@ -1217,8 +1353,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 8
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcWall"
+                    custom string bim:phase = "Phase 4: Building Enclosure & Glazing"
                     custom string bim:storey = "Storey_03_Rooftop"
                     rel material:binding = </World/Materials/ParapetAlum>
                     bool physics:collisionEnabled = 1
@@ -1232,8 +1370,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 8
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcWall"
+                    custom string bim:phase = "Phase 4: Building Enclosure & Glazing"
                     custom string bim:storey = "Storey_03_Rooftop"
                     rel material:binding = </World/Materials/ParapetAlum>
                     bool physics:collisionEnabled = 1
@@ -1247,8 +1387,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 8
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcWall"
+                    custom string bim:phase = "Phase 4: Building Enclosure & Glazing"
                     custom string bim:storey = "Storey_03_Rooftop"
                     rel material:binding = </World/Materials/ParapetAlum>
                     bool physics:collisionEnabled = 1
@@ -1262,8 +1404,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 8
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcWall"
+                    custom string bim:phase = "Phase 4: Building Enclosure & Glazing"
                     custom string bim:storey = "Storey_03_Rooftop"
                     rel material:binding = </World/Materials/ParapetAlum>
                     bool physics:collisionEnabled = 1
@@ -1277,8 +1421,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 8
                     custom string bim:discipline = "Architectural"
                     custom string bim:ifcClass = "IfcBuildingElementProxy"
+                    custom string bim:phase = "Phase 4: Building Enclosure & Glazing"
                     custom string bim:pset:Pset_BuildingElement:Access = "Rooftop Maintenance Hatch"
                     custom string bim:storey = "Storey_03_Rooftop"
                     rel material:binding = </World/Materials/ParapetAlum>
@@ -1296,8 +1442,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcChiller"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom string bim:pset:Pset_ChillerCommon:CoolingCapacity = "350 kW"
                     custom string bim:pset:Pset_ChillerCommon:Refrigerant = "R1234ze (Low GWP)"
                     custom string bim:storey = "Storey_03_Rooftop"
@@ -1313,8 +1461,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcChiller"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom string bim:pset:Pset_ChillerCommon:CoolingCapacity = "350 kW"
                     custom string bim:pset:Pset_ChillerCommon:Refrigerant = "R1234ze (Low GWP)"
                     custom string bim:storey = "Storey_03_Rooftop"
@@ -1330,8 +1480,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcSolarDevice"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom float bim:pset:Pset_SolarDevice:Azimuth = 180
                     custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
                     custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
@@ -1350,8 +1502,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcSolarDevice"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom float bim:pset:Pset_SolarDevice:Azimuth = 180
                     custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
                     custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
@@ -1370,8 +1524,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcSolarDevice"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom float bim:pset:Pset_SolarDevice:Azimuth = 180
                     custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
                     custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
@@ -1390,8 +1546,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcSolarDevice"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom float bim:pset:Pset_SolarDevice:Azimuth = 180
                     custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
                     custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
@@ -1410,8 +1568,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcSolarDevice"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom float bim:pset:Pset_SolarDevice:Azimuth = 180
                     custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
                     custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
@@ -1430,8 +1590,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcSolarDevice"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom float bim:pset:Pset_SolarDevice:Azimuth = 180
                     custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
                     custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
@@ -1450,8 +1612,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcSolarDevice"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom float bim:pset:Pset_SolarDevice:Azimuth = 180
                     custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
                     custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
@@ -1470,8 +1634,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcSolarDevice"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom float bim:pset:Pset_SolarDevice:Azimuth = 180
                     custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
                     custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
@@ -1490,8 +1656,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcSolarDevice"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom float bim:pset:Pset_SolarDevice:Azimuth = 180
                     custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
                     custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
@@ -1510,8 +1678,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcSolarDevice"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom float bim:pset:Pset_SolarDevice:Azimuth = 180
                     custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
                     custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
@@ -1530,8 +1700,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcSolarDevice"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom float bim:pset:Pset_SolarDevice:Azimuth = 180
                     custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
                     custom float bim:pset:Pset_SolarDevice:TiltAngle = 30
@@ -1550,8 +1722,10 @@ def Xform "World"
                     prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
                 )
                 {
+                    custom int bim:constructionMonth = 12
                     custom string bim:discipline = "MEP"
                     custom string bim:ifcClass = "IfcSolarDevice"
+                    custom string bim:phase = "Phase 6: Interior Fit-out & Commissioning"
                     custom float bim:pset:Pset_SolarDevice:Azimuth = 180
                     custom string bim:pset:Pset_SolarDevice:NominalPower = "580 Wp"
                     custom float bim:pset:Pset_SolarDevice:TiltAngle = 30

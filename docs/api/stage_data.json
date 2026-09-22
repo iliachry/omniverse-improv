@@ -13,7 +13,8 @@
       "colliderCount": 84,
       "bimCount": 87,
       "hasCesium": true,
-      "clashCount": 3
+      "clashCount": 3,
+      "has4DPhasing": true
     },
     "cesium": {
       "latitude": 37.9753,
@@ -49,6 +50,216 @@
         "IfcSolarDevice",
         "IfcWall",
         "IfcWallStandardCase"
+      ],
+      "phasing": {
+        "totalMonths": 12,
+        "totalElements": 87,
+        "milestones": [
+          {
+            "id": "phase-0",
+            "name": "Phase 0: Substructure & Foundations",
+            "startMonth": 0,
+            "endMonth": 1,
+            "targetMonth": 0,
+            "description": "Site excavation, engineered ground slab, footings & substructure.",
+            "disciplines": [
+              "Structural"
+            ],
+            "elementCount": 1,
+            "cumulativeCount": 1,
+            "progressPercent": 1
+          },
+          {
+            "id": "phase-1",
+            "name": "Phase 1: Ground Framing & Transfer Beams",
+            "startMonth": 2,
+            "endMonth": 3,
+            "targetMonth": 2,
+            "description": "Ground floor C40/50 concrete columns, transfer girders, and L1 slab.",
+            "disciplines": [
+              "Structural"
+            ],
+            "elementCount": 13,
+            "cumulativeCount": 14,
+            "progressPercent": 16
+          },
+          {
+            "id": "phase-2",
+            "name": "Phase 2: L1 Superstructure & Lab Deck",
+            "startMonth": 4,
+            "endMonth": 5,
+            "targetMonth": 4,
+            "description": "S355 structural steel columns, vibration-isolated cleanroom slab, and floor 2 deck.",
+            "disciplines": [
+              "Structural"
+            ],
+            "elementCount": 13,
+            "cumulativeCount": 27,
+            "progressPercent": 31
+          },
+          {
+            "id": "phase-3",
+            "name": "Phase 3: Superstructure Topping Out",
+            "startMonth": 6,
+            "endMonth": 7,
+            "targetMonth": 6,
+            "description": "L2 office columns, reinforced roof deck slab, stair core, and parapet walls.",
+            "disciplines": [
+              "Structural"
+            ],
+            "elementCount": 13,
+            "cumulativeCount": 40,
+            "progressPercent": 46
+          },
+          {
+            "id": "phase-4",
+            "name": "Phase 4: Building Enclosure & Glazing",
+            "startMonth": 8,
+            "endMonth": 9,
+            "targetMonth": 8,
+            "description": "Double-glazed curtain wall facades, perimeter ribbon glazing, and entrance vestibules.",
+            "disciplines": [
+              "Architectural"
+            ],
+            "elementCount": 17,
+            "cumulativeCount": 57,
+            "progressPercent": 66
+          },
+          {
+            "id": "phase-5",
+            "name": "Phase 5: MEP Rough-in & Services",
+            "startMonth": 10,
+            "endMonth": 11,
+            "targetMonth": 10,
+            "description": "Central HVAC supply ducts, chilled water risers, and fire sprinkler piping loops.",
+            "disciplines": [
+              "MEP"
+            ],
+            "elementCount": 8,
+            "cumulativeCount": 65,
+            "progressPercent": 75
+          },
+          {
+            "id": "phase-6",
+            "name": "Phase 6: Interior Fit-out & Commissioning",
+            "startMonth": 12,
+            "endMonth": 12,
+            "targetMonth": 12,
+            "description": "Data cluster server racks, cleanroom partitions, rooftop chillers, and bifacial solar array.",
+            "disciplines": [
+              "Architectural",
+              "MEP"
+            ],
+            "elementCount": 22,
+            "cumulativeCount": 87,
+            "progressPercent": 100
+          }
+        ]
+      }
+    },
+    "constructionPhasing": {
+      "totalMonths": 12,
+      "totalElements": 87,
+      "milestones": [
+        {
+          "id": "phase-0",
+          "name": "Phase 0: Substructure & Foundations",
+          "startMonth": 0,
+          "endMonth": 1,
+          "targetMonth": 0,
+          "description": "Site excavation, engineered ground slab, footings & substructure.",
+          "disciplines": [
+            "Structural"
+          ],
+          "elementCount": 1,
+          "cumulativeCount": 1,
+          "progressPercent": 1
+        },
+        {
+          "id": "phase-1",
+          "name": "Phase 1: Ground Framing & Transfer Beams",
+          "startMonth": 2,
+          "endMonth": 3,
+          "targetMonth": 2,
+          "description": "Ground floor C40/50 concrete columns, transfer girders, and L1 slab.",
+          "disciplines": [
+            "Structural"
+          ],
+          "elementCount": 13,
+          "cumulativeCount": 14,
+          "progressPercent": 16
+        },
+        {
+          "id": "phase-2",
+          "name": "Phase 2: L1 Superstructure & Lab Deck",
+          "startMonth": 4,
+          "endMonth": 5,
+          "targetMonth": 4,
+          "description": "S355 structural steel columns, vibration-isolated cleanroom slab, and floor 2 deck.",
+          "disciplines": [
+            "Structural"
+          ],
+          "elementCount": 13,
+          "cumulativeCount": 27,
+          "progressPercent": 31
+        },
+        {
+          "id": "phase-3",
+          "name": "Phase 3: Superstructure Topping Out",
+          "startMonth": 6,
+          "endMonth": 7,
+          "targetMonth": 6,
+          "description": "L2 office columns, reinforced roof deck slab, stair core, and parapet walls.",
+          "disciplines": [
+            "Structural"
+          ],
+          "elementCount": 13,
+          "cumulativeCount": 40,
+          "progressPercent": 46
+        },
+        {
+          "id": "phase-4",
+          "name": "Phase 4: Building Enclosure & Glazing",
+          "startMonth": 8,
+          "endMonth": 9,
+          "targetMonth": 8,
+          "description": "Double-glazed curtain wall facades, perimeter ribbon glazing, and entrance vestibules.",
+          "disciplines": [
+            "Architectural"
+          ],
+          "elementCount": 17,
+          "cumulativeCount": 57,
+          "progressPercent": 66
+        },
+        {
+          "id": "phase-5",
+          "name": "Phase 5: MEP Rough-in & Services",
+          "startMonth": 10,
+          "endMonth": 11,
+          "targetMonth": 10,
+          "description": "Central HVAC supply ducts, chilled water risers, and fire sprinkler piping loops.",
+          "disciplines": [
+            "MEP"
+          ],
+          "elementCount": 8,
+          "cumulativeCount": 65,
+          "progressPercent": 75
+        },
+        {
+          "id": "phase-6",
+          "name": "Phase 6: Interior Fit-out & Commissioning",
+          "startMonth": 12,
+          "endMonth": 12,
+          "targetMonth": 12,
+          "description": "Data cluster server racks, cleanroom partitions, rooftop chillers, and bifacial solar array.",
+          "disciplines": [
+            "Architectural",
+            "MEP"
+          ],
+          "elementCount": 22,
+          "cumulativeCount": 87,
+          "progressPercent": 100
+        }
       ]
     },
     "clashes": [
@@ -1602,6 +1813,8 @@
           "ifcClass": "IfcSlab",
           "discipline": "Structural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 0: Substructure & Foundations",
+          "constructionMonth": 0,
           "psets": {
             "Pset_Material:ConcreteGrade": "C40/50 Waterproof",
             "Pset_SlabCommon:LoadBearing": true
@@ -1661,6 +1874,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 1: Ground Framing & Transfer Beams",
+          "constructionMonth": 2,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:ConcreteGrade": "C40/50"
@@ -1720,6 +1935,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 1: Ground Framing & Transfer Beams",
+          "constructionMonth": 2,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:ConcreteGrade": "C40/50"
@@ -1779,6 +1996,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 1: Ground Framing & Transfer Beams",
+          "constructionMonth": 2,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:ConcreteGrade": "C40/50"
@@ -1838,6 +2057,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 1: Ground Framing & Transfer Beams",
+          "constructionMonth": 2,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:ConcreteGrade": "C40/50"
@@ -1897,6 +2118,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 1: Ground Framing & Transfer Beams",
+          "constructionMonth": 2,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:ConcreteGrade": "C40/50"
@@ -1956,6 +2179,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 1: Ground Framing & Transfer Beams",
+          "constructionMonth": 2,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:ConcreteGrade": "C40/50"
@@ -2015,6 +2240,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 1: Ground Framing & Transfer Beams",
+          "constructionMonth": 2,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:ConcreteGrade": "C40/50"
@@ -2074,6 +2301,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 1: Ground Framing & Transfer Beams",
+          "constructionMonth": 2,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:ConcreteGrade": "C40/50"
@@ -2133,6 +2362,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 1: Ground Framing & Transfer Beams",
+          "constructionMonth": 2,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:ConcreteGrade": "C40/50"
@@ -2192,6 +2423,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 1: Ground Framing & Transfer Beams",
+          "constructionMonth": 2,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:ConcreteGrade": "C40/50"
@@ -2251,6 +2484,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 1: Ground Framing & Transfer Beams",
+          "constructionMonth": 2,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:ConcreteGrade": "C40/50"
@@ -2310,6 +2545,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 1: Ground Framing & Transfer Beams",
+          "constructionMonth": 2,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:ConcreteGrade": "C40/50"
@@ -2369,6 +2606,8 @@
           "ifcClass": "IfcSlab",
           "discipline": "Structural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 1: Ground Framing & Transfer Beams",
+          "constructionMonth": 2,
           "psets": {
             "Pset_SlabCommon:FireRating": "REI 120",
             "Pset_SlabCommon:LoadBearing": true
@@ -2428,6 +2667,8 @@
           "ifcClass": "IfcCurtainWall",
           "discipline": "Architectural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 4: Building Enclosure & Glazing",
+          "constructionMonth": 8,
           "psets": {
             "Pset_Glass:AcousticRating": "42 dB",
             "Pset_WallCommon:ThermalTransmittance": 0.8500000238418579
@@ -2487,6 +2728,8 @@
           "ifcClass": "IfcCurtainWall",
           "discipline": "Architectural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 4: Building Enclosure & Glazing",
+          "constructionMonth": 8,
           "psets": {
             "Pset_WallCommon:ThermalTransmittance": 0.8500000238418579
           }
@@ -2545,6 +2788,8 @@
           "ifcClass": "IfcCurtainWall",
           "discipline": "Architectural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 4: Building Enclosure & Glazing",
+          "constructionMonth": 8,
           "psets": {
             "Pset_WallCommon:ThermalTransmittance": 0.8500000238418579
           }
@@ -2603,6 +2848,8 @@
           "ifcClass": "IfcCurtainWall",
           "discipline": "Architectural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 4: Building Enclosure & Glazing",
+          "constructionMonth": 8,
           "psets": {
             "Pset_WallCommon:ThermalTransmittance": 0.8500000238418579
           }
@@ -2661,6 +2908,8 @@
           "ifcClass": "IfcWallStandardCase",
           "discipline": "Architectural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_WallCommon:FireRating": "REI 60",
             "Pset_WallCommon:LoadBearing": false
@@ -2720,6 +2969,8 @@
           "ifcClass": "IfcDoor",
           "discipline": "Architectural",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_DoorCommon:Automatic": true,
             "Pset_DoorCommon:SecurityRating": "RC3"
@@ -2779,6 +3030,8 @@
           "ifcClass": "IfcDuctSegment",
           "discipline": "MEP",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 5: MEP Rough-in & Services",
+          "constructionMonth": 10,
           "psets": {
             "Pset_DuctCommon:AirFlowRate": "5400 m3/h",
             "Pset_DuctCommon:Insulation": "Rockwool 25mm"
@@ -2838,6 +3091,8 @@
           "ifcClass": "IfcDuctSegment",
           "discipline": "MEP",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 5: MEP Rough-in & Services",
+          "constructionMonth": 10,
           "psets": {
             "Pset_Coordination:ClashStatus": "Unresolved",
             "Pset_DuctCommon:AirFlowRate": "1200 m3/h"
@@ -2899,6 +3154,8 @@
           "ifcClass": "IfcPipeSegment",
           "discipline": "MEP",
           "storey": "Storey_00_Ground",
+          "phase": "Phase 5: MEP Rough-in & Services",
+          "constructionMonth": 10,
           "psets": {
             "Pset_PipeCommon:Fluid": "Chilled Water 6C",
             "Pset_PipeCommon:PressureRating": "PN16"
@@ -2958,6 +3215,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 2: L1 Superstructure & Lab Deck",
+          "constructionMonth": 4,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:SteelGrade": "S355 JR"
@@ -3017,6 +3276,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 2: L1 Superstructure & Lab Deck",
+          "constructionMonth": 4,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:SteelGrade": "S355 JR"
@@ -3076,6 +3337,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 2: L1 Superstructure & Lab Deck",
+          "constructionMonth": 4,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:SteelGrade": "S355 JR"
@@ -3135,6 +3398,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 2: L1 Superstructure & Lab Deck",
+          "constructionMonth": 4,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:SteelGrade": "S355 JR"
@@ -3194,6 +3459,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 2: L1 Superstructure & Lab Deck",
+          "constructionMonth": 4,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:SteelGrade": "S355 JR"
@@ -3253,6 +3520,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 2: L1 Superstructure & Lab Deck",
+          "constructionMonth": 4,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:SteelGrade": "S355 JR"
@@ -3312,6 +3581,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 2: L1 Superstructure & Lab Deck",
+          "constructionMonth": 4,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:SteelGrade": "S355 JR"
@@ -3371,6 +3642,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 2: L1 Superstructure & Lab Deck",
+          "constructionMonth": 4,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:SteelGrade": "S355 JR"
@@ -3430,6 +3703,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 2: L1 Superstructure & Lab Deck",
+          "constructionMonth": 4,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:SteelGrade": "S355 JR"
@@ -3489,6 +3764,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 2: L1 Superstructure & Lab Deck",
+          "constructionMonth": 4,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:SteelGrade": "S355 JR"
@@ -3548,6 +3825,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 2: L1 Superstructure & Lab Deck",
+          "constructionMonth": 4,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:SteelGrade": "S355 JR"
@@ -3607,6 +3886,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 2: L1 Superstructure & Lab Deck",
+          "constructionMonth": 4,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true,
             "Pset_Material:SteelGrade": "S355 JR"
@@ -3666,6 +3947,8 @@
           "ifcClass": "IfcSlab",
           "discipline": "Structural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 2: L1 Superstructure & Lab Deck",
+          "constructionMonth": 4,
           "psets": {
             "Pset_SlabCommon:FireRating": "REI 120"
           }
@@ -3724,6 +4007,8 @@
           "ifcClass": "IfcCurtainWall",
           "discipline": "Architectural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 4: Building Enclosure & Glazing",
+          "constructionMonth": 8,
           "psets": {}
         },
         "cesiumAnchor": null
@@ -3780,6 +4065,8 @@
           "ifcClass": "IfcCurtainWall",
           "discipline": "Architectural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 4: Building Enclosure & Glazing",
+          "constructionMonth": 8,
           "psets": {}
         },
         "cesiumAnchor": null
@@ -3836,6 +4123,8 @@
           "ifcClass": "IfcCurtainWall",
           "discipline": "Architectural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 4: Building Enclosure & Glazing",
+          "constructionMonth": 8,
           "psets": {}
         },
         "cesiumAnchor": null
@@ -3892,6 +4181,8 @@
           "ifcClass": "IfcCurtainWall",
           "discipline": "Architectural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 4: Building Enclosure & Glazing",
+          "constructionMonth": 8,
           "psets": {}
         },
         "cesiumAnchor": null
@@ -3948,6 +4239,8 @@
           "ifcClass": "IfcDiscreteAccessory",
           "discipline": "Architectural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_Equipment:ThermalLoad": "24 kW",
             "Pset_Equipment:Type": "42U High-Density Compute Blade"
@@ -4007,6 +4300,8 @@
           "ifcClass": "IfcDiscreteAccessory",
           "discipline": "Architectural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_Equipment:ThermalLoad": "24 kW",
             "Pset_Equipment:Type": "42U High-Density Compute Blade"
@@ -4066,6 +4361,8 @@
           "ifcClass": "IfcDiscreteAccessory",
           "discipline": "Architectural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_Equipment:ThermalLoad": "24 kW",
             "Pset_Equipment:Type": "42U High-Density Compute Blade"
@@ -4125,6 +4422,8 @@
           "ifcClass": "IfcDiscreteAccessory",
           "discipline": "Architectural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_Equipment:ThermalLoad": "24 kW",
             "Pset_Equipment:Type": "42U High-Density Compute Blade"
@@ -4184,6 +4483,8 @@
           "ifcClass": "IfcCurtainWall",
           "discipline": "Architectural",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_SpaceCommon:CleanroomClass": "ISO 5"
           }
@@ -4242,6 +4543,8 @@
           "ifcClass": "IfcDuctSegment",
           "discipline": "MEP",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 5: MEP Rough-in & Services",
+          "constructionMonth": 10,
           "psets": {
             "Pset_DuctCommon:FilterGrade": "HEPA H14"
           }
@@ -4302,6 +4605,8 @@
           "ifcClass": "IfcPipeSegment",
           "discipline": "MEP",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 5: MEP Rough-in & Services",
+          "constructionMonth": 10,
           "psets": {
             "Pset_FireProtection:System": "Wet Chemical Pre-Action"
           }
@@ -4362,6 +4667,8 @@
           "ifcClass": "IfcPipeSegment",
           "discipline": "MEP",
           "storey": "Storey_01_Lab",
+          "phase": "Phase 5: MEP Rough-in & Services",
+          "constructionMonth": 10,
           "psets": {
             "Pset_Coordination:ClashStatus": "Unresolved",
             "Pset_FireProtection:System": "Wet Chemical Pre-Action"
@@ -4421,6 +4728,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 3: Superstructure Topping Out",
+          "constructionMonth": 6,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true
           }
@@ -4479,6 +4788,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 3: Superstructure Topping Out",
+          "constructionMonth": 6,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true
           }
@@ -4537,6 +4848,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 3: Superstructure Topping Out",
+          "constructionMonth": 6,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true
           }
@@ -4595,6 +4908,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 3: Superstructure Topping Out",
+          "constructionMonth": 6,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true
           }
@@ -4653,6 +4968,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 3: Superstructure Topping Out",
+          "constructionMonth": 6,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true
           }
@@ -4711,6 +5028,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 3: Superstructure Topping Out",
+          "constructionMonth": 6,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true
           }
@@ -4769,6 +5088,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 3: Superstructure Topping Out",
+          "constructionMonth": 6,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true
           }
@@ -4827,6 +5148,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 3: Superstructure Topping Out",
+          "constructionMonth": 6,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true
           }
@@ -4885,6 +5208,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 3: Superstructure Topping Out",
+          "constructionMonth": 6,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true
           }
@@ -4943,6 +5268,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 3: Superstructure Topping Out",
+          "constructionMonth": 6,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true
           }
@@ -5001,6 +5328,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 3: Superstructure Topping Out",
+          "constructionMonth": 6,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true
           }
@@ -5059,6 +5388,8 @@
           "ifcClass": "IfcColumn",
           "discipline": "Structural",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 3: Superstructure Topping Out",
+          "constructionMonth": 6,
           "psets": {
             "Pset_ColumnCommon:LoadBearing": true
           }
@@ -5117,6 +5448,8 @@
           "ifcClass": "IfcSlab",
           "discipline": "Structural",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 3: Superstructure Topping Out",
+          "constructionMonth": 6,
           "psets": {
             "Pset_SlabCommon:Waterproofing": "EPDM Membrane 2.0mm"
           }
@@ -5175,6 +5508,8 @@
           "ifcClass": "IfcCurtainWall",
           "discipline": "Architectural",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 4: Building Enclosure & Glazing",
+          "constructionMonth": 8,
           "psets": {
             "Pset_Shading:SolarHeatGainCoeff": 0.2800000011920929
           }
@@ -5233,6 +5568,8 @@
           "ifcClass": "IfcCurtainWall",
           "discipline": "Architectural",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 4: Building Enclosure & Glazing",
+          "constructionMonth": 8,
           "psets": {
             "Pset_Shading:SolarHeatGainCoeff": 0.2800000011920929
           }
@@ -5291,6 +5628,8 @@
           "ifcClass": "IfcCurtainWall",
           "discipline": "Architectural",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 4: Building Enclosure & Glazing",
+          "constructionMonth": 8,
           "psets": {
             "Pset_Shading:SolarHeatGainCoeff": 0.2800000011920929
           }
@@ -5349,6 +5688,8 @@
           "ifcClass": "IfcCurtainWall",
           "discipline": "Architectural",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 4: Building Enclosure & Glazing",
+          "constructionMonth": 8,
           "psets": {
             "Pset_Shading:SolarHeatGainCoeff": 0.2800000011920929
           }
@@ -5407,6 +5748,8 @@
           "ifcClass": "IfcWallStandardCase",
           "discipline": "Architectural",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_Acoustic:SoundTransmissionClass": 52
           }
@@ -5465,6 +5808,8 @@
           "ifcClass": "IfcDuctSegment",
           "discipline": "MEP",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 5: MEP Rough-in & Services",
+          "constructionMonth": 10,
           "psets": {}
         },
         "cesiumAnchor": null
@@ -5523,6 +5868,8 @@
           "ifcClass": "IfcPipeSegment",
           "discipline": "MEP",
           "storey": "Storey_02_Offices",
+          "phase": "Phase 5: MEP Rough-in & Services",
+          "constructionMonth": 10,
           "psets": {
             "Pset_Coordination:ClashStatus": "Unresolved",
             "Pset_PipeCommon:Fluid": "Chilled Water Return 12C"
@@ -5582,6 +5929,8 @@
           "ifcClass": "IfcWall",
           "discipline": "Architectural",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 4: Building Enclosure & Glazing",
+          "constructionMonth": 8,
           "psets": {}
         },
         "cesiumAnchor": null
@@ -5638,6 +5987,8 @@
           "ifcClass": "IfcWall",
           "discipline": "Architectural",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 4: Building Enclosure & Glazing",
+          "constructionMonth": 8,
           "psets": {}
         },
         "cesiumAnchor": null
@@ -5694,6 +6045,8 @@
           "ifcClass": "IfcWall",
           "discipline": "Architectural",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 4: Building Enclosure & Glazing",
+          "constructionMonth": 8,
           "psets": {}
         },
         "cesiumAnchor": null
@@ -5750,6 +6103,8 @@
           "ifcClass": "IfcWall",
           "discipline": "Architectural",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 4: Building Enclosure & Glazing",
+          "constructionMonth": 8,
           "psets": {}
         },
         "cesiumAnchor": null
@@ -5806,6 +6161,8 @@
           "ifcClass": "IfcBuildingElementProxy",
           "discipline": "Architectural",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 4: Building Enclosure & Glazing",
+          "constructionMonth": 8,
           "psets": {
             "Pset_BuildingElement:Access": "Rooftop Maintenance Hatch"
           }
@@ -5864,6 +6221,8 @@
           "ifcClass": "IfcChiller",
           "discipline": "MEP",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_ChillerCommon:CoolingCapacity": "350 kW",
             "Pset_ChillerCommon:Refrigerant": "R1234ze (Low GWP)"
@@ -5923,6 +6282,8 @@
           "ifcClass": "IfcChiller",
           "discipline": "MEP",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_ChillerCommon:CoolingCapacity": "350 kW",
             "Pset_ChillerCommon:Refrigerant": "R1234ze (Low GWP)"
@@ -5982,6 +6343,8 @@
           "ifcClass": "IfcSolarDevice",
           "discipline": "MEP",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_SolarDevice:Azimuth": 180.0,
             "Pset_SolarDevice:NominalPower": "580 Wp",
@@ -6043,6 +6406,8 @@
           "ifcClass": "IfcSolarDevice",
           "discipline": "MEP",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_SolarDevice:Azimuth": 180.0,
             "Pset_SolarDevice:NominalPower": "580 Wp",
@@ -6104,6 +6469,8 @@
           "ifcClass": "IfcSolarDevice",
           "discipline": "MEP",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_SolarDevice:Azimuth": 180.0,
             "Pset_SolarDevice:NominalPower": "580 Wp",
@@ -6165,6 +6532,8 @@
           "ifcClass": "IfcSolarDevice",
           "discipline": "MEP",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_SolarDevice:Azimuth": 180.0,
             "Pset_SolarDevice:NominalPower": "580 Wp",
@@ -6226,6 +6595,8 @@
           "ifcClass": "IfcSolarDevice",
           "discipline": "MEP",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_SolarDevice:Azimuth": 180.0,
             "Pset_SolarDevice:NominalPower": "580 Wp",
@@ -6287,6 +6658,8 @@
           "ifcClass": "IfcSolarDevice",
           "discipline": "MEP",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_SolarDevice:Azimuth": 180.0,
             "Pset_SolarDevice:NominalPower": "580 Wp",
@@ -6348,6 +6721,8 @@
           "ifcClass": "IfcSolarDevice",
           "discipline": "MEP",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_SolarDevice:Azimuth": 180.0,
             "Pset_SolarDevice:NominalPower": "580 Wp",
@@ -6409,6 +6784,8 @@
           "ifcClass": "IfcSolarDevice",
           "discipline": "MEP",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_SolarDevice:Azimuth": 180.0,
             "Pset_SolarDevice:NominalPower": "580 Wp",
@@ -6470,6 +6847,8 @@
           "ifcClass": "IfcSolarDevice",
           "discipline": "MEP",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_SolarDevice:Azimuth": 180.0,
             "Pset_SolarDevice:NominalPower": "580 Wp",
@@ -6531,6 +6910,8 @@
           "ifcClass": "IfcSolarDevice",
           "discipline": "MEP",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_SolarDevice:Azimuth": 180.0,
             "Pset_SolarDevice:NominalPower": "580 Wp",
@@ -6592,6 +6973,8 @@
           "ifcClass": "IfcSolarDevice",
           "discipline": "MEP",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_SolarDevice:Azimuth": 180.0,
             "Pset_SolarDevice:NominalPower": "580 Wp",
@@ -6653,6 +7036,8 @@
           "ifcClass": "IfcSolarDevice",
           "discipline": "MEP",
           "storey": "Storey_03_Rooftop",
+          "phase": "Phase 6: Interior Fit-out & Commissioning",
+          "constructionMonth": 12,
           "psets": {
             "Pset_SolarDevice:Azimuth": 180.0,
             "Pset_SolarDevice:NominalPower": "580 Wp",
@@ -6731,10 +7116,12 @@
       "colliderCount": 31,
       "bimCount": 0,
       "hasCesium": false,
-      "clashCount": 0
+      "clashCount": 0,
+      "has4DPhasing": false
     },
     "cesium": null,
     "bimSummary": null,
+    "constructionPhasing": null,
     "clashes": [],
     "hierarchy": {
       "path": "/",
@@ -8992,10 +9379,12 @@
       "colliderCount": 50,
       "bimCount": 0,
       "hasCesium": false,
-      "clashCount": 0
+      "clashCount": 0,
+      "has4DPhasing": false
     },
     "cesium": null,
     "bimSummary": null,
+    "constructionPhasing": null,
     "clashes": [],
     "hierarchy": {
       "path": "/",
@@ -12353,10 +12742,12 @@
       "colliderCount": 0,
       "bimCount": 0,
       "hasCesium": false,
-      "clashCount": 0
+      "clashCount": 0,
+      "has4DPhasing": false
     },
     "cesium": null,
     "bimSummary": null,
+    "constructionPhasing": null,
     "clashes": [],
     "hierarchy": {
       "path": "/",
@@ -14843,10 +15234,12 @@
       "colliderCount": 1,
       "bimCount": 0,
       "hasCesium": false,
-      "clashCount": 0
+      "clashCount": 0,
+      "has4DPhasing": false
     },
     "cesium": null,
     "bimSummary": null,
+    "constructionPhasing": null,
     "clashes": [],
     "hierarchy": {
       "path": "/",
@@ -16783,10 +17176,12 @@
       "colliderCount": 10,
       "bimCount": 0,
       "hasCesium": false,
-      "clashCount": 0
+      "clashCount": 0,
+      "has4DPhasing": false
     },
     "cesium": null,
     "bimSummary": null,
+    "constructionPhasing": null,
     "clashes": [],
     "hierarchy": {
       "path": "/",
@@ -17887,10 +18282,12 @@
       "colliderCount": 67,
       "bimCount": 0,
       "hasCesium": false,
-      "clashCount": 0
+      "clashCount": 0,
+      "has4DPhasing": false
     },
     "cesium": null,
     "bimSummary": null,
+    "constructionPhasing": null,
     "clashes": [],
     "hierarchy": {
       "path": "/",

@@ -39,12 +39,50 @@ def tag_bim_element(
     ifc_class: str,
     discipline: str,
     storey: str,
-    psets: dict = None
+    psets: dict = None,
+    phase: str = None,
+    month: int = None
 ) -> None:
-    """Applies IFC-standard BIM classification and custom property sets to a USD prim."""
+    """Applies IFC-standard BIM classification, 4D phasing schedule, and custom property sets to a USD prim."""
     prim.CreateAttribute("bim:ifcClass", Sdf.ValueTypeNames.String).Set(ifc_class)
     prim.CreateAttribute("bim:discipline", Sdf.ValueTypeNames.String).Set(discipline)
     prim.CreateAttribute("bim:storey", Sdf.ValueTypeNames.String).Set(storey)
+
+    # Determine logical 4D construction phasing schedule (Months 0-12)
+    prim_name = prim.GetName()
+    if phase is None or month is None:
+        if "Ground_Slab" in prim_name or "Foundation" in prim_name or "Substructure" in prim_name:
+            phase = "Phase 0: Substructure & Foundations"
+            month = 0
+        elif storey == "Storey_00_Ground" and discipline == "Structural":
+            phase = "Phase 1: Ground Framing & Transfer Beams"
+            month = 2
+        elif storey == "Storey_01_Lab" and discipline == "Structural":
+            phase = "Phase 2: L1 Superstructure & Lab Deck"
+            month = 4
+        elif storey in ["Storey_02_Offices", "Storey_03_Rooftop"] and discipline == "Structural":
+            phase = "Phase 3: Superstructure Topping Out"
+            month = 6
+        elif discipline == "Architectural":
+            if "Partition" in prim_name or "Server" in prim_name or "Door" in prim_name or "Cleanroom" in prim_name:
+                phase = "Phase 6: Interior Fit-out & Commissioning"
+                month = 12
+            else:
+                phase = "Phase 4: Building Enclosure & Glazing"
+                month = 8
+        elif discipline == "MEP":
+            if "Solar" in prim_name or "Chiller" in prim_name:
+                phase = "Phase 6: Interior Fit-out & Commissioning"
+                month = 12
+            else:
+                phase = "Phase 5: MEP Rough-in & Services"
+                month = 10
+        else:
+            phase = "Phase 6: Interior Fit-out & Commissioning"
+            month = 12
+
+    prim.CreateAttribute("bim:phase", Sdf.ValueTypeNames.String).Set(str(phase))
+    prim.CreateAttribute("bim:constructionMonth", Sdf.ValueTypeNames.Int).Set(int(month))
 
     if psets:
         for key, val in psets.items():
@@ -69,7 +107,9 @@ def add_cube_element(
     discipline: str,
     storey: str,
     psets: dict = None,
-    is_collider: bool = True
+    is_collider: bool = True,
+    phase: str = None,
+    month: int = None
 ) -> UsdGeom.Cube:
     """Creates a scaled box primitive with material binding, BIM tags, and collision."""
     cube = UsdGeom.Cube.Define(stage, path)
@@ -80,7 +120,7 @@ def add_cube_element(
     xform.AddScaleOp().Set(Gf.Vec3f(*size_xyz))
 
     bind_material(cube.GetPrim(), mat_path)
-    tag_bim_element(cube.GetPrim(), ifc_class, discipline, storey, psets)
+    tag_bim_element(cube.GetPrim(), ifc_class, discipline, storey, psets, phase=phase, month=month)
 
     if is_collider:
         col = UsdPhysics.CollisionAPI.Apply(cube.GetPrim())
@@ -101,7 +141,9 @@ def add_cylinder_element(
     discipline: str,
     storey: str,
     rot_xyz: tuple = (0.0, 0.0, 0.0),
-    psets: dict = None
+    psets: dict = None,
+    phase: str = None,
+    month: int = None
 ) -> UsdGeom.Cylinder:
     """Creates a cylinder element (for columns or pipes) with BIM metadata."""
     cyl = UsdGeom.Cylinder.Define(stage, path)
@@ -115,7 +157,7 @@ def add_cylinder_element(
         xform.AddRotateXYZOp().Set(Gf.Vec3d(*rot_xyz))
 
     bind_material(cyl.GetPrim(), mat_path)
-    tag_bim_element(cyl.GetPrim(), ifc_class, discipline, storey, psets)
+    tag_bim_element(cyl.GetPrim(), ifc_class, discipline, storey, psets, phase=phase, month=month)
     return cyl
 
 

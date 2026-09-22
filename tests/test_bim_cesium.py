@@ -214,3 +214,53 @@ def test_authored_bim_clashes_in_stage():
     assert atrium_clash["severity"] == "CRITICAL"
     assert atrium_clash["penetrationDepthCm"] >= 20.0
 
+
+def test_4d_construction_phasing_schedule():
+    """Verifies that all prims in the BIM stage have valid 4D construction phasing attributes."""
+    default_stage = os.path.join(WORKSPACE_DIR, "usd_generators", "output_bim_cesium.usda")
+    if not os.path.exists(default_stage):
+        build_bim_cesium_stage(output_path=default_stage)
+
+    stage = Usd.Stage.Open(default_stage)
+    phased_prims = []
+    months_seen = set()
+
+    for prim in stage.Traverse():
+        month_attr = prim.GetAttribute("bim:constructionMonth")
+        if month_attr and month_attr.Get() is not None:
+            m = int(month_attr.Get())
+            p = str(prim.GetAttribute("bim:phase").Get())
+            assert 0 <= m <= 12, f"Month {m} out of 0-12 range for {prim.GetName()}"
+            assert p.startswith("Phase"), f"Invalid phase '{p}' on {prim.GetName()}"
+            phased_prims.append(prim)
+            months_seen.add(m)
+
+    assert len(phased_prims) >= 50, "Expected at least 50 phased BIM elements"
+    assert 0 in months_seen, "Month 0 (Substructure) missing"
+    assert 2 in months_seen, "Month 2 (Ground Framing) missing"
+    assert 12 in months_seen, "Month 12 (Commissioning) missing"
+
+
+def test_4d_phasing_parser_aggregation():
+    """Verifies that usd_parser correctly computes the constructionPhasing summary and milestones."""
+    default_stage = os.path.join(WORKSPACE_DIR, "usd_generators", "output_bim_cesium.usda")
+    if not os.path.exists(default_stage):
+        build_bim_cesium_stage(output_path=default_stage)
+
+    data = parse_usd_stage(default_stage)
+    assert "constructionPhasing" in data
+    cp = data["constructionPhasing"]
+    assert cp is not None
+    assert cp["totalMonths"] == 12
+    assert cp["totalElements"] >= 50
+
+    milestones = cp["milestones"]
+    assert len(milestones) == 7
+
+    # Ensure cumulative count reaches 100% on the final milestone
+    assert milestones[0]["targetMonth"] == 0
+    assert milestones[-1]["targetMonth"] == 12
+    assert milestones[-1]["progressPercent"] == 100
+    assert milestones[-1]["cumulativeCount"] == cp["totalElements"]
+
+

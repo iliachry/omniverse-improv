@@ -221,6 +221,12 @@
                 <span id="clash-badge-count" class="badge-clash-count hidden">0</span>
               </button>
 
+              <!-- 4D Phasing Action Button -->
+              <button id="btn-bim-4d" class="btn-bim-action btn-4d-phasing" title="Toggle 4D Construction Phasing & Schedule Simulation">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
+                <span>📅 4D Phasing</span>
+              </button>
+
               <!-- Solar Study Slider -->
               <div class="bim-solar-group">
                 <span class="bim-group-label">☀️ Sun:</span>
@@ -261,6 +267,73 @@
           </div>
           <div class="clash-list" id="clash-list-container">
             <!-- Dynamically populated clash cards -->
+          </div>
+        </div>
+
+        <!-- 4D Construction Phasing Timeline Dock -->
+        <div id="phasing-dock" class="phasing-dock hidden">
+          <div class="phasing-dock-header">
+            <div class="phasing-title-group">
+              <span class="phasing-badge">BIM 4D SIMULATION</span>
+              <span class="phasing-title">📅 4D Construction Phasing & Lifecycle</span>
+            </div>
+            <div class="phasing-header-controls">
+              <label class="phasing-ghost-toggle" title="Show unbuilt elements as subtle transparent ghosts">
+                <input type="checkbox" id="check-4d-ghost" checked />
+                <span>Ghost Unbuilt</span>
+              </label>
+              <button id="btn-close-4d" class="btn-icon" title="Close 4D Timeline">✕</button>
+            </div>
+          </div>
+
+          <!-- Active Milestone Card & Progress Bar -->
+          <div class="phasing-milestone-panel">
+            <div class="phasing-milestone-row">
+              <div class="phasing-milestone-info">
+                <span class="phasing-milestone-pill" id="phasing-pill-name">Phase 6: Interior Fit-out & Commissioning</span>
+                <span class="phasing-milestone-desc" id="phasing-pill-desc">Data cluster server racks, cleanroom partitions, rooftop chillers, and bifacial solar array.</span>
+              </div>
+              <div class="phasing-stats-badge">
+                <span class="phasing-stat-pct" id="phasing-stat-pct">100%</span>
+                <span class="phasing-stat-sub" id="phasing-stat-count">87 / 87 Prims</span>
+              </div>
+            </div>
+            <div class="phasing-progress-track">
+              <div class="phasing-progress-fill" id="phasing-progress-fill" style="width: 100%;"></div>
+            </div>
+          </div>
+
+          <!-- Playback Bar & Scrubber Slider -->
+          <div class="phasing-timeline-bar">
+            <div class="phasing-playback-group">
+              <button id="btn-4d-play" class="btn-tool btn-4d-play" title="Play / Pause 4D Schedule (Space)">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" id="icon-4d-play"><path d="M8 5v14l11-7z"/></svg>
+                <span id="text-4d-play">Play</span>
+              </button>
+              <select id="select-4d-speed" class="phasing-speed-select" title="Simulation Speed">
+                <option value="1">1x Speed</option>
+                <option value="2" selected>2x Speed</option>
+                <option value="4">4x Speed</option>
+              </select>
+            </div>
+
+            <div class="phasing-slider-container">
+              <div class="phasing-slider-labels">
+                <span>M0: Foundation</span>
+                <span>M2: Ground</span>
+                <span>M4: L1 Lab</span>
+                <span>M6: Superstructure</span>
+                <span>M8: Enclosure</span>
+                <span>M10: MEP</span>
+                <span>M12: Handover</span>
+              </div>
+              <input type="range" id="slider-4d-month" min="0" max="12" step="1" value="12" class="phasing-range" />
+            </div>
+
+            <div class="phasing-month-indicator">
+              <span class="phasing-month-val" id="text-4d-month">Month 12</span>
+              <span class="phasing-month-lbl">of 12 Months</span>
+            </div>
           </div>
         </div>
 

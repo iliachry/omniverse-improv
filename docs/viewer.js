@@ -60,6 +60,14 @@ let selectedClashId = null;
 let clashWireframeBox = null;
 let clashHighlightMeshes = new Map();
 
+// BIM 4D Construction Phasing State
+let is4DMode = false;
+let current4DMonth = 12;
+let is4DPlaying = false;
+let play4DSpeed = 2;
+let is4DGhostUnbuilt = true;
+let play4DInterval = null;
+
 // Initialize on DOM ready
 document.addEventListener("DOMContentLoaded", () => {
   initThree();
@@ -1150,6 +1158,27 @@ function setupBimControls(data) {
   const clashDrawer = document.getElementById("clash-drawer");
   if (clashDrawer) clashDrawer.classList.add("hidden");
 
+  // Setup 4D Phasing Button & Dock
+  const btn4D = document.getElementById("btn-bim-4d");
+  const dock4D = document.getElementById("phasing-dock");
+  is4DMode = false;
+  is4DPlaying = false;
+  current4DMonth = 12;
+  if (play4DInterval) {
+    clearInterval(play4DInterval);
+    play4DInterval = null;
+  }
+  if (btn4D) {
+    btn4D.classList.remove("active");
+    const has4D = (stageData && stageData.constructionPhasing) || (stageData && stageData.bimSummary && stageData.bimSummary.phasing);
+    if (has4D) {
+      btn4D.classList.remove("hidden");
+    } else {
+      btn4D.classList.add("hidden");
+    }
+  }
+  if (dock4D) dock4D.classList.add("hidden");
+
   updateSolarPosition(12.0);
   applyBimFilters();
 }
@@ -1216,7 +1245,34 @@ function applyBimFilters() {
     if (prim.bim) {
       const matchStorey = (activeStoreyFilter === "ALL") || (prim.bim.storey === activeStoreyFilter);
       const matchDisc = activeDisciplines[prim.bim.discipline] !== false;
-      const visible = matchStorey && matchDisc;
+      let visible = matchStorey && matchDisc;
+
+      if (is4DMode && prim.bim.constructionMonth !== undefined) {
+        if (prim.bim.constructionMonth > current4DMonth) {
+          if (is4DGhostUnbuilt) {
+            visible = true;
+            if (mesh.userData._origOpacity === undefined && mesh.material) {
+              mesh.userData._origOpacity = mesh.material.opacity;
+              mesh.userData._origTransparent = mesh.material.transparent;
+            }
+            if (mesh.material) {
+              mesh.material.transparent = true;
+              mesh.material.opacity = 0.08;
+              mesh.material.needsUpdate = true;
+            }
+          } else {
+            visible = false;
+          }
+        } else {
+          // Element is constructed by this month
+          if (mesh.userData._origOpacity !== undefined && mesh.material) {
+            mesh.material.opacity = mesh.userData._origOpacity;
+            mesh.material.transparent = mesh.userData._origTransparent;
+            mesh.material.needsUpdate = true;
+          }
+        }
+      }
+
       mesh.visible = visible;
 
       if (visible && isXRayMode && (prim.bim.ifcClass.includes("Wall") || prim.bim.ifcClass.includes("Slab"))) {
@@ -1229,7 +1285,7 @@ function applyBimFilters() {
           mesh.material.opacity = 0.2;
           mesh.material.needsUpdate = true;
         }
-      } else if (mesh.userData._origOpacity !== undefined && mesh.material) {
+      } else if (!is4DMode && mesh.userData._origOpacity !== undefined && mesh.material) {
         mesh.material.opacity = mesh.userData._origOpacity;
         mesh.material.transparent = mesh.userData._origTransparent;
         mesh.material.needsUpdate = true;
@@ -1243,7 +1299,11 @@ function applyBimFilters() {
       if (!prim || !prim.bim) return;
       const matchStorey = (activeStoreyFilter === "ALL") || (prim.bim.storey === activeStoreyFilter);
       const matchDisc = activeDisciplines[prim.bim.discipline] !== false;
-      ent.show = matchStorey && matchDisc;
+      let show = matchStorey && matchDisc;
+      if (is4DMode && prim.bim.constructionMonth !== undefined) {
+        show = show && (prim.bim.constructionMonth <= current4DMonth);
+      }
+      ent.show = show;
     });
   }
 }
@@ -1705,6 +1765,140 @@ function exportBcfReport() {
   a.click();
 }
 
+// -------------------------------------------------------------
+// 8e. 4D Construction Phasing & Lifecycle Simulator
+// -------------------------------------------------------------
+function toggle4DPhasingMode(forceState) {
+  if (typeof forceState === "boolean") {
+    is4DMode = forceState;
+  } else {
+    is4DMode = !is4DMode;
+  }
+
+  const btn = document.getElementById("btn-bim-4d");
+  const dock = document.getElementById("phasing-dock");
+  if (btn) btn.classList.toggle("active", is4DMode);
+  if (dock) dock.classList.toggle("hidden", !is4DMode);
+
+  if (!is4DMode) {
+    if (is4DPlaying) toggle4DPlayback(false);
+    restore4DMaterials();
+    applyBimFilters();
+  } else {
+    if (isClashMode) toggleClashMode(false);
+    update4DUI();
+    applyBimFilters();
+  }
+}
+
+function set4DMonth(month) {
+  current4DMonth = Math.max(0, Math.min(12, parseInt(month, 10)));
+  update4DUI();
+  applyBimFilters();
+}
+
+function toggle4DPlayback(forcePlay) {
+  if (typeof forcePlay === "boolean") {
+    is4DPlaying = forcePlay;
+  } else {
+    is4DPlaying = !is4DPlaying;
+  }
+
+  const playBtn = document.getElementById("btn-4d-play");
+  const playText = document.getElementById("text-4d-play");
+  const playIcon = document.getElementById("icon-4d-play");
+
+  if (is4DPlaying) {
+    if (playText) playText.textContent = "Pause";
+    if (playIcon) playIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
+    if (playBtn) playBtn.style.background = "rgba(239, 68, 68, 0.4)";
+
+    if (current4DMonth >= 12) {
+      set4DMonth(0);
+    }
+
+    if (play4DInterval) clearInterval(play4DInterval);
+    const intervalMs = Math.round(1600 / play4DSpeed);
+    play4DInterval = setInterval(() => {
+      if (current4DMonth >= 12) {
+        set4DMonth(0);
+      } else {
+        set4DMonth(current4DMonth + 1);
+      }
+    }, intervalMs);
+  } else {
+    if (playText) playText.textContent = "Play";
+    if (playIcon) playIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`;
+    if (playBtn) playBtn.style.background = "";
+    if (play4DInterval) {
+      clearInterval(play4DInterval);
+      play4DInterval = null;
+    }
+  }
+}
+
+function restore4DMaterials() {
+  scenePrims.forEach((mesh, path) => {
+    if (mesh.userData._origOpacity !== undefined && mesh.material) {
+      mesh.material.opacity = mesh.userData._origOpacity;
+      mesh.material.transparent = mesh.userData._origTransparent;
+      mesh.material.needsUpdate = true;
+      delete mesh.userData._origOpacity;
+      delete mesh.userData._origTransparent;
+    }
+  });
+}
+
+function update4DUI() {
+  const slider = document.getElementById("slider-4d-month");
+  const monthVal = document.getElementById("text-4d-month");
+  const pillName = document.getElementById("phasing-pill-name");
+  const pillDesc = document.getElementById("phasing-pill-desc");
+  const statPct = document.getElementById("phasing-stat-pct");
+  const statCount = document.getElementById("phasing-stat-count");
+  const progressFill = document.getElementById("phasing-progress-fill");
+
+  if (slider && parseInt(slider.value, 10) !== current4DMonth) {
+    slider.value = current4DMonth;
+  }
+  if (monthVal) {
+    monthVal.textContent = `Month ${current4DMonth}`;
+  }
+
+  const cp = (stageData && stageData.constructionPhasing) ? stageData.constructionPhasing : (stageData && stageData.bimSummary ? stageData.bimSummary.phasing : null);
+
+  let activeMilestone = null;
+  if (cp && cp.milestones) {
+    activeMilestone = cp.milestones.find(m => current4DMonth >= m.startMonth && current4DMonth <= m.endMonth);
+    if (!activeMilestone) {
+      const prior = cp.milestones.filter(m => m.startMonth <= current4DMonth);
+      activeMilestone = prior.length > 0 ? prior[prior.length - 1] : cp.milestones[0];
+    }
+  }
+
+  if (activeMilestone) {
+    if (pillName) pillName.textContent = activeMilestone.name;
+    if (pillDesc) pillDesc.textContent = activeMilestone.description;
+  }
+
+  let builtCount = 0;
+  let totalCount = 0;
+  scenePrims.forEach(mesh => {
+    const p = mesh.userData;
+    if (p && p.bim && p.bim.constructionMonth !== undefined) {
+      totalCount++;
+      if (p.bim.constructionMonth <= current4DMonth) {
+        builtCount++;
+      }
+    }
+  });
+
+  const pct = totalCount > 0 ? Math.round((builtCount / totalCount) * 100) : 100;
+  if (statPct) statPct.textContent = `${pct}%`;
+  if (statCount) statCount.textContent = `${builtCount} / ${totalCount} Prims`;
+  if (progressFill) progressFill.style.width = `${pct}%`;
+}
+
 async function loadSdgDataset() {
   try {
     let res = await fetch("api/sdg.json").catch(() => null);
@@ -1943,6 +2137,41 @@ function initEventListeners() {
       renderClashCards();
     });
   });
+
+  // 4D Phasing Listeners
+  const btn4D = document.getElementById("btn-bim-4d");
+  if (btn4D) {
+    btn4D.addEventListener("click", () => toggle4DPhasingMode());
+  }
+  const btnClose4D = document.getElementById("btn-close-4d");
+  if (btnClose4D) {
+    btnClose4D.addEventListener("click", () => toggle4DPhasingMode(false));
+  }
+  const btn4DPlay = document.getElementById("btn-4d-play");
+  if (btn4DPlay) {
+    btn4DPlay.addEventListener("click", () => toggle4DPlayback());
+  }
+  const slider4D = document.getElementById("slider-4d-month");
+  if (slider4D) {
+    slider4D.addEventListener("input", (e) => set4DMonth(e.target.value));
+  }
+  const select4DSpeed = document.getElementById("select-4d-speed");
+  if (select4DSpeed) {
+    select4DSpeed.addEventListener("change", (e) => {
+      play4DSpeed = parseFloat(e.target.value);
+      if (is4DPlaying) {
+        toggle4DPlayback(false);
+        toggle4DPlayback(true);
+      }
+    });
+  }
+  const check4DGhost = document.getElementById("check-4d-ghost");
+  if (check4DGhost) {
+    check4DGhost.addEventListener("change", (e) => {
+      is4DGhostUnbuilt = e.target.checked;
+      applyBimFilters();
+    });
+  }
 
   // Cesium Mode Switcher Listeners
   const btnModeThree = document.getElementById("btn-mode-three");
